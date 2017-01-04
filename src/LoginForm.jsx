@@ -1,11 +1,16 @@
 import React from 'react';
 
-const LoginForm = () => (
-  <form>
-	  <input type="text" name="username" />
-	  <input type="password" name="password" />
-	  <button type="submit" />
+export const LoginForm = ({ onSubmit, changeUsername, changePassword }) => (
+  <form onSubmit={ onSubmit }>
+    <label>
+      Username
+	   <input placeholder="Username" onChange={changeUsername} required />
+    </label>
+    <label>
+      Password
+	  <input placeholder="Password" onChange={changePassword} type="password" required/>
+    </label>
+	  <button type="submit">Sign in</button>
 	</form>
 );
 
-export default LoginForm;
