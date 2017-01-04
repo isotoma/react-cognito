@@ -7,7 +7,7 @@
     "url": "https://github.com/isotoma/react-cognito.git"
   },
   "author": "Doug Winter",
-  "license": "Apache-License-2.0",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/isotoma/react-cognito/issues"
   },
@@ -29,6 +29,7 @@
     "examples": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ examples/src --out-file examples/dist/bundle.js"
   },
   "devDependencies": {
+    "aws-sdk": "^2.7.20",
     "babel": "^6.5.2",
     "babel-cli": "^6.6.4",
     "babel-core": "^6.21.0",
