@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, IndexRoute, hashHistory, browserHistory } from 'react-router';
-import { LoginFormContainer, LogoutButton, LogoutButtonContainer, cognito, configure } from 'react-cognito';
+import { Login, Logout, cognito, configure } from 'react-cognito';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 import App from './App.jsx';
 import Dashboard from './Dashboard.jsx';
+import LoginForm from './LoginForm.jsx';
+import LogoutButton from './LogoutButton.jsx';
 
 const store = createStore(combineReducers({
   cognito,
@@ -41,10 +43,21 @@ const postLogout = () => {
   browserHistory.push('/');
 };
 
+const loginForm = () => (
+  <Login
+    onSuccess={onSuccess}
+    onFailure={onFailure}
+    onMfaRequired={onMfaRequired}
+    onNewPasswordRequired={onNewPasswordRequired}
+  >
+    <LoginForm />
+  </Login>
+);
+
 const logoutButton = () => (
-  <LogoutButtonContainer onSuccess={postLogout}>
+  <Logout onSuccess={postLogout}>
     <LogoutButton />
-  </LogoutButtonContainer>
+  </Logout>
 );
 
 ReactDOM.render(
@@ -53,6 +66,7 @@ ReactDOM.render(
       <Route path="/" component={App}>
         <IndexRoute component={Dashboard} />
         <Route path="/auth/logout" component={logoutButton} />
+        <Route path="/auth/login" component={loginForm} />
       </Route>
     </Router>
   </Provider>,

@@ -4,7 +4,17 @@ import { login } from './actions';
 
 /* global AWSCognito */
 
-export class LoginFormContainer extends React.Component {
+/* expects to wrap a component that resembles the following.
+
+  <form onSubmit={onSubmit}>
+    <input onChange={changeUsername} />
+    <input onChange={changePassword} />
+    <button type="submit">Sign in</button>
+  </form>
+
+*/
+
+export class Login extends React.Component {
 
   constructor(props) {
     super(props);
@@ -80,10 +90,10 @@ export class LoginFormContainer extends React.Component {
   }
 
 }
-LoginFormContainer.contextTypes = {
+Login.contextTypes = {
   store: React.PropTypes.object,
 };
-LoginFormContainer.propTypes = {
+Login.propTypes = {
   children: React.PropTypes.any,
   onSuccess: React.PropTypes.func,
   onFailure: React.PropTypes.func,

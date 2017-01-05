@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { logout } from './actions';
 
-export class LogoutButtonContainer extends React.Component {
+export class Logout extends React.Component {
 
   onClick = (event) => {
     const { store } = this.context;
@@ -18,10 +18,10 @@ export class LogoutButtonContainer extends React.Component {
     });
   }
 }
-LogoutButtonContainer.contextTypes = {
+Logout.contextTypes = {
   store: PropTypes.object,
 };
-LogoutButtonContainer.propTypes = {
+Logout.propTypes = {
   children: React.PropTypes.any,
   onSuccess: React.PropTypes.func,
 };
