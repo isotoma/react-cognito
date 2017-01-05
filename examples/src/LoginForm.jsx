@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const LoginForm = ({ onSubmit, changeUsername, changePassword }) => (
+const LoginForm = ({ onSubmit, changeUsername, changePassword }) => (
   <form onSubmit={onSubmit}>
     <label>
       Username
@@ -18,3 +18,5 @@ LoginForm.propTypes = {
   changeUsername: React.PropTypes.func,
   changePassword: React.PropTypes.func,
 };
+
+export default LoginForm;
