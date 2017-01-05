@@ -1,5 +1,6 @@
 import React from 'react';
 import { CognitoIdentityServiceProvider, CognitoIdentityCredentials } from 'aws-cognito-sdk';
+import { login } from './actions';
 
 /* global AWSCognito */
 
@@ -18,37 +19,6 @@ export class LoginFormContainer extends React.Component {
     this.authenticate();
   }
 
-  onSuccess = (result) => {
-    const { store } = this.context;
-    const state = store.getState();
-    const loginDomain = `cognito-idp.${state.cognito.config.region}.amazonaws.com`;
-    const loginUrl = `${loginDomain}/${state.cognito.config.userPool}`;
-    const identityCredentials = {
-      IdentityPoolId: state.cognito.config.identityPool,
-      Logins: {},
-    };
-    identityCredentials.Logins[loginUrl] = result.getIdToken().getJwtToken();
-    AWSCognito.config.credentials = new CognitoIdentityCredentials(identityCredentials);
-    AWSCognito.config.credentials.refresh((error) => {
-      if (error) {
-        this.props.onFailure(error);
-      } else {
-        this.props.onSuccess(result);
-      }
-    });
-  }
-
-  onFailure = (error) => {
-    this.props.onFailure(error);
-  }
-
-  mfaRequired = (result) => {
-    this.props.mfaRequired(result);
-  }
-
-  newPasswordRequired = (result) => {
-    this.props.newPasswordRequired(result);
-  }
 
   authenticate() {
     const { store } = this.context;
@@ -61,11 +31,35 @@ export class LoginFormContainer extends React.Component {
       Username: this.state.username,
       Pool: state.cognito.userPool,
     });
+
+    const onSuccess = (result) => {
+      const loginDomain = `cognito-idp.${state.cognito.config.region}.amazonaws.com`;
+      const loginUrl = `${loginDomain}/${state.cognito.config.userPool}`;
+      const identityCredentials = {
+        IdentityPoolId: state.cognito.config.identityPool,
+        Logins: {},
+      };
+      identityCredentials.Logins[loginUrl] = result.getIdToken().getJwtToken();
+      AWSCognito.config.credentials = new CognitoIdentityCredentials(identityCredentials);
+      AWSCognito.config.credentials.refresh((error) => {
+        if (error) {
+          this.props.onFailure(error);
+        } else {
+          store.dispatch(login(user));
+          this.props.onSuccess(result);
+        }
+      });
+    };
+
+    const onFailure = error => this.props.onFailure(error);
+    const mfaRequired = result => this.props.mfaRequired(result);
+    const newPasswordRequired = result => this.props.newPasswordRequired(result);
+
     user.authenticateUser(creds, {
-      onSuccess: this.onSuccess,
-      onFailure: this.onFailure,
-      mfaRequired: this.mfaRequired,
-      newPasswordRequired: this.newPasswordRequired,
+      onSuccess,
+      onFailure,
+      mfaRequired,
+      newPasswordRequired,
     });
   }
 

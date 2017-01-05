@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { LoginForm, LoginFormContainer, cognito, configure } from 'react-cognito';
+import { Router, Route, IndexRoute, hashHistory, browserHistory } from 'react-router';
+import { LoginFormContainer, LogoutButton, LogoutButtonContainer, cognito, configure } from 'react-cognito';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
+import App from './App.jsx';
+import Dashboard from './Dashboard.jsx';
 
 const store = createStore(combineReducers({
   cognito,
@@ -34,16 +37,24 @@ const onNewPasswordRequired = (result) => {
   console.log(result);
 };
 
+const postLogout = () => {
+  browserHistory.push('/');
+};
+
+const logoutButton = () => (
+  <LogoutButtonContainer onSuccess={postLogout}>
+    <LogoutButton />
+  </LogoutButtonContainer>
+);
+
 ReactDOM.render(
   <Provider store={store}>
-    <LoginFormContainer
-      onSuccess={onSuccess}
-      onFailure={onFailure}
-      onMfaRequired={onMfaRequired}
-      onNewPasswordRequired={onNewPasswordRequired}
-    >
-      <LoginForm />
-    </LoginFormContainer>
+    <Router history={hashHistory}>
+      <Route path="/" component={App}>
+        <IndexRoute component={Dashboard} />
+        <Route path="/auth/logout" component={logoutButton} />
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById('app'),
 );

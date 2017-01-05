@@ -1,4 +1,7 @@
 export * from './LoginForm.jsx';
 export * from './LoginFormContainer.jsx';
-export * from './Reducers.jsx';
-export * from './Actions.jsx';
+export * from './LogoutButton.jsx';
+export * from './LogoutButtonContainer.jsx';
+export * from './reducers';
+export * from './actions';
+
