@@ -32,11 +32,11 @@ export default {
       },
     },
     {
-      'aws-sdk': {
-        root: 'AWS',
-        commonjs2: 'aws-sdk',
-        commonjs: 'aws-sdk',
-        amd: 'aws-sdk',
+      'amazon-cognito-identity-js': {
+        root: 'AWSCognito',
+        commonjs2: 'amazon-cognito-identity-js',
+        commonjs: 'amazon-cognito-identity-js',
+        amd: 'amazon-cognito-identity-js',
       },
     }
   ],

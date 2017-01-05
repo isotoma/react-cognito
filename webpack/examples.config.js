@@ -8,7 +8,7 @@ export default {
   },
 
   output: {
-    path: './examples/dist',
+    path: './examples/htdocs/dist',
     filename: options.optimizeMinimize ? '[name].min.js' : '[name].js',
   },
 
@@ -21,7 +21,7 @@ export default {
       'react-dom': 'ReactDOM',
       redux: 'Redux',
       'react-redux': 'ReactRedux',
-      'aws-sdk': 'AWS',
+      'amazon-cognito-identity-js': 'AWSCognito',
       
   },
 };

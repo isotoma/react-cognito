@@ -29,6 +29,7 @@
     "examples": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ examples/src --out-file examples/dist/bundle.js"
   },
   "devDependencies": {
+    "amazon-cognito-identity-js": "git+https://github.com/aws/amazon-cognito-identity-js.git",
     "babel": "^6.5.2",
     "babel-cli": "^6.6.4",
     "babel-core": "^6.21.0",

@@ -14,9 +14,30 @@ store.dispatch(configure({
   clientId: '7oc1qboh1jldlrd929ksv7cgta',
 }));
 
+const onSuccess = (result) => {
+  console.log("success");
+}
+
+const onFailure = (error) => {
+  console.log(error);
+}
+
+const onMfaRequired = (result) => {
+  console.log("MFA Required " + result);
+}
+
+const onNewPasswordRequired = (result) => {
+  console.log("New password required " + result);
+} 
+
 ReactDOM.render(
   <Provider store={store}>
-    <LoginFormContainer>
+    <LoginFormContainer
+      onSuccess={ onSuccess }
+      onFailure={ onFailure } 
+      onMfaRequired={ onMfaRequired }
+      onNewPasswordRequired={ onNewPasswordRequired }
+    >
       <LoginForm />
     </LoginFormContainer>
   </Provider>,
