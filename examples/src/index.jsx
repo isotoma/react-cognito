@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactDOM } from 'react';
 import { LoginForm, LoginFormContainer, cognito, configure } from 'react-cognito';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
 
 const store = createStore(combineReducers({
-  cognito
+  cognito,
 }));
 
 store.dispatch(configure({
@@ -15,31 +15,34 @@ store.dispatch(configure({
 }));
 
 const onSuccess = (result) => {
-  console.log("success");
-}
+  console.log('success');
+  console.log(result);
+};
 
 const onFailure = (error) => {
   console.log(error);
-}
+};
 
 const onMfaRequired = (result) => {
-  console.log("MFA Required " + result);
-}
+  console.log('MFA Required');
+  console.log(result);
+};
 
 const onNewPasswordRequired = (result) => {
-  console.log("New password required " + result);
-} 
+  console.log('New password required');
+  console.log(result);
+};
 
 ReactDOM.render(
   <Provider store={store}>
     <LoginFormContainer
-      onSuccess={ onSuccess }
-      onFailure={ onFailure } 
-      onMfaRequired={ onMfaRequired }
-      onNewPasswordRequired={ onNewPasswordRequired }
+      onSuccess={onSuccess}
+      onFailure={onFailure}
+      onMfaRequired={onMfaRequired}
+      onNewPasswordRequired={onNewPasswordRequired}
     >
       <LoginForm />
     </LoginFormContainer>
   </Provider>,
-  document.getElementById('app')
+  document.getElementById('app'),
 );

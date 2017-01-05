@@ -1,5 +1,5 @@
 
-export const configure = (config) => ({
-    type: 'COGNITO_CONFIGURE',
-    config
-})
+export const configure = config => ({
+  type: 'COGNITO_CONFIGURE',
+  config,
+});
