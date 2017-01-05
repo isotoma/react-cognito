@@ -14,7 +14,7 @@ export const LoginForm = ({ onSubmit, changeUsername, changePassword }) => (
   </form>
 );
 LoginForm.propTypes = {
-  onSubmit: React.PropTypes.function,
-  changeUsername: React.PropTypes.function,
-  changePassword: React.PropTypes.function,
+  onSubmit: React.PropTypes.func,
+  changeUsername: React.PropTypes.func,
+  changePassword: React.PropTypes.func,
 };

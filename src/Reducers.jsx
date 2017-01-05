@@ -1,5 +1,7 @@
 import { CognitoUserPool } from 'amazon-cognito-identity-js';
 
+/* global AWSCognito */
+
 const initial = {
   user: null,
   username: '',
@@ -16,12 +18,19 @@ const initial = {
 export const cognito = (state = initial, action) => {
   switch (action.type) {
     case 'COGNITO_CONFIGURE':
+      AWSCognito.config.region = action.config.region;
+      //AWSCognito.config.credentials = new AWSCognito.CognitoIdentityCredentials({
+      //  IdentityPoolId: action.config.identityPool,
+      //});
+      const pool = new CognitoUserPool({
+        UserPoolId: action.config.userPool,
+        ClientId: action.config.clientId,
+      });
+      const user = pool.getCurrentUser();
       return Object.assign({}, state, {
         config: action.config,
-        userPool: new CognitoUserPool({
-          UserPoolId: action.config.userPool,
-          ClientId: action.config.clientId,
-        }),
+        userPool: pool,
+        user: user,
       });
     default:
       return state;

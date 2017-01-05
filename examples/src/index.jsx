@@ -1,4 +1,5 @@
-import React, { ReactDOM } from 'react';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import { LoginForm, LoginFormContainer, cognito, configure } from 'react-cognito';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';

@@ -25,7 +25,12 @@ const baseConfig = {
     ],
     loaders: [
       { test: /\.js/, loader: jsLoader, exclude: /node_modules/ }
-    ]
+    ],
+    resolve: {
+      alias: {
+        'aws-cognito-sdk': 'node_modules/amazon-cognito-identity-js/dist/aws-cognito-sdk.js',
+      },
+    },
   },
 
   plugins: [

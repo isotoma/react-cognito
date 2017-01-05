@@ -31,9 +31,17 @@ export default {
         amd: 'react-dom',
       },
     },
+    { 
+      'aws-cognito-sdk': {
+        root: 'AWSCognito',
+        commonjs: 'aws-cognito-sdk',
+        commonjs2: 'aws-cognito-sdk',
+        amd: 'aws-cognito-sdk',
+      }
+    },
     {
       'amazon-cognito-identity-js': {
-        root: 'AWSCognito',
+        root: 'AmazonCognitoIdentity',
         commonjs2: 'amazon-cognito-identity-js',
         commonjs: 'amazon-cognito-identity-js',
         amd: 'amazon-cognito-identity-js',

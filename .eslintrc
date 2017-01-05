@@ -25,5 +25,12 @@
         "import/prefer-default-export": 0,
         "jsx-a11y/label-has-for": 0,
 
+    },
+    "settings": {
+      "import/resolver": {
+        "webpack": {
+          config: "webpack.config.js"
+        }
+      }
     }
 }

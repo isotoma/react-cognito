@@ -21,7 +21,8 @@ export default {
       'react-dom': 'ReactDOM',
       redux: 'Redux',
       'react-redux': 'ReactRedux',
-      'amazon-cognito-identity-js': 'AWSCognito',
+      'aws-cognito-sdk': 'AWSCognito',
+      'amazon-cognito-identity-js': 'AmazonCognitoIdentity',
       
   },
 };

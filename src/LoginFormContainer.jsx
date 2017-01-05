@@ -1,7 +1,7 @@
 import React from 'react';
-import { CognitoIdentityServiceProvider } from 'amazon-cognito-identity-js';
+import { CognitoIdentityServiceProvider, CognitoIdentityCredentials } from 'aws-cognito-sdk';
 
-/* global AWS */
+/* global AWSCognito */
 
 export class LoginFormContainer extends React.Component {
 
@@ -11,28 +11,25 @@ export class LoginFormContainer extends React.Component {
       username: '',
       password: '',
     };
-    this.changeUsername = this.changeUsername.bind(this);
-    this.changePassword = this.changePassword.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
   }
 
-  onSubmit(event) {
+  onSubmit = (event) => {
     event.preventDefault();
     this.authenticate();
   }
 
-  onSuccess(result) {
+  onSuccess = (result) => {
     const { store } = this.context;
     const state = store.getState();
     const loginDomain = `cognito-idp.${state.cognito.config.region}.amazonaws.com`;
-    const loginUrl = `${loginDomain}/${state.cognito.config.identityPool}`;
+    const loginUrl = `${loginDomain}/${state.cognito.config.userPool}`;
     const identityCredentials = {
       IdentityPoolId: state.cognito.config.identityPool,
       Logins: {},
     };
     identityCredentials.Logins[loginUrl] = result.getIdToken().getJwtToken();
-    AWS.config.credentials = new AWS.CognitoIdentityCredentials(identityCredentials);
-    AWS.config.credentials.refresh((error) => {
+    AWSCognito.config.credentials = new CognitoIdentityCredentials(identityCredentials);
+    AWSCognito.config.credentials.refresh((error) => {
       if (error) {
         this.props.onFailure(error);
       } else {
@@ -41,8 +38,16 @@ export class LoginFormContainer extends React.Component {
     });
   }
 
-  onFailure(error) {
+  onFailure = (error) => {
     this.props.onFailure(error);
+  }
+
+  mfaRequired = (result) => {
+    this.props.mfaRequired(result);
+  }
+
+  newPasswordRequired = (result) => {
+    this.props.newPasswordRequired(result);
   }
 
   authenticate() {
@@ -52,11 +57,11 @@ export class LoginFormContainer extends React.Component {
       Username: this.state.username,
       Password: this.state.password,
     });
-    state.cognito.user = new CognitoIdentityServiceProvider.CognitoUser({
+    const user = new CognitoIdentityServiceProvider.CognitoUser({
       Username: this.state.username,
       Pool: state.cognito.userPool,
     });
-    state.cognito.authenticateUser(creds, {
+    user.authenticateUser(creds, {
       onSuccess: this.onSuccess,
       onFailure: this.onFailure,
       mfaRequired: this.mfaRequired,
@@ -64,19 +69,11 @@ export class LoginFormContainer extends React.Component {
     });
   }
 
-  mfaRequired(result) {
-    this.props.mfaRequired(result);
-  }
-
-  newPasswordRequired(result) {
-    this.props.newPasswordRequired(result);
-  }
-
-  changeUsername(event) {
+  changeUsername = (event) => {
     this.setState({ username: event.target.value });
   }
 
-  changePassword(event) {
+  changePassword = (event) => {
     this.setState({ password: event.target.value });
   }
 
@@ -94,8 +91,8 @@ LoginFormContainer.contextTypes = {
 };
 LoginFormContainer.propTypes = {
   children: React.PropTypes.any,
-  onSuccess: React.PropTypes.function,
-  onFailure: React.PropTypes.function,
-  mfaRequired: React.PropTypes.function,
-  newPasswordRequired: React.PropTypes.function,
+  onSuccess: React.PropTypes.func,
+  onFailure: React.PropTypes.func,
+  mfaRequired: React.PropTypes.func,
+  newPasswordRequired: React.PropTypes.func,
 };
