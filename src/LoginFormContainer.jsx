@@ -1,4 +1,5 @@
 import React from 'react';
+import { CognitoIdentityServiceProvider } from 'aws-sdk';
 
 export class LoginFormContainer extends React.Component {
 

@@ -31,5 +31,13 @@ export default {
         amd: 'react-dom',
       },
     },
+    {
+      'aws-sdk': {
+        root: 'AWS',
+        commonjs2: 'aws-sdk',
+        commonjs: 'aws-sdk',
+        amd: 'aws-sdk',
+      },
+    }
   ],
 };
