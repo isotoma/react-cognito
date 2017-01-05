@@ -13,7 +13,6 @@ export default {
     library: 'ReactCognito',
     libraryTarget: 'umd',
   },
-
   externals: [
     {
       react: {
@@ -29,6 +28,22 @@ export default {
         commonjs2: 'react-dom',
         commonjs: 'react-dom',
         amd: 'react-dom',
+      },
+    },
+    {
+      redux: {
+        root: 'Redux',
+        commonjs: 'redux',
+        commonjs2: 'redux',
+        amd: 'redux',
+      },
+    },
+    {
+      'react-redux': {
+        root: 'ReactRedux',
+        commonjs: 'react-redux',
+        commonjs2: 'react-redux',
+        amd: 'react-redux',
       },
     },
     { 
