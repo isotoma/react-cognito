@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, IndexRoute, hashHistory, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Login, Logout, cognito, configure } from 'react-cognito';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
@@ -11,7 +11,7 @@ import LogoutButton from './LogoutButton.jsx';
 
 const store = createStore(combineReducers({
   cognito,
-}));
+}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 store.dispatch(configure({
   region: 'eu-west-1',
@@ -21,8 +21,7 @@ store.dispatch(configure({
 }));
 
 const onSuccess = (result) => {
-  console.log('success');
-  console.log(result);
+  browserHistory.push('/');  
 };
 
 const onFailure = (error) => {
@@ -62,7 +61,7 @@ const logoutButton = () => (
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory}>
+    <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Dashboard} />
         <Route path="/auth/logout" component={logoutButton} />
