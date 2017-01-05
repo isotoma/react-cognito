@@ -9,7 +9,6 @@ export class Logout extends React.Component {
     state.cognito.user.signOut();
     event.preventDefault();
     store.dispatch(logout());
-    this.props.onSuccess();
   }
 
   render() {
@@ -23,5 +22,4 @@ Logout.contextTypes = {
 };
 Logout.propTypes = {
   children: React.PropTypes.any,
-  onSuccess: React.PropTypes.func,
 };

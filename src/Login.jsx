@@ -1,6 +1,6 @@
 import React from 'react';
 import { CognitoIdentityServiceProvider, CognitoIdentityCredentials } from 'aws-cognito-sdk';
-import { login } from './actions';
+import { login, loginFailure, mfaRequired, newPasswordRequired } from './actions';
 
 /* global AWSCognito */
 
@@ -53,23 +53,18 @@ export class Login extends React.Component {
       AWSCognito.config.credentials = new CognitoIdentityCredentials(identityCredentials);
       AWSCognito.config.credentials.refresh((error) => {
         if (error) {
-          this.props.onFailure(error);
+          store.dispatch(loginFailure(user, error));
         } else {
           store.dispatch(login(user));
-          this.props.onSuccess(result);
         }
       });
     };
 
-    const onFailure = error => this.props.onFailure(error);
-    const mfaRequired = result => this.props.mfaRequired(result);
-    const newPasswordRequired = result => this.props.newPasswordRequired(result);
-
     user.authenticateUser(creds, {
       onSuccess,
-      onFailure,
-      mfaRequired,
-      newPasswordRequired,
+      onFailure: error => store.dispatch(loginFailure(user, error)),
+      mfaRequired: () => store.dispatch(mfaRequired(user)),
+      newPasswordRequired: () => store.dispatch(newPasswordRequired(user)),
     });
   }
 
@@ -95,8 +90,4 @@ Login.contextTypes = {
 };
 Login.propTypes = {
   children: React.PropTypes.any,
-  onSuccess: React.PropTypes.func,
-  onFailure: React.PropTypes.func,
-  mfaRequired: React.PropTypes.func,
-  newPasswordRequired: React.PropTypes.func,
 };

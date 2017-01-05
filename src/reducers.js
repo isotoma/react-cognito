@@ -1,9 +1,12 @@
 import { CognitoUserPool } from 'amazon-cognito-identity-js';
+import { CognitoState } from './states';
 
 /* global AWSCognito */
 
 const initial = {
   user: null,
+  state: CognitoState.LOGGED_OUT,
+  error: null,
   userPool: null,
   config: {
     region: null,
@@ -28,27 +31,43 @@ const configure = (state, action) => {
   });
 };
 
-const login = (state, action) => Object.assign({}, state, {
-  user: action.user,
-});
-
-
-const logout = state => Object.assign({}, state, {
-  user: null,
-});
-
-
 export const cognito = (state = initial, action) => {
   switch (action.type) {
+
     case 'COGNITO_CONFIGURE':
-      console.log("ACTION:CONFIGURE");
       return configure(state, action);
+
     case 'COGNITO_LOGIN':
-      console.log("ACTION:LOGIN");
-      return login(state, action);
+      return Object.assign({}, state, {
+        user: action.user,
+        state: CognitoState.LOGGED_IN,
+      });
+
     case 'COGNITO_LOGOUT':
-      console.log("ACTION:LOGOUT");
-      return logout(state, action);
+      return Object.assign({}, state, {
+        user: null,
+        state: CognitoState.LOGGED_OUT,
+      });
+
+    case 'COGNITO_LOGIN_FAILURE':
+      return Object.assign({}, state, {
+        user: action.user,
+        state: CognitoState.LOGIN_FAILURE,
+        error: action.error,
+      });
+
+    case 'COGNITO_LOGIN_MFA_REQUIRED':
+      return Object.assign({}, state, {
+        user: action.user,
+        state: CognitoState.MFA_REQUIRED,
+      });
+
+    case 'COGNITO_LOGIN_NEW_PASSWORD_REQUIRED':
+      return Object.assign({}, state, {
+        user: action.user,
+        state: CognitoState.NEW_PASSWORD_REQUIRED,
+      });
+
     default:
       return state;
   }
