@@ -5,3 +5,4 @@ export * from './EmailVerification.jsx';
 export * from './reducers';
 export * from './actions';
 export * from './states';
+export * from './utils';

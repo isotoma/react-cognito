@@ -2,6 +2,16 @@
 
 import { emailVerificationRequired, emailVerificationFailed, login, setUserAttributes } from './actions';
 
+const changePassword = (user, oldPassword, newPassword) =>
+  new Promise((resolve, reject) =>
+    user.changePassword(oldPassword, newPassword, (err, result) => {
+      if (err) {
+        reject(err.message);
+      } else {
+        resolve(result);
+      }
+    }));
+
 const sendAttributeVerificationCode = (user, attribute) =>
   new Promise((resolve, reject) => {
     user.getAttributeVerificationCode(attribute, {
@@ -49,4 +59,4 @@ const postLoginDispatch = (user, dispatch) =>
     }
   });
 
-export { postLoginDispatch };
+export { changePassword, postLoginDispatch };

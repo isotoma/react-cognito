@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import {
   CognitoState,
   Logout,
@@ -9,15 +10,21 @@ import {
 } from 'react-cognito';
 import LogoutButton from './LogoutButton.jsx';
 import LoginForm from './LoginForm.jsx';
-import NewPasswordRequiredForm from './NewPasswordRequiredForm.jsx';
 import EmailVerificationForm from './EmailVerificationForm.jsx';
+import NewPasswordRequiredForm from './NewPasswordRequiredForm.jsx';
 
 const loggedInPage = (user, attributes) => (
   <div>
     <p>logged in as {user.getUsername()}</p>
-    <Logout>
-      <LogoutButton />
-    </Logout>
+    <ul>
+      <li>
+        <Logout>
+          <LogoutButton />
+        </Logout>
+      </li>
+      <li><Link to="/change_password">Change password</Link></li>
+      <li><Link to="/change_email">Change email address</Link></li>
+    </ul>
     <div>
       <p>Attributes</p>
       <table>
