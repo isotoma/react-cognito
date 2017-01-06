@@ -1,12 +1,11 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { CognitoState } from './states';
 import {
   newPasswordRequired,
   newPasswordRequiredFailure,
   mfaRequired,
-  login,
 } from './actions';
+import { postLoginDispatch } from './utils';
 
 const BaseNewPasswordRequired = props =>
   React.cloneElement(props.children, {
@@ -16,22 +15,16 @@ const BaseNewPasswordRequired = props =>
 
 const setNewPassword = (password, user, userAttributes, dispatch) =>
   user.completeNewPasswordChallenge(password, userAttributes, {
-    onSuccess: () => dispatch(login(user)),
+    onSuccess: () => postLoginDispatch(user, dispatch),
     onFailure: error => dispatch(newPasswordRequiredFailure(user, error)),
     mfaRequired: () => dispatch(mfaRequired(user)),
     newPasswordRequired: () => dispatch(newPasswordRequired(user)),
   });
 
-const mapStateToProps = (state) => {
-  let error = '';
-  if (state.cognito.state === CognitoState.NEW_PASSWORD_REQUIRED_FAILURE) {
-    error = state.cognito.error;
-  }
-  return {
-    error,
-    user: state.cognito.user,
-  };
-};
+const mapStateToProps = state => ({
+  error: state.cognito.error,
+  user: state.cognito.user,
+});
 
 const mapDispatchToProps = dispatch => ({
   func: (password, user, userAttributes) =>

@@ -8,6 +8,7 @@ const initial = {
   state: CognitoState.LOGGED_OUT,
   error: null,
   userPool: null,
+  attributes: null,
   config: {
     region: null,
     userPool: null,
@@ -40,39 +41,62 @@ export const cognito = (state = initial, action) => {
     case 'COGNITO_LOGIN':
       return Object.assign({}, state, {
         user: action.user,
+        error: '',
         state: CognitoState.LOGGED_IN,
+      });
+
+    case 'COGNITO_SET_USER_ATTRIBUTES':
+      return Object.assign({}, state, {
+        attributes: action.attributes,
       });
 
     case 'COGNITO_LOGOUT':
       return Object.assign({}, state, {
         user: null,
+        error: '',
         state: CognitoState.LOGGED_OUT,
       });
 
     case 'COGNITO_LOGIN_FAILURE':
       return Object.assign({}, state, {
         user: action.user,
-        state: CognitoState.LOGIN_FAILURE,
+        state: CognitoState.LOGGED_OUT,
         error: action.error,
       });
 
     case 'COGNITO_LOGIN_MFA_REQUIRED':
       return Object.assign({}, state, {
         user: action.user,
+        error: '',
         state: CognitoState.MFA_REQUIRED,
       });
 
     case 'COGNITO_LOGIN_NEW_PASSWORD_REQUIRED':
       return Object.assign({}, state, {
         user: action.user,
+        error: '',
         state: CognitoState.NEW_PASSWORD_REQUIRED,
       });
 
     case 'COGNITO_NEW_PASSWORD_REQUIRED_FAILURE':
       return Object.assign({}, state, {
         user: action.user,
-        error: action.erro,
-        state: CognitoState.COGNITO_NEW_PASSWORD_REQUIRED_FAILURE,
+        error: action.error,
+        state: CognitoState.NEW_PASSWORD_REQUIRED,
+      });
+
+    case 'COGNITO_EMAIL_VERIFICATION_REQUIRED':
+      return Object.assign({}, state, {
+        user: action.user,
+        error: '',
+        state: CognitoState.EMAIL_VERIFICATION_REQUIRED,
+      });
+
+    case 'COGNITO_EMAIL_VERIFICATION_FAILED':
+      return Object.assign({}, state, {
+        user: action.user,
+        error: action.error,
+        state: CognitoState.EMAIL_VERIFICATION_REQUIRED,
       });
 
     default:

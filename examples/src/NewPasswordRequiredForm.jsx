@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 class NewPasswordRequiredForm extends React.Component {
 
@@ -31,8 +31,8 @@ class NewPasswordRequiredForm extends React.Component {
   )
 }
 NewPasswordRequiredForm.propTypes = {
-  onSubmit: React.PropTypes.func,
-  error: React.PropTypes.string,
+  onSubmit: PropTypes.func,
+  error: PropTypes.string,
 };
 
 export default NewPasswordRequiredForm;

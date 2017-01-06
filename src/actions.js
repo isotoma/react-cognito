@@ -34,3 +34,19 @@ export const newPasswordRequiredFailure = (user, error) => ({
   user,
   error,
 });
+
+export const emailVerificationRequired = user => ({
+  type: 'COGNITO_EMAIL_VERIFICATION_REQUIRED',
+  user,
+});
+
+export const emailVerificationFailed = (user, error) => ({
+  type: 'COGNITO_EMAIL_VERIFICATION_FAILED',
+  user,
+  error,
+});
+
+export const setUserAttributes = attributes => ({
+  type: 'COGNITO_SET_USER_ATTRIBUTES',
+  attributes,
+});

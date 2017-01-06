@@ -39,7 +39,6 @@ class LoginForm extends React.Component {
     </form>
   )
 }
-
 LoginForm.propTypes = {
   onSubmit: PropTypes.func,
   username: PropTypes.string,

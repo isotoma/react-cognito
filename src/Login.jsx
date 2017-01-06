@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { CognitoIdentityServiceProvider, CognitoIdentityCredentials } from 'aws-cognito-sdk';
-import { login, loginFailure, mfaRequired, newPasswordRequired } from './actions';
-import { CognitoState } from './states';
+import { loginFailure, mfaRequired, newPasswordRequired } from './actions';
+import { postLoginDispatch } from './utils';
+
 /* global AWSCognito */
 
 const BaseLogin = props =>
@@ -17,6 +18,7 @@ const authenticate = (username, password, userPool, config, dispatch) => {
     Username: username,
     Password: password,
   });
+
   const user = new CognitoIdentityServiceProvider.CognitoUser({
     Username: username,
     Pool: userPool,
@@ -28,14 +30,16 @@ const authenticate = (username, password, userPool, config, dispatch) => {
     const identityCredentials = {
       IdentityPoolId: config.identityPool,
       Logins: {},
+      LoginId: username, // https://github.com/aws/aws-sdk-js/issues/609
     };
     identityCredentials.Logins[loginUrl] = result.getIdToken().getJwtToken();
     AWSCognito.config.credentials = new CognitoIdentityCredentials(identityCredentials);
+
     AWSCognito.config.credentials.refresh((error) => {
       if (error) {
         dispatch(loginFailure(user, error.message));
       } else {
-        dispatch(login(user));
+        postLoginDispatch(user, dispatch);
       }
     });
   };
@@ -50,16 +54,12 @@ const authenticate = (username, password, userPool, config, dispatch) => {
 
 const mapStateToProps = (state) => {
   let username = '';
-  let error = '';
   if (state.cognito.user) {
     username = state.cognito.user.getUsername();
   }
-  if (state.cognito.state === CognitoState.LOGIN_FAILURE) {
-    error = state.cognito.error;
-  }
   return {
     username,
-    error,
+    error: state.cognito.error,
     config: state.cognito.config,
     userPool: state.cognito.userPool,
   };
@@ -77,8 +77,10 @@ const mergeProps = (stateProps, dispatchProps, ownProps) =>
       dispatchProps.authenticator(username, password, stateProps.userPool, stateProps.config),
   });
 
-export const Login = connect(
+const Login = connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
 )(BaseLogin);
+
+export { Login };
