@@ -68,6 +68,13 @@ export const cognito = (state = initial, action) => {
         state: CognitoState.NEW_PASSWORD_REQUIRED,
       });
 
+    case 'COGNITO_NEW_PASSWORD_REQUIRED_FAILURE':
+      return Object.assign({}, state, {
+        user: action.user,
+        error: action.erro,
+        state: CognitoState.COGNITO_NEW_PASSWORD_REQUIRED_FAILURE,
+      });
+
     default:
       return state;
   }

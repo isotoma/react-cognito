@@ -33,7 +33,7 @@ const authenticate = (username, password, userPool, config, dispatch) => {
     AWSCognito.config.credentials = new CognitoIdentityCredentials(identityCredentials);
     AWSCognito.config.credentials.refresh((error) => {
       if (error) {
-        dispatch(loginFailure(user, error));
+        dispatch(loginFailure(user, error.message));
       } else {
         dispatch(login(user));
       }
@@ -71,11 +71,14 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => 
-  Object.assign({}, ownProps, dispatchProps, stateProps, {
+const mergeProps = (stateProps, dispatchProps, ownProps) =>
+  Object.assign({}, ownProps, stateProps, {
     onSubmit: (username, password) =>
       dispatchProps.authenticator(username, password, stateProps.userPool, stateProps.config),
   });
 
-export const Login = connect(mapStateToProps, mapDispatchToProps, mergeProps)(BaseLogin);
-
+export const Login = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps,
+)(BaseLogin);

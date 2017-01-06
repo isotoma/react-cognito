@@ -28,3 +28,9 @@ export const newPasswordRequired = user => ({
   type: 'COGNITO_LOGIN_NEW_PASSWORD_REQUIRED',
   user,
 });
+
+export const newPasswordRequiredFailure = (user, error) => ({
+  type: 'COGNITO_NEW_PASSWORD_REQUIRED_FAILURE',
+  user,
+  error,
+});
