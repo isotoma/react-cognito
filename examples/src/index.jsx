@@ -5,6 +5,7 @@ import {
   cognito,
   configure,
   ChangePassword,
+  createGuard,
 } from 'react-cognito';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
@@ -15,6 +16,7 @@ import ChangePasswordForm from './ChangePasswordForm.jsx';
 const reducers = combineReducers({
   cognito,
 });
+
 const store = createStore(
   reducers,
   // eslint-disable-next-line no-underscore-dangle
@@ -26,6 +28,8 @@ store.dispatch(configure({
   identityPool: 'eu-west-1:3e151c70-ad45-4e36-8b87-f0125da6c13e',
   clientId: '7oc1qboh1jldlrd929ksv7cgta',
 }));
+
+const guard = createGuard(store, '/forbidden');
 
 const changePassword = () => (
   <div>
@@ -39,7 +43,11 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <IndexRoute component={Dashboard} />
-        <Route path="/change_password" component={changePassword} />
+        <Route
+          path="/change_password"
+          component={changePassword}
+          onEnter={guard({ loggedIn: true })}
+        />
       </Route>
     </Router>
   </Provider>,

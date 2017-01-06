@@ -6,3 +6,4 @@ export * from './reducers';
 export * from './actions';
 export * from './states';
 export * from './utils';
+export * from './guard';
