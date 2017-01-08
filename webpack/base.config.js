@@ -30,6 +30,7 @@ const baseConfig = {
       alias: {
         'aws-cognito-sdk': 'node_modules/amazon-cognito-identity-js/dist/aws-cognito-sdk.js',
       },
+      extensions: ['', '.js', '.jsx'],
     },
   },
 

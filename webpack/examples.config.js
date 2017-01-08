@@ -14,6 +14,7 @@ export default {
 
   resolve: {
     modulesDirectories: ['dist'],
+    extensions: ['', '.js', '.jsx'],
   },
 
   externals: {

@@ -31,6 +31,13 @@
         "webpack": {
           config: "webpack.config.js"
         }
-      }
+      },
+      "import/core-modules": [
+        "aws-cognito-sdk",
+        "react-redux",
+        "react-cognito",
+        "react-router",
+      ],
+      "import/extensions": [".js", ".jsx"],
     }
 }
