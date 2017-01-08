@@ -5,13 +5,15 @@ import {
   cognito,
   configure,
   createGuard,
+  ForgottenPassword,
   performLogin,
 } from 'react-cognito';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
-import App from './App.jsx';
-import Dashboard from './Dashboard.jsx';
-import ChangePasswordForm from './ChangePasswordForm.jsx';
+import App from './App';
+import Dashboard from './Dashboard';
+import ChangePasswordForm from './ChangePasswordForm';
+import ForgottenPasswordForm from './ForgottenPasswordForm';
 
 const reducers = combineReducers({
   cognito,
@@ -43,7 +45,9 @@ const changePassword = () => (
 );
 
 const forgottenPassword = () => (
-  <div />
+  <ForgottenPassword>
+    <ForgottenPasswordForm />
+  </ForgottenPassword>
 );
 
 const render = () => {
@@ -69,6 +73,8 @@ const render = () => {
   );
 };
 
+// we defer rendering the application until we've fetched the user
+// from local storage and potentially updated their local state
 performLogin(state.cognito.user, state.cognito.config).then(
   store.dispatch, render).then(
   render);

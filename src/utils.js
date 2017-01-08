@@ -1,7 +1,6 @@
 
-
-import { emailVerificationRequired, emailVerificationFailed, login, loginFailure } from './actions';
 import { CognitoIdentityCredentials } from 'aws-cognito-sdk';
+import { emailVerificationRequired, emailVerificationFailed, login, loginFailure } from './actions';
 
 // could perhaps be done with an import, but I am uncertain
 /* global AWSCognito */

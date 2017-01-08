@@ -48,3 +48,14 @@ export const emailVerificationFailed = (user, error, attributes) => ({
   error,
   attributes,
 });
+
+export const beginForgottenPasswordFlow = (user, error) => ({
+  type: 'COGNITO_BEGIN_FORGOTTEN_PASSWORD_FLOW',
+  user,
+  error,
+});
+
+export const finishForgottenPasswordFlow = error => ({
+  type: 'COGNITO_FINISH_FORGOTTEN_PASSWORD_FLOW',
+  error,
+});

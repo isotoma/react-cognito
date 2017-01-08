@@ -8,10 +8,10 @@ import {
   NewPasswordRequired,
   EmailVerification,
 } from 'react-cognito';
-import LogoutButton from './LogoutButton.jsx';
-import LoginForm from './LoginForm.jsx';
-import EmailVerificationForm from './EmailVerificationForm.jsx';
-import NewPasswordRequiredForm from './NewPasswordRequiredForm.jsx';
+import LogoutButton from './LogoutButton';
+import LoginForm from './LoginForm';
+import EmailVerificationForm from './EmailVerificationForm';
+import NewPasswordRequiredForm from './NewPasswordRequiredForm';
 
 const loggedInPage = (user, attributes) => (
   <div>
@@ -53,6 +53,7 @@ const loggedOutPage = () => (
     <Login>
       <LoginForm />
     </Login>
+    <Link to="/forgotten_password">Password reset</Link>
   </div>
 );
 

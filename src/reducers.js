@@ -6,9 +6,9 @@ import { CognitoState } from './states';
 const initial = {
   user: null,
   state: CognitoState.LOGGED_OUT,
-  error: null,
+  error: '',
   userPool: null,
-  attributes: null,
+  attributes: [],
   config: {
     region: null,
     userPool: null,
@@ -103,6 +103,17 @@ export const cognito = (state = initial, action) => {
         error: action.error,
         state: CognitoState.EMAIL_VERIFICATION_REQUIRED,
       }, action.attributes));
+
+    case 'COGNITO_BEGIN_FORGOTTEN_PASSWORD_FLOW':
+      return Object.assign({}, state, {
+        user: action.user,
+        error: action.error,
+      });
+
+    case 'COGNITO_FINISH_FORGOTTEN_PASSWORD_FLOW':
+      return Object.assign({}, state, {
+        error: action.error,
+      });
 
     default:
       return state;
