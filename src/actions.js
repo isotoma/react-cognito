@@ -4,9 +4,10 @@ export const configure = config => ({
   config,
 });
 
-export const login = user => ({
+export const login = (user, attributes) => ({
   type: 'COGNITO_LOGIN',
   user,
+  attributes,
 });
 
 export const logout = () => ({
@@ -35,18 +36,15 @@ export const newPasswordRequiredFailure = (user, error) => ({
   error,
 });
 
-export const emailVerificationRequired = user => ({
+export const emailVerificationRequired = (user, attributes) => ({
   type: 'COGNITO_EMAIL_VERIFICATION_REQUIRED',
   user,
+  attributes,
 });
 
-export const emailVerificationFailed = (user, error) => ({
+export const emailVerificationFailed = (user, error, attributes) => ({
   type: 'COGNITO_EMAIL_VERIFICATION_FAILED',
   user,
   error,
-});
-
-export const setUserAttributes = attributes => ({
-  type: 'COGNITO_SET_USER_ATTRIBUTES',
   attributes,
 });

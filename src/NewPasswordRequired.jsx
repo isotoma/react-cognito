@@ -5,7 +5,7 @@ import {
   newPasswordRequiredFailure,
   mfaRequired,
 } from './actions';
-import { postLoginDispatch } from './utils';
+import { postLogin } from './utils';
 
 const BaseNewPasswordRequired = props =>
   React.cloneElement(props.children, {
@@ -15,7 +15,7 @@ const BaseNewPasswordRequired = props =>
 
 const setNewPassword = (password, user, userAttributes, dispatch) =>
   user.completeNewPasswordChallenge(password, userAttributes, {
-    onSuccess: () => postLoginDispatch(user, dispatch),
+    onSuccess: () => postLogin(user).then(dispatch),
     onFailure: error => dispatch(newPasswordRequiredFailure(user, error)),
     mfaRequired: () => dispatch(mfaRequired(user)),
     newPasswordRequired: () => dispatch(newPasswordRequired(user)),

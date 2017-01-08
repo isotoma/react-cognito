@@ -4,8 +4,8 @@ import { Router, Link, Route, IndexRoute, browserHistory } from 'react-router';
 import {
   cognito,
   configure,
-  ChangePassword,
   createGuard,
+  performLogin,
 } from 'react-cognito';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
@@ -29,6 +29,10 @@ store.dispatch(configure({
   clientId: '7oc1qboh1jldlrd929ksv7cgta',
 }));
 
+// this attempts to retrieve the user from local storage and establish
+// a new session for them
+const state = store.getState();
+
 const guard = createGuard(store, '/forbidden');
 
 const changePassword = () => (
@@ -38,18 +42,33 @@ const changePassword = () => (
   </div>
 );
 
-ReactDOM.render(
-  <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={App}>
-        <IndexRoute component={Dashboard} />
-        <Route
-          path="/change_password"
-          component={changePassword}
-          onEnter={guard({ loggedIn: true })}
-        />
-      </Route>
-    </Router>
-  </Provider>,
-  document.getElementById('app'),
+const forgottenPassword = () => (
+  <div />
 );
+
+const render = () => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <Router history={browserHistory}>
+        <Route path="/" component={App}>
+          <IndexRoute component={Dashboard} />
+          <Route
+            path="/change_password"
+            component={changePassword}
+            onEnter={guard({ loggedIn: true })}
+          />
+          <Route
+            path="/forgotten_password"
+            component={forgottenPassword}
+            onEnter={guard({ loggedIn: false })}
+          />
+        </Route>
+      </Router>
+    </Provider>,
+    document.getElementById('app'),
+  );
+};
+
+performLogin(state.cognito.user, state.cognito.config).then(
+  store.dispatch, render).then(
+  render);

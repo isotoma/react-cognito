@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { CognitoIdentityServiceProvider, CognitoIdentityCredentials } from 'aws-cognito-sdk';
+import { CognitoIdentityServiceProvider } from 'aws-cognito-sdk';
 import { loginFailure, mfaRequired, newPasswordRequired } from './actions';
-import { postLoginDispatch } from './utils';
+import { performLogin } from './utils';
 
 /* global AWSCognito */
 
@@ -24,24 +24,8 @@ const authenticate = (username, password, userPool, config, dispatch) => {
     Pool: userPool,
   });
 
-  const onSuccess = (result) => {
-    const loginDomain = `cognito-idp.${config.region}.amazonaws.com`;
-    const loginUrl = `${loginDomain}/${config.userPool}`;
-    const identityCredentials = {
-      IdentityPoolId: config.identityPool,
-      Logins: {},
-      LoginId: username, // https://github.com/aws/aws-sdk-js/issues/609
-    };
-    identityCredentials.Logins[loginUrl] = result.getIdToken().getJwtToken();
-    AWSCognito.config.credentials = new CognitoIdentityCredentials(identityCredentials);
-
-    AWSCognito.config.credentials.refresh((error) => {
-      if (error) {
-        dispatch(loginFailure(user, error.message));
-      } else {
-        postLoginDispatch(user, dispatch);
-      }
-    });
+  const onSuccess = () => {
+    performLogin(user, config).then(dispatch);
   };
 
   user.authenticateUser(creds, {

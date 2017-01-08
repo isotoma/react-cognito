@@ -1,7 +1,10 @@
 
 
-import { emailVerificationRequired, emailVerificationFailed, login, setUserAttributes } from './actions';
+import { emailVerificationRequired, emailVerificationFailed, login, loginFailure } from './actions';
+import { CognitoIdentityCredentials } from 'aws-cognito-sdk';
 
+// could perhaps be done with an import, but I am uncertain
+/* global AWSCognito */
 const changePassword = (user, oldPassword, newPassword) =>
   new Promise((resolve, reject) =>
     user.changePassword(oldPassword, newPassword, (err, result) => {
@@ -38,25 +41,55 @@ const getUserAttributes = user =>
     });
   });
 
-const postLoginDispatch = (user, dispatch) =>
-  getUserAttributes(user).then((attributes) => {
-    dispatch(setUserAttributes(attributes));
-    return attributes;
-  }).then((attributes) => {
-    if (attributes.email_verified !== 'true') {
-      sendAttributeVerificationCode(user, 'email').then((required) => {
-        if (required) {
-          dispatch(emailVerificationRequired(user));
+const postLogin = user =>
+  new Promise((resolve) => {
+    getUserAttributes(user).then((attributes) => {
+      if (attributes.email_verified !== 'true') {
+        sendAttributeVerificationCode(user, 'email').then((required) => {
+          if (required) {
+            resolve(emailVerificationRequired(user, attributes));
+          } else {
+            // not entirely sure how we could end up here, but the API allows it
+            resolve(login(user, attributes));
+          }
+        }, (error) => {
+          resolve(emailVerificationFailed(user, error, attributes));
+        });
+      } else {
+        resolve(login(user, attributes));
+      }
+    });
+  });
+
+const performLogin = (user, config) =>
+  new Promise((resolve, reject) => {
+    if (user != null) {
+      user.getSession((err, session) => {
+        if (err) {
+          resolve(loginFailure(user, err.message));
         } else {
-          // not entirely sure how we could end up here, but the API allows it
-          dispatch(login(user));
+          const loginDomain = `cognito-idp.${config.region}.amazonaws.com`;
+          const loginUrl = `${loginDomain}/${config.userPool}`;
+          const username = user.getUsername();
+          const identityCredentials = {
+            IdentityPoolId: config.identityPool,
+            Logins: {},
+            LoginId: username, // https://github.com/aws/aws-sdk-js/issues/609
+          };
+          identityCredentials.Logins[loginUrl] = session.getIdToken().getJwtToken();
+          AWSCognito.config.credentials = new CognitoIdentityCredentials(identityCredentials);
+          AWSCognito.config.credentials.refresh((error) => {
+            if (error) {
+              resolve(loginFailure(user, error.message));
+            } else {
+              resolve(postLogin(user));
+            }
+          });
         }
-      }, (error) => {
-        dispatch(emailVerificationFailed(user, error));
       });
     } else {
-      dispatch(login(user));
+      reject();
     }
   });
 
-export { changePassword, postLoginDispatch };
+export { changePassword, postLogin, performLogin };

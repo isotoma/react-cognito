@@ -32,6 +32,16 @@ const configure = (state, action) => {
   });
 };
 
+// sometimes we don't get the attributes in later parts of the login flow
+// but lets not clobber the ones we've got if we've not got them
+const addAttributes = (s, attributes) => {
+  const s2 = Object.assign({}, s);
+  if (attributes) {
+    s2.attributes = attributes;
+  }
+  return s2;
+};
+
 export const cognito = (state = initial, action) => {
   switch (action.type) {
 
@@ -39,16 +49,11 @@ export const cognito = (state = initial, action) => {
       return configure(state, action);
 
     case 'COGNITO_LOGIN':
-      return Object.assign({}, state, {
+      return Object.assign({}, state, addAttributes({
         user: action.user,
         error: '',
         state: CognitoState.LOGGED_IN,
-      });
-
-    case 'COGNITO_SET_USER_ATTRIBUTES':
-      return Object.assign({}, state, {
-        attributes: action.attributes,
-      });
+      }, action.attributes));
 
     case 'COGNITO_LOGOUT':
       return Object.assign({}, state, {
@@ -86,18 +91,18 @@ export const cognito = (state = initial, action) => {
       });
 
     case 'COGNITO_EMAIL_VERIFICATION_REQUIRED':
-      return Object.assign({}, state, {
+      return Object.assign({}, state, addAttributes({
         user: action.user,
         error: '',
         state: CognitoState.EMAIL_VERIFICATION_REQUIRED,
-      });
+      }, action.attributes));
 
     case 'COGNITO_EMAIL_VERIFICATION_FAILED':
-      return Object.assign({}, state, {
+      return Object.assign({}, state, addAttributes({
         user: action.user,
         error: action.error,
         state: CognitoState.EMAIL_VERIFICATION_REQUIRED,
-      });
+      }, action.attributes));
 
     default:
       return state;
