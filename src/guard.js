@@ -23,9 +23,10 @@ const permitted = (state, expr) =>
     }
   });
 
-const guard = (store, forbiddenUrl, expr, routeState, replace, callback) => {
+const guard = (store, forbiddenUrl, expr = {}, routeState, replace, callback) => {
   const state = store.getState();
   let dest = forbiddenUrl;
+
   if (expr.forbiddenUrl !== undefined) {
     dest = expr.forbiddenUrl;
   }
