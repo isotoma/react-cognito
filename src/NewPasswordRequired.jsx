@@ -1,10 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {
-  newPasswordRequired,
-  newPasswordRequiredFailure,
-  mfaRequired,
-} from './actions';
+import { Action } from './actions';
 import { postLogin } from './utils';
 
 const BaseNewPasswordRequired = props =>
@@ -16,9 +12,9 @@ const BaseNewPasswordRequired = props =>
 const setNewPassword = (password, user, userAttributes, dispatch) =>
   user.completeNewPasswordChallenge(password, userAttributes, {
     onSuccess: () => postLogin(user).then(dispatch),
-    onFailure: error => dispatch(newPasswordRequiredFailure(user, error)),
-    mfaRequired: () => dispatch(mfaRequired(user)),
-    newPasswordRequired: () => dispatch(newPasswordRequired(user)),
+    onFailure: error => dispatch(Action.newPasswordRequiredFailure(user, error)),
+    mfaRequired: () => dispatch(Action.mfaRequired(user)),
+    newPasswordRequired: () => dispatch(Action.newPasswordRequired(user)),
   });
 
 const mapStateToProps = state => ({

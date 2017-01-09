@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { logout } from './actions';
+import { Action } from './actions';
 
 export class Logout extends React.Component {
 
@@ -8,7 +8,7 @@ export class Logout extends React.Component {
     const state = store.getState();
     state.cognito.user.signOut();
     event.preventDefault();
-    store.dispatch(logout());
+    store.dispatch(Action.logout());
   }
 
   render() {

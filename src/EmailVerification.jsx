@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { login, emailVerificationRequired, emailVerificationFailed } from './actions';
+import { Action } from './actions';
 
 const BaseEmailVerification = props =>
   React.cloneElement(props.children, {
@@ -10,9 +10,9 @@ const BaseEmailVerification = props =>
 
 const verifyEmail = (verificationCode, user, dispatch) =>
   user.verifyAttribute('email', verificationCode, {
-    onSuccess: () => dispatch(login(user)),
-    inputVerificationCode: () => dispatch(emailVerificationRequired(user)),
-    onFailure: error => dispatch(emailVerificationFailed(user, error.message)),
+    onSuccess: () => dispatch(Action.login(user)),
+    inputVerificationCode: () => dispatch(Action.emailVerificationRequired(user)),
+    onFailure: error => dispatch(Action.emailVerificationFailed(user, error.message)),
   });
 
 

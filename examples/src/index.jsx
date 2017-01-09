@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Link, Route, IndexRoute, browserHistory } from 'react-router';
 import {
   cognito,
-  configure,
+  Action,
   createGuard,
   ForgottenPassword,
   performLogin,
@@ -24,7 +24,7 @@ const store = createStore(
   // eslint-disable-next-line no-underscore-dangle
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-store.dispatch(configure({
+store.dispatch(Action.configure({
   region: 'eu-west-1',
   userPool: 'eu-west-1_4bpnxxQKX',
   identityPool: 'eu-west-1:3e151c70-ad45-4e36-8b87-f0125da6c13e',

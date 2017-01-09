@@ -1,61 +1,72 @@
 
-export const configure = config => ({
-  type: 'COGNITO_CONFIGURE',
-  config,
-});
+const Action = {
 
-export const login = (user, attributes) => ({
-  type: 'COGNITO_LOGIN',
-  user,
-  attributes,
-});
+  configure: config => ({
+    type: 'COGNITO_CONFIGURE',
+    config,
+  }),
 
-export const logout = () => ({
-  type: 'COGNITO_LOGOUT',
-});
+  login: (user, attributes) => ({
+    type: 'COGNITO_LOGIN',
+    user,
+    attributes,
+  }),
 
-export const loginFailure = (user, error) => ({
-  type: 'COGNITO_LOGIN_FAILURE',
-  user,
-  error,
-});
+  logout: () => ({
+    type: 'COGNITO_LOGOUT',
+  }),
 
-export const mfaRequired = user => ({
-  type: 'COGNITO_LOGIN_MFA_REQUIRED',
-  user,
-});
+  loginFailure: (user, error) => ({
+    type: 'COGNITO_LOGIN_FAILURE',
+    user,
+    error,
+  }),
 
-export const newPasswordRequired = user => ({
-  type: 'COGNITO_LOGIN_NEW_PASSWORD_REQUIRED',
-  user,
-});
+  mfaRequired: user => ({
+    type: 'COGNITO_LOGIN_MFA_REQUIRED',
+    user,
+  }),
 
-export const newPasswordRequiredFailure = (user, error) => ({
-  type: 'COGNITO_NEW_PASSWORD_REQUIRED_FAILURE',
-  user,
-  error,
-});
+  newPasswordRequired: user => ({
+    type: 'COGNITO_LOGIN_NEW_PASSWORD_REQUIRED',
+    user,
+  }),
 
-export const emailVerificationRequired = (user, attributes) => ({
-  type: 'COGNITO_EMAIL_VERIFICATION_REQUIRED',
-  user,
-  attributes,
-});
+  newPasswordRequiredFailure: (user, error) => ({
+    type: 'COGNITO_NEW_PASSWORD_REQUIRED_FAILURE',
+    user,
+    error,
+  }),
 
-export const emailVerificationFailed = (user, error, attributes) => ({
-  type: 'COGNITO_EMAIL_VERIFICATION_FAILED',
-  user,
-  error,
-  attributes,
-});
+  emailVerificationRequired: (user, attributes) => ({
+    type: 'COGNITO_EMAIL_VERIFICATION_REQUIRED',
+    user,
+    attributes,
+  }),
 
-export const beginForgottenPasswordFlow = (user, error) => ({
-  type: 'COGNITO_BEGIN_FORGOTTEN_PASSWORD_FLOW',
-  user,
-  error,
-});
+  emailVerificationFailed: (user, error, attributes) => ({
+    type: 'COGNITO_EMAIL_VERIFICATION_FAILED',
+    user,
+    error,
+    attributes,
+  }),
 
-export const finishForgottenPasswordFlow = error => ({
-  type: 'COGNITO_FINISH_FORGOTTEN_PASSWORD_FLOW',
-  error,
-});
+  beginForgottenPasswordFlow: (user, error) => ({
+    type: 'COGNITO_BEGIN_FORGOTTEN_PASSWORD_FLOW',
+    user,
+    error,
+  }),
+
+  finishForgottenPasswordFlow: error => ({
+    type: 'COGNITO_FINISH_FORGOTTEN_PASSWORD_FLOW',
+    error,
+  }),
+
+  updateAttributes: attributes => ({
+    type: 'COGNITO_UPDATE_USER_ATTRIBUTES',
+    attributes,
+  }),
+
+};
+
+export { Action };

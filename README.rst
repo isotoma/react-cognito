@@ -18,6 +18,7 @@ Completed
 - UC5 Retrieving user attributes for an authenticated user
 - UC6 Verify email address for an authenticated user
 - UC11 Change the current password for an authenticated user
+- UC12 Starting and completing a forgotten password flow for an unauthenticated user
 - UC14 Sign out
 - UC16 Retrieve the user from local storage
 - UC17 Log into an identity pool with a cognito user
@@ -26,10 +27,9 @@ Completed
 Planned for version 1, but not yet implemented
 ----------------------------------------------
 
+- UC1 Registering a user with the application
 - UC7 Delete a user attribute for an authenticated user
 - UC8 Update a user attribute for an authenticated user
-- UC1 Registering a user with the application
-- UC12 Starting and completing a forgotten password flow for an unauthenticated user
 
 Planned for version 1.1, but not yet implemented
 ------------------------------------------------

@@ -115,6 +115,11 @@ export const cognito = (state = initial, action) => {
         error: action.error,
       });
 
+    case 'COGNITO_UPDATE_USER_ATTRIBUTES':
+      return Object.assign({}, state, {
+        attributes: Object.assign({}, state.attributes, action.attributes),
+      });
+
     default:
       return state;
   }

@@ -1,6 +1,6 @@
 
 import { CognitoIdentityCredentials } from 'aws-cognito-sdk';
-import { emailVerificationRequired, emailVerificationFailed, login, loginFailure } from './actions';
+import { Action } from './actions';
 
 // could perhaps be done with an import, but I am uncertain
 /* global AWSCognito */
@@ -46,16 +46,16 @@ const postLogin = user =>
       if (attributes.email_verified !== 'true') {
         sendAttributeVerificationCode(user, 'email').then((required) => {
           if (required) {
-            resolve(emailVerificationRequired(user, attributes));
+            resolve(Action.emailVerificationRequired(user, attributes));
           } else {
             // not entirely sure how we could end up here, but the API allows it
-            resolve(login(user, attributes));
+            resolve(Action.login(user, attributes));
           }
         }, (error) => {
-          resolve(emailVerificationFailed(user, error, attributes));
+          resolve(Action.emailVerificationFailed(user, error, attributes));
         });
       } else {
-        resolve(login(user, attributes));
+        resolve(Action.login(user, attributes));
       }
     });
   });
@@ -65,7 +65,7 @@ const performLogin = (user, config) =>
     if (user != null) {
       user.getSession((err, session) => {
         if (err) {
-          resolve(loginFailure(user, err.message));
+          resolve(Action.loginFailure(user, err.message));
         } else {
           const loginDomain = `cognito-idp.${config.region}.amazonaws.com`;
           const loginUrl = `${loginDomain}/${config.userPool}`;
@@ -79,7 +79,7 @@ const performLogin = (user, config) =>
           AWSCognito.config.credentials = new CognitoIdentityCredentials(identityCredentials);
           AWSCognito.config.credentials.refresh((error) => {
             if (error) {
-              resolve(loginFailure(user, error.message));
+              resolve(Action.loginFailure(user, error.message));
             } else {
               resolve(postLogin(user));
             }
@@ -91,4 +91,19 @@ const performLogin = (user, config) =>
     }
   });
 
-export { changePassword, postLogin, performLogin };
+const updateAttributes = (user, attributes) =>
+  new Promise((resolve, reject) => {
+    const attributeList = Object.keys(attributes).map(key => ({
+      Name: key,
+      Value: attributes[key],
+    }));
+    user.updateAttributes(attributeList, (err) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(Action.updateAttributes(attributes));
+      }
+    });
+  });
+
+export { changePassword, postLogin, performLogin, updateAttributes };

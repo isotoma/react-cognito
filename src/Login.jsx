@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { CognitoIdentityServiceProvider } from 'aws-cognito-sdk';
-import { loginFailure, mfaRequired, newPasswordRequired } from './actions';
+import { Action } from './actions';
 import { performLogin } from './utils';
 
 /* global AWSCognito */
@@ -30,9 +30,9 @@ const authenticate = (username, password, userPool, config, dispatch) => {
 
   user.authenticateUser(creds, {
     onSuccess,
-    onFailure: error => dispatch(loginFailure(user, error.message)),
-    mfaRequired: () => dispatch(mfaRequired(user)),
-    newPasswordRequired: () => dispatch(newPasswordRequired(user)),
+    onFailure: error => dispatch(Action.loginFailure(user, error.message)),
+    mfaRequired: () => dispatch(Action.mfaRequired(user)),
+    newPasswordRequired: () => dispatch(Action.newPasswordRequired(user)),
   });
 };
 

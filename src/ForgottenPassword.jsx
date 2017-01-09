@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { CognitoIdentityServiceProvider } from 'aws-cognito-sdk';
-import { beginForgottenPasswordFlow, finishForgottenPasswordFlow } from './actions';
+import { Action } from './actions';
 
 const BaseForgottenPassword = props =>
   React.cloneElement(props.children, {
@@ -14,8 +14,8 @@ const BaseForgottenPassword = props =>
 const setPassword = (user, code, password) =>
   new Promise(resolve =>
     user.confirmPassword(code, password, {
-      onSuccess: () => resolve(finishForgottenPasswordFlow('Password reset')),
-      onFailure: err => resolve(beginForgottenPasswordFlow(user, err.message)),
+      onSuccess: () => resolve(Action.finishForgottenPasswordFlow('Password reset')),
+      onFailure: err => resolve(Action.beginForgottenPasswordFlow(user, err.message)),
     }));
 
 const getUser = (username, userPool) => {
@@ -30,8 +30,8 @@ const sendVerificationCode = (username, userPool) =>
   new Promise((resolve) => {
     const user = getUser(username, userPool);
     user.forgotPassword({
-      onSuccess: () => resolve(beginForgottenPasswordFlow(user, 'Verification code sent')),
-      onFailure: err => resolve(beginForgottenPasswordFlow(user, err.message)),
+      onSuccess: () => resolve(Action.beginForgottenPasswordFlow(user, 'Verification code sent')),
+      onFailure: err => resolve(Action.beginForgottenPasswordFlow(user, err.message)),
     });
   });
 
