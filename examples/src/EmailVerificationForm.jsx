@@ -27,11 +27,13 @@ class EmailVerificationForm extends React.Component {
         <input placeholder="code" onChange={this.changeVerificationCode} required />
       </label>
       <button type="submit">Submit</button>
+      <button type="button" onClick={this.props.onCancel}>Cancel</button>
     </form>
   )
 }
 EmailVerificationForm.propTypes = {
   onSubmit: PropTypes.func,
+  onCancel: PropTypes.func,
   error: PropTypes.string,
 };
 

@@ -6,6 +6,7 @@ const BaseEmailVerification = props =>
   React.cloneElement(props.children, {
     error: props.error,
     onSubmit: props.onSubmit,
+    onCancel: props.onCancel,
   });
 
 const verifyEmail = (verificationCode, user, dispatch) =>
@@ -15,21 +16,21 @@ const verifyEmail = (verificationCode, user, dispatch) =>
     onFailure: error => dispatch(Action.emailVerificationFailed(user, error.message)),
   });
 
-
 const mapStateToProps = state => ({
   error: state.cognito.error,
   user: state.cognito.user,
 });
 
 const mapDispatchToProps = dispatch => ({
-  verify: (verificationCode, user) =>
+  verifyPartial: (verificationCode, user) =>
     verifyEmail(verificationCode, user, dispatch),
+  onCancel: () => dispatch(Action.logout()),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) =>
-  Object.assign({}, ownProps, stateProps, {
+  Object.assign({}, ownProps, stateProps, dispatchProps, {
     onSubmit: verificationCode =>
-     dispatchProps.verify(verificationCode, stateProps.user),
+     dispatchProps.verifyPartial(verificationCode, stateProps.user),
   });
 
 export const EmailVerification = connect(
