@@ -21,10 +21,11 @@ class UpdateEmailForm extends React.Component {
     const { store } = this.context;
     const state = store.getState();
     const user = state.cognito.user;
+    const config = state.cognito.config;
     event.preventDefault();
     updateAttributes(user, {
       email: this.state.email,
-    }).then(
+    }, config).then(
       (action) => {
         store.dispatch(action);
         this.setState({ error: 'email changed' });

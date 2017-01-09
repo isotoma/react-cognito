@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Action } from './actions';
-import { postLogin } from './utils';
+import { loginOrVerifyEmail } from './utils';
 
 const BaseNewPasswordRequired = props =>
   React.cloneElement(props.children, {
@@ -9,9 +9,9 @@ const BaseNewPasswordRequired = props =>
     onSubmit: props.onSubmit,
   });
 
-const setNewPassword = (password, user, userAttributes, dispatch) =>
+const setNewPassword = (password, user, config, userAttributes, dispatch) =>
   user.completeNewPasswordChallenge(password, userAttributes, {
-    onSuccess: () => postLogin(user).then(dispatch),
+    onSuccess: () => loginOrVerifyEmail(user, config).then(dispatch),
     onFailure: error => dispatch(Action.newPasswordRequiredFailure(user, error)),
     mfaRequired: () => dispatch(Action.mfaRequired(user)),
     newPasswordRequired: () => dispatch(Action.newPasswordRequired(user)),
@@ -20,6 +20,7 @@ const setNewPassword = (password, user, userAttributes, dispatch) =>
 const mapStateToProps = state => ({
   error: state.cognito.error,
   user: state.cognito.user,
+  config: state.cognito.config,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -30,7 +31,7 @@ const mapDispatchToProps = dispatch => ({
 const mergeProps = (stateProps, dispatchProps, ownProps) =>
   Object.assign({}, ownProps, stateProps, {
     onSubmit: (password, userAttributes) =>
-     dispatchProps.func(password, stateProps.user, userAttributes),
+     dispatchProps.func(password, stateProps.user, stateProps.config, userAttributes),
   });
 
 export const NewPasswordRequired = connect(

@@ -8,7 +8,7 @@ const initial = {
   state: CognitoState.LOGGED_OUT,
   error: '',
   userPool: null,
-  attributes: [],
+  attributes: {},
   config: {
     region: null,
     userPool: null,
