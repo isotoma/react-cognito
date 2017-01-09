@@ -24,14 +24,18 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  func: (password, user, userAttributes) =>
-    setNewPassword(password, user, userAttributes, dispatch),
+  setNewPasswordPartial: (password, user, config, userAttributes) =>
+    setNewPassword(password, user, config, userAttributes, dispatch),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) =>
   Object.assign({}, ownProps, stateProps, {
     onSubmit: (password, userAttributes) =>
-     dispatchProps.func(password, stateProps.user, stateProps.config, userAttributes),
+     dispatchProps.setNewPasswordPartial(
+      password,
+      stateProps.user,
+      stateProps.config,
+      userAttributes),
   });
 
 export const NewPasswordRequired = connect(

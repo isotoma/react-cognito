@@ -55,12 +55,14 @@ const emailVerificationFlow = (user, attributes) =>
     });
   });
 
+const emailVerificationIsMandatory = config =>
+  !(config && config.mandatoryEmailVerification === false);
+
 const loginOrVerifyEmail = (user, config) =>
   new Promise((resolve) => {
     // we default to mandatory
-    const mandatory = !(config && config.mandatoryEmailVerification === false);
     getUserAttributes(user).then((attributes) => {
-      if (mandatory && (attributes.email_verified !== 'true')) {
+      if (emailVerificationIsMandatory(config) && (attributes.email_verified !== 'true')) {
         resolve(emailVerificationFlow(user, attributes));
       } else {
         resolve(Action.login(user, attributes));
@@ -121,7 +123,7 @@ const updateAttributes = (user, attributes, config) =>
     user.updateAttributes(attributeList, (err) => {
       if (err) {
         reject(err.message);
-      } else if (config.mandatoryEmailVerification) {
+      } else if (emailVerificationIsMandatory(config)) {
         resolve(loginOrVerifyEmail(user, config));
       } else {
         resolve(Action.updateAttributes(attributes));
