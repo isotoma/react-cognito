@@ -33,26 +33,26 @@ Try it out
 Create a test user
 ~~~~~~~~~~~~~~~~~~
 
-1. Go to your user pool and go to "Users and groups"
-1. Click "create user"
-1. Complete the form:
- * Enter a username 
- * Enter a password that conforms to the rules of the user pool
- * Uncheck 'Mark phone number as verified?'
- * Uncheck 'Mark email as verified?'
- * Enter a valid email address
- * Click 'Create User'
+ 1. Go to your user pool and go to "Users and groups"
+ 1. Click "create user"
+ 1. Complete the form:
+  * Enter a username 
+  * Enter a password that conforms to the rules of the user pool
+  * Uncheck 'Mark phone number as verified?'
+  * Uncheck 'Mark email as verified?'
+  * Enter a valid email address
+  * Click 'Create User'
 
 First time login
 ~~~~~~~~~~~~~~~~
 
-1. Go to your deployed example application webserver
-1. You should see the login form
-1. Enter the username and password created above
-1. You should be asked for a new password, since this is your first login
-1. Enter a new password. It must conform to the rules of the user pool.
-1. You should then be taken to a verification code entry screen.  check your email and enter the code.
-1. You should now see the logged in screen, showing your attributes and giving you some options.
+ 1. Go to your deployed example application webserver
+ 1. You should see the login form
+ 1. Enter the username and password created above
+ 1. You should be asked for a new password, since this is your first login
+ 1. Enter a new password. It must conform to the rules of the user pool.
+ 1. You should then be taken to a verification code entry screen.  check your email and enter the code.
+ 1. You should now see the logged in screen, showing your attributes and giving you some options.
 
 Note that during this flow quitting and reloading the browser, then navigating back to this page, 
 will result in you returning to the correct step.
@@ -60,29 +60,29 @@ will result in you returning to the correct step.
 Logout and Login
 ~~~~~~~~~~~~~~~~
 
-1. Click 'log out'
-1. You should see the login form
-1. Login again using your username and the new password you chose above.
-1. You should be taken to the logged in screen
+ 1. Click 'log out'
+ 1. You should see the login form
+ 1. Login again using your username and the new password you chose above.
+ 1. You should be taken to the logged in screen
 
 Password changing
 ~~~~~~~~~~~~~~~~~
 
-1. Click 'Change password'
-1. Enter your existing password and a new password
-1. Click set new password
-1. you should see a message saying your password has been changed
-1. Click 'Home'
+ 1. Click 'Change password'
+ 1. Enter your existing password and a new password
+ 1. Click set new password
+ 1. you should see a message saying your password has been changed
+ 1. Click 'Home'
 
 Change email address
 ~~~~~~~~~~~~~~~~~~~~
 
-1. Click 'Change email address'
-2. You should see a form with your existing email address
-3. Enter a new valid email address
-4. You should be asked for a verification code.  Check your email for the code.
-5. Enter the code.
-6. You will be taken to the logged in screen.
+ 1. Click 'Change email address'
+ 2. You should see a form with your existing email address
+ 3. Enter a new valid email address
+ 4. You should be asked for a verification code.  Check your email for the code.
+ 5. Enter the code.
+ 6. You will be taken to the logged in screen.
 
 Note that you can also reload the page after step 4, or close your browser, and you will 
 be required to enter the verification code.
@@ -90,17 +90,17 @@ be required to enter the verification code.
 Password recovery
 ~~~~~~~~~~~~~~~~~
 
-1. Log out
-1. Click 'Password Reset'
-1. Enter your username
-1. Click 'send verification code'
-1. It should say 'verification code sent'
-1. Check your email and get the code
-1. enter the code and your new password
-1. Click 'set new password'
-1. It should say 'Password reset'
-1. Click 'Home'
-1. Log in with your new password
+ 1. Log out
+ 1. Click 'Password Reset'
+ 1. Enter your username
+ 1. Click 'send verification code'
+ 1. It should say 'verification code sent'
+ 1. Check your email and get the code
+ 1. enter the code and your new password
+ 1. Click 'set new password'
+ 1. It should say 'Password reset'
+ 1. Click 'Home'
+ 1. Log in with your new password
 
 
 Summary of use cases
@@ -118,6 +118,7 @@ Completed
 - UC4 Authenticating and establishing a session
 - UC5 Retrieving user attributes for an authenticated user
 - UC6 Verify email address for an authenticated user
+- UC8 Update a user attribute for an authenticated user
 - UC11 Change the current password for an authenticated user
 - UC12 Starting and completing a forgotten password flow for an unauthenticated user
 - UC14 Sign out
@@ -130,7 +131,6 @@ Planned for version 1, but not yet implemented
 
 - UC1 Registering a user with the application
 - UC7 Delete a user attribute for an authenticated user
-- UC8 Update a user attribute for an authenticated user
 
 Planned for version 1.1, but not yet implemented
 ------------------------------------------------
