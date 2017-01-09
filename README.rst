@@ -90,7 +90,17 @@ be required to enter the verification code.
 Password recovery
 ~~~~~~~~~~~~~~~~~
 
-
+1. Log out
+1. Click 'Password Reset'
+1. Enter your username
+1. Click 'send verification code'
+1. It should say 'verification code sent'
+1. Check your email and get the code
+1. enter the code and your new password
+1. Click 'set new password'
+1. It should say 'Password reset'
+1. Click 'Home'
+1. Log in with your new password
 
 
 Summary of use cases
