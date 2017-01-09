@@ -14,6 +14,7 @@ import App from './App';
 import Dashboard from './Dashboard';
 import ChangePasswordForm from './ChangePasswordForm';
 import ForgottenPasswordForm from './ForgottenPasswordForm';
+import UpdateEmailForm from './UpdateEmailForm';
 
 const reducers = combineReducers({
   cognito,
@@ -44,6 +45,13 @@ const changePassword = () => (
   </div>
 );
 
+const updateEmail = () => (
+  <div>
+    <UpdateEmailForm />
+    <Link to="/">Home</Link>
+  </div>
+);
+
 const forgottenPassword = () => (
   <ForgottenPassword>
     <ForgottenPasswordForm />
@@ -59,12 +67,17 @@ const render = () => {
           <Route
             path="/change_password"
             component={changePassword}
-            onEnter={guard({ loggedIn: true })}
+            onEnter={guard()}
           />
           <Route
             path="/forgotten_password"
             component={forgottenPassword}
             onEnter={guard({ loggedIn: false })}
+          />
+          <Route
+            path="/change_email"
+            component={updateEmail}
+            onEnter={guard()}
           />
         </Route>
       </Router>

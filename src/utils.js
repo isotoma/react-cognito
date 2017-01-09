@@ -99,7 +99,7 @@ const updateAttributes = (user, attributes) =>
     }));
     user.updateAttributes(attributeList, (err) => {
       if (err) {
-        reject(err);
+        reject(err.message);
       } else {
         resolve(Action.updateAttributes(attributes));
       }
