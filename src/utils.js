@@ -1,5 +1,5 @@
 
-import { CognitoIdentityCredentials } from 'aws-cognito-sdk';
+import { CognitoIdentityServiceProvider, CognitoIdentityCredentials } from 'aws-cognito-sdk';
 import { Action } from './actions';
 
 // could perhaps be done with an import, but I am uncertain
@@ -114,12 +114,35 @@ const performLogin = (user, config) =>
     }
   });
 
+const authenticate = (username, password, userPool, config) =>
+  new Promise((resolve) => {
+    const creds = new CognitoIdentityServiceProvider.AuthenticationDetails({
+      Username: username,
+      Password: password,
+    });
+
+    const user = new CognitoIdentityServiceProvider.CognitoUser({
+      Username: username,
+      Pool: userPool,
+    });
+
+    user.authenticateUser(creds, {
+      onSuccess: resolve(performLogin(user, config)),
+      onFailure: error => resolve(Action.loginFailure(user, error.message)),
+      mfaRequired: () => resolve(Action.mfaRequired(user)),
+      newPasswordRequired: () => resolve(Action.newPasswordRequired(user)),
+    });
+  });
+
+const mkAttrList = attributes =>
+  Object.keys(attributes).map(key => ({
+    Name: key,
+    Value: attributes[key],
+  }));
+
 const updateAttributes = (user, attributes, config) =>
   new Promise((resolve, reject) => {
-    const attributeList = Object.keys(attributes).map(key => ({
-      Name: key,
-      Value: attributes[key],
-    }));
+    const attributeList = mkAttrList(attributes);
     user.updateAttributes(attributeList, (err) => {
       if (err) {
         reject(err.message);
@@ -131,4 +154,23 @@ const updateAttributes = (user, attributes, config) =>
     });
   });
 
-export { changePassword, loginOrVerifyEmail, performLogin, updateAttributes };
+const registerUser = (userPool, config, username, password, attributes) =>
+  new Promise((resolve, reject) =>
+    userPool.signUp(username, password, mkAttrList(attributes), null,
+      (err, result) => {
+        if (err) {
+          reject(err.message);
+        } else {
+          resolve(authenticate(result.user.getUsername(), password, userPool, config));
+        }
+      }));
+
+export {
+  sendAttributeVerificationCode,
+  authenticate,
+  registerUser,
+  changePassword,
+  loginOrVerifyEmail,
+  performLogin,
+  updateAttributes,
+};

@@ -17,7 +17,7 @@
     "react"
   ],
   "options": {
-    "mocha": "--require scripts/mocha_runner src/**/__tests__/**/*.jsx"
+    "mocha": "--require scripts/mocha_runner src/**/__tests__/**/*.js*"
   },
   "scripts": {
     "prepublish": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ --out-dir ./dist",
