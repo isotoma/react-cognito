@@ -1,10 +1,13 @@
-export * from './Login.jsx';
-export * from './Logout.jsx';
-export * from './NewPasswordRequired.jsx';
-export * from './EmailVerification.jsx';
-export * from './ForgottenPassword.jsx';
 export * from './reducers';
 export * from './actions';
 export * from './states';
 export * from './utils';
 export * from './guard';
+
+
+export * from './Login.jsx';
+export * from './Logout.jsx';
+export * from './NewPasswordRequired.jsx';
+export * from './EmailVerification.jsx';
+export * from './ForgottenPassword.jsx';
+export * from './Confirm.jsx';

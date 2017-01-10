@@ -114,6 +114,28 @@ const performLogin = (user, config) =>
     }
   });
 
+/**
+ *
+ * Authenticates with a user pool, and handles responses.
+ *
+ * if the authentication is successful it then logs in to the
+ * identity pool.
+ *
+ * returns an action depending on the outcome.  Possible actions returned
+ * are:
+ *
+ * - login - valid user who is logged in
+ * - loginFailure - failed to authenticate with user pool or identity pool
+ * - mfaRequired - user now needs to enter MFA
+ * - newPasswordRequired - user must change password on first login
+ * - emailVerificationRequired - user must verify their email address
+ * - emailVerificationFailed - email verification is required, but won't work
+ *
+ * Dispatch the resulting action, e.g.:
+ *
+ *   authenticate(...).then(dispatch);
+ *
+*/
 const authenticate = (username, password, userPool, config) =>
   new Promise((resolve) => {
     const creds = new CognitoIdentityServiceProvider.AuthenticationDetails({
@@ -127,8 +149,14 @@ const authenticate = (username, password, userPool, config) =>
     });
 
     user.authenticateUser(creds, {
-      onSuccess: resolve(performLogin(user, config)),
-      onFailure: error => resolve(Action.loginFailure(user, error.message)),
+      onSuccess: () => resolve(performLogin(user, config)),
+      onFailure: (error) => {
+        if (error.code === 'UserNotConfirmedException') {
+          resolve(Action.confirmationRequired(user));
+        } else {
+          resolve(Action.loginFailure(user, error.message));
+        }
+      },
       mfaRequired: () => resolve(Action.mfaRequired(user)),
       newPasswordRequired: () => resolve(Action.newPasswordRequired(user)),
     });
@@ -156,14 +184,15 @@ const updateAttributes = (user, attributes, config) =>
 
 const registerUser = (userPool, config, username, password, attributes) =>
   new Promise((resolve, reject) =>
-    userPool.signUp(username, password, mkAttrList(attributes), null,
-      (err, result) => {
-        if (err) {
-          reject(err.message);
-        } else {
-          resolve(authenticate(result.user.getUsername(), password, userPool, config));
-        }
-      }));
+    userPool.signUp(username, password, mkAttrList(attributes), null, (err, result) => {
+      if (err) {
+        reject(err.message);
+      } else if (result.userConfirmed === false) {
+        resolve(Action.confirmationRequired(result.user));
+      } else {
+        resolve(authenticate(username, password, userPool, config));
+      }
+    }));
 
 export {
   sendAttributeVerificationCode,

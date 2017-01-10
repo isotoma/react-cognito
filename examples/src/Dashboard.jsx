@@ -7,11 +7,13 @@ import {
   Login,
   NewPasswordRequired,
   EmailVerification,
+  Confirm,
 } from 'react-cognito';
 import LogoutButton from './LogoutButton';
 import LoginForm from './LoginForm';
 import EmailVerificationForm from './EmailVerificationForm';
 import NewPasswordRequiredForm from './NewPasswordRequiredForm';
+import ConfirmForm from './ConfirmForm';
 
 const loggedInPage = (user, attributes) => (
   <div>
@@ -53,7 +55,10 @@ const loggedOutPage = () => (
     <Login>
       <LoginForm />
     </Login>
-    <Link to="/forgotten_password">Password reset</Link>
+    <ul>
+      <li><Link to="/register">Register</Link></li>
+      <li><Link to="/forgotten_password">Password reset</Link></li>
+    </ul>
   </div>
 );
 
@@ -75,6 +80,17 @@ const emailVerificationPage = () => (
   </div>
 );
 
+const confirmForm = () => (
+  <div>
+    <p>A confirmation code has been sent to your email address</p>
+    <Confirm>
+      <ConfirmForm />
+    </Confirm>
+    <Link to="/">Home</Link>
+  </div>
+);
+
+
 const BaseDashboard = ({ state, user, attributes }) => {
   switch (state) {
     case CognitoState.LOGGED_IN:
@@ -86,6 +102,8 @@ const BaseDashboard = ({ state, user, attributes }) => {
       return newPasswordPage();
     case CognitoState.EMAIL_VERIFICATION_REQUIRED:
       return emailVerificationPage();
+    case CognitoState.CONFIRMATION_REQUIRED:
+      return confirmForm();
     default:
       return (
         <div>

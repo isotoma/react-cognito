@@ -120,6 +120,11 @@ export const cognito = (state = initial, action) => {
         attributes: Object.assign({}, state.attributes, action.attributes),
       });
 
+    case 'COGNITO_USER_UNCONFIRMED':
+      return Object.assign({}, state, {
+        user: action.user,
+        state: CognitoState.CONFIRMATION_REQUIRED,
+      });
     default:
       return state;
   }

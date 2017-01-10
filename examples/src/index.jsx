@@ -15,6 +15,7 @@ import Dashboard from './Dashboard';
 import ChangePasswordForm from './ChangePasswordForm';
 import ForgottenPasswordForm from './ForgottenPasswordForm';
 import UpdateEmailForm from './UpdateEmailForm';
+import RegisterForm from './RegisterForm';
 
 const reducers = combineReducers({
   cognito,
@@ -58,6 +59,14 @@ const forgottenPassword = () => (
   </ForgottenPassword>
 );
 
+const registerForm = () => (
+  <div>
+    <p>Complete this form</p>
+    <RegisterForm />
+    <Link to="/">Home</Link>
+  </div>
+);
+
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
@@ -78,6 +87,11 @@ const render = () => {
             path="/change_email"
             component={updateEmail}
             onEnter={guard()}
+          />
+          <Route
+            path="/register"
+            component={registerForm}
+            onEnter={guard({ loggedIn: false })}
           />
         </Route>
       </Router>

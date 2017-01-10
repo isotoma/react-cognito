@@ -2,7 +2,13 @@
 	"folders":
 	[
 		{
-			"path": "."
+			"path": "src"
+		},
+		{
+			"path": "examples/src"
+		},
+		{
+			"path": "webpack"
 		}
 	]
 }

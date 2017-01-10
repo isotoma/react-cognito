@@ -1,8 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { CognitoIdentityServiceProvider } from 'aws-cognito-sdk';
-import { Action } from './actions';
-import { performLogin } from './utils';
+import { authenticate } from './utils';
 
 /* global AWSCognito */
 
@@ -12,29 +10,6 @@ const BaseLogin = props =>
     error: props.error,
     onSubmit: props.onSubmit,
   });
-
-const authenticate = (username, password, userPool, config, dispatch) => {
-  const creds = new CognitoIdentityServiceProvider.AuthenticationDetails({
-    Username: username,
-    Password: password,
-  });
-
-  const user = new CognitoIdentityServiceProvider.CognitoUser({
-    Username: username,
-    Pool: userPool,
-  });
-
-  const onSuccess = () => {
-    performLogin(user, config).then(dispatch);
-  };
-
-  user.authenticateUser(creds, {
-    onSuccess,
-    onFailure: error => dispatch(Action.loginFailure(user, error.message)),
-    mfaRequired: () => dispatch(Action.mfaRequired(user)),
-    newPasswordRequired: () => dispatch(Action.newPasswordRequired(user)),
-  });
-};
 
 const mapStateToProps = (state) => {
   let username = '';
@@ -51,7 +26,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => ({
   authenticator: (username, password, userPool, config) => {
-    authenticate(username, password, userPool, config, dispatch);
+    authenticate(username, password, userPool, config).then(dispatch);
   },
 });
 

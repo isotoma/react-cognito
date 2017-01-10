@@ -15,7 +15,7 @@ global.navigator = {
     userAgent: 'node.js'
 };
 
-documentRef = document;
+// documentRef = document;
 
 require('babel-core/register');
 require('babel-polyfill');

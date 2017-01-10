@@ -67,6 +67,11 @@ const Action = {
     attributes,
   }),
 
+  confirmationRequired: user => ({
+    type: 'COGNITO_USER_UNCONFIRMED',
+    user,
+  }),
+
 };
 
 export { Action };
