@@ -90,6 +90,11 @@ const confirmForm = () => (
   </div>
 );
 
+const mfaPage = () => (
+  <div>
+    <p>You need to enter an MFA, but this library does not yet support them.</p>
+  </div>
+);
 
 const BaseDashboard = ({ state, user, attributes }) => {
   switch (state) {
@@ -98,6 +103,8 @@ const BaseDashboard = ({ state, user, attributes }) => {
     case CognitoState.LOGGED_OUT:
     case CognitoState.LOGIN_FAILURE:
       return loggedOutPage();
+    case CognitoState.MFA_REQUIRED:
+      return mfaPage();
     case CognitoState.NEW_PASSWORD_REQUIRED:
       return newPasswordPage();
     case CognitoState.EMAIL_VERIFICATION_REQUIRED:
