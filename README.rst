@@ -130,6 +130,9 @@ This is the current status of each use case in react-cognito:
 Completed
 ---------
 
+- UC1 Registering a user with the application
+- UC2 Confirming a registered, unauthenticated user
+- UC3 Resending a confirmation code via SMS
 - UC4 Authenticating and establishing a session
 - UC5 Retrieving user attributes for an authenticated user
 - UC6 Verify email address for an authenticated user
@@ -144,14 +147,7 @@ Completed
 Planned for version 1, but not yet implemented
 ----------------------------------------------
 
-- UC1 Registering a user with the application
 - UC7 Delete a user attribute for an authenticated user
-
-Planned for version 1.1, but not yet implemented
-------------------------------------------------
-
-- UC2 Confirming a registered, unauthenticated user
-- UC3 Resending a confirmation code via SMS
 - UC24 Retrieve the MFA options for the user in case MFA is optional
 
 Not planned for version 1

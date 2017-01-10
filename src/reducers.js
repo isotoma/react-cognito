@@ -124,6 +124,7 @@ export const cognito = (state = initial, action) => {
       return Object.assign({}, state, {
         user: action.user,
         state: CognitoState.CONFIRMATION_REQUIRED,
+        error: action.error,
       });
     default:
       return state;

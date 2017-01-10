@@ -27,13 +27,16 @@ class ConfirmForm extends React.Component {
         <input placeholder="code" onChange={this.changeVerificationCode} required />
       </label>
       <button type="submit">Submit</button>
+      <button type="button" onClick={this.props.onResend}>Resend code</button>
       <button type="button" onClick={this.props.onCancel}>Cancel</button>
+
     </form>
   )
 }
 ConfirmForm.propTypes = {
   onSubmit: PropTypes.func,
   onCancel: PropTypes.func,
+  onResend: PropTypes.func,
   error: PropTypes.string,
 };
 

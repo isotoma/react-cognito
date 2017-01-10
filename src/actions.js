@@ -67,9 +67,10 @@ const Action = {
     attributes,
   }),
 
-  confirmationRequired: user => ({
+  confirmationRequired: (user, error) => ({
     type: 'COGNITO_USER_UNCONFIRMED',
     user,
+    error,
   }),
 
 };
