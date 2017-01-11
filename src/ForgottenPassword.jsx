@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { CognitoIdentityServiceProvider } from 'aws-cognito-sdk';
+import { CognitoUser } from 'amazon-cognito-identity-js';
 import { Action } from './actions';
 
 const BaseForgottenPassword = props =>
@@ -19,7 +19,7 @@ const setPassword = (user, code, password) =>
     }));
 
 const getUser = (username, userPool) => {
-  const user = new CognitoIdentityServiceProvider.CognitoUser({
+  const user = new CognitoUser({
     Username: username,
     Pool: userPool,
   });

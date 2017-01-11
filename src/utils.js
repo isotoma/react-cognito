@@ -1,5 +1,6 @@
 
-import { CognitoIdentityServiceProvider, CognitoIdentityCredentials } from 'aws-cognito-sdk';
+import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
+import { CognitoIdentityCredentials } from 'aws-cognito-sdk';
 import { Action } from './actions';
 
 // could perhaps be done with an import, but I am uncertain
@@ -138,12 +139,12 @@ const performLogin = (user, config) =>
 */
 const authenticate = (username, password, userPool, config) =>
   new Promise((resolve) => {
-    const creds = new CognitoIdentityServiceProvider.AuthenticationDetails({
+    const creds = new AuthenticationDetails({
       Username: username,
       Password: password,
     });
 
-    const user = new CognitoIdentityServiceProvider.CognitoUser({
+    const user = new CognitoUser({
       Username: username,
       Pool: userPool,
     });
