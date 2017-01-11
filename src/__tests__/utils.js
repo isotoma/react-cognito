@@ -14,7 +14,7 @@ sinon.stub(CognitoUser.prototype, 'authenticateUser', (creds, f) => {
       f.onSuccess();
       break;
     case 'failure-bad-creds':
-      f.onFailure({ code: 'failed' });
+      f.onFailure({ code: 'NotAuthorizedException' });
       break;
     case 'failure-not-confirmed':
       f.onFailure({ code: 'UserNotConfirmedException' });
@@ -45,12 +45,18 @@ describe('authenticate', () => {
   const a = username => authenticate(username, '', pool, {});
   it('should return a loginFailure action for failed passwords', () =>
     expect(a('failure-bad-creds'))
-      .to.eventually.have.property('type')
-      .to.equal('COGNITO_LOGIN_FAILURE'),
-  );
+    .to.eventually.have.property('type')
+    .to.equal('COGNITO_LOGIN_FAILURE'));
   it('should return a confirmationRequired action when not confirmed', () =>
     expect(a('failure-not-confirmed'))
-      .to.eventually.have.property('type')
-      .to.equal('COGNITO_USER_UNCONFIRMED'),
-  );
+    .to.eventually.have.property('type')
+    .to.equal('COGNITO_USER_UNCONFIRMED'));
+  it('should return an mfaRequired action when MFA is required', () =>
+    expect(a('mfa'))
+    .to.eventually.have.property('type')
+    .to.equal('COGNITO_LOGIN_MFA_REQUIRED'));
+  it('should return newPasswordRequired action when new password is required', () =>
+    expect(a('newpass'))
+    .to.eventually.have.property('type')
+    .to.equal('COGNITO_LOGIN_NEW_PASSWORD_REQUIRED'));
 });
