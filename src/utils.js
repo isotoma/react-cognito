@@ -3,8 +3,12 @@ import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import { CognitoIdentityCredentials } from 'aws-cognito-sdk';
 import { Action } from './actions';
 
-// could perhaps be done with an import, but I am uncertain
-/* global AWSCognito */
+/**
+ * Change a user's password
+ * @param {object} user - the cognito user object
+ * @param {string} oldPassword - the current password
+ * @param {string} newPassword - the new password
+*/
 const changePassword = (user, oldPassword, newPassword) =>
   new Promise((resolve, reject) =>
     user.changePassword(oldPassword, newPassword, (err, result) => {
@@ -15,6 +19,12 @@ const changePassword = (user, oldPassword, newPassword) =>
       }
     }));
 
+/**
+ * Request that a verification code is sent by email or SMS to verify
+ * an attribute
+ * @param {object} user - the cognito user object
+ * @param {string} attribute - the attribute name
+*/
 const sendAttributeVerificationCode = (user, attribute) =>
   new Promise((resolve, reject) => {
     user.getAttributeVerificationCode(attribute, {
@@ -24,6 +34,12 @@ const sendAttributeVerificationCode = (user, attribute) =>
     });
   });
 
+/**
+ * Fetches the user attributes from Cognito, and turns them into
+ * an object
+ * @param {object} user - the cognito user object
+ * @returns {Promise<object|string>} resolves with the attributes or rejects with an error message
+*/
 const getUserAttributes = user =>
   new Promise((resolve, reject) =>
     user.getUserAttributes((error, result) => {

@@ -8,7 +8,7 @@ import {
   emailVerificationIsMandatory,
   sendAttributeVerificationCode,
   authenticate,
-} from '../utils';
+} from '../src/utils';
 
 chai.use(chaiAsPromised);
 const expect = chai.expect;
