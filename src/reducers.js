@@ -9,6 +9,7 @@ const initial = {
   error: '',
   userPool: null,
   attributes: {},
+  creds: null,
   config: {
     region: null,
     userPool: null,
@@ -54,10 +55,23 @@ export const cognito = (state = initial, action) => {
     case 'COGNITO_CONFIGURE':
       return configure(state, action);
 
-    case 'COGNITO_LOGIN':
-      return Object.assign({}, state, addAttributes({
+    case 'COGNITO_AUTHENTICATED':
+      return Object.assign({}, state, {
         user: action.user,
         error: '',
+        state: CognitoState.AUTHENTICATED,
+      });
+
+    case 'COGNITO_LOGGING_IN':
+      return Object.assign({}, state, {
+        state: CognitoState.LOGGING_IN,
+        attributes: action.attributes,
+      });
+
+    case 'COGNITO_LOGIN':
+      return Object.assign({}, state, addAttributes({
+        error: '',
+        creds: action.creds,
         state: CognitoState.LOGGED_IN,
       }, action.attributes));
 
@@ -65,6 +79,7 @@ export const cognito = (state = initial, action) => {
       return Object.assign({}, state, {
         user: null,
         error: '',
+        creds: null,
         state: CognitoState.LOGGED_OUT,
       });
 

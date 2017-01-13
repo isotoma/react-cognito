@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { authenticate } from './utils';
+import { authenticate } from './auth';
 
 /* global AWSCognito */
 

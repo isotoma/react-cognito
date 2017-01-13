@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import { Router, Link, Route, IndexRoute, browserHistory } from 'react-router';
 import {
   cognito,
-  Action,
   createGuard,
   ForgottenPassword,
   performLogin,
+  setupCognito,
 } from 'react-cognito';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers } from 'redux';
@@ -26,12 +26,12 @@ const store = createStore(
   // eslint-disable-next-line no-underscore-dangle
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-store.dispatch(Action.configure({
+setupCognito(store, {
   region: 'eu-west-1',
   userPool: 'eu-west-1_4bpnxxQKX',
   identityPool: 'eu-west-1:3e151c70-ad45-4e36-8b87-f0125da6c13e',
   clientId: '7oc1qboh1jldlrd929ksv7cgta',
-}));
+});
 
 // this attempts to retrieve the user from local storage and establish
 // a new session for them

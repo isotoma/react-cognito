@@ -6,10 +6,19 @@ const Action = {
     config,
   }),
 
-  login: (user, attributes) => ({
-    type: 'COGNITO_LOGIN',
+  authenticated: user => ({
+    type: 'COGNITO_AUTHENTICATED',
     user,
+  }),
+
+  loggingIn: attributes => ({
+    type: 'COGNITO_LOGGING_IN',
     attributes,
+  }),
+
+  login: creds => ({
+    type: 'COGNITO_LOGIN',
+    creds,
   }),
 
   logout: () => ({
@@ -38,15 +47,13 @@ const Action = {
     error,
   }),
 
-  emailVerificationRequired: (user, attributes) => ({
+  emailVerificationRequired: attributes => ({
     type: 'COGNITO_EMAIL_VERIFICATION_REQUIRED',
-    user,
     attributes,
   }),
 
-  emailVerificationFailed: (user, error, attributes) => ({
+  emailVerificationFailed: (error, attributes) => ({
     type: 'COGNITO_EMAIL_VERIFICATION_FAILED',
-    user,
     error,
     attributes,
   }),

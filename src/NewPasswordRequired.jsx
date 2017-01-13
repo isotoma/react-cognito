@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Action } from './actions';
-import { loginOrVerifyEmail } from './utils';
 
 const BaseNewPasswordRequired = props =>
   React.cloneElement(props.children, {
@@ -11,8 +10,8 @@ const BaseNewPasswordRequired = props =>
 
 const setNewPassword = (password, user, config, userAttributes, dispatch) =>
   user.completeNewPasswordChallenge(password, userAttributes, {
-    onSuccess: () => loginOrVerifyEmail(user, config).then(dispatch),
-    onFailure: error => dispatch(Action.newPasswordRequiredFailure(user, error)),
+    onSuccess: () => dispatch(Action.authenticated(user)),
+    onFailure: error => dispatch(Action.newPasswordRequiredFailure(user, error.message)),
     mfaRequired: () => dispatch(Action.mfaRequired(user)),
     newPasswordRequired: () => dispatch(Action.newPasswordRequired(user)),
   });

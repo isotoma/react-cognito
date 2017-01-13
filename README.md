@@ -152,3 +152,29 @@ This is the current status of each use case in react-cognito:
 
 - Review how visual transitions should be integrated into e.g. logging in
 - Consider offline / liefi use
+
+# The Redux Model
+
+## State Machine
+
+Users start in state `LOGGED_OUT`.
+
+When they enter a username and password we call `authenticateUser` on the CognitoUser
+object and transition to a new state if the credentials worked:
+
+- `MFA_REQUIRED`
+- `NEW_PASSWORD_REQUIRED`
+- `CONFIRMATION_REQUIRED`
+- `AUTHENTICATED`
+
+If in `AUTHENTICATED` then a transition happens using a store subscriber. There are
+three options:
+
+1. no-verification - the state transitions directly to LOGGING_IN
+2. fetch-attributes - attributes are fetched then transitions to LOGGING_IN
+3. verify-email - the attributes are fetched and email_verified checked, then 
+   transitions to LOGGING_IN or EMAIL_VERIFICATION_REQUIRED.
+
+From LOGGING_IN default behaviour is to get a session (using `CognitoUser.getSession`) from which we can get an auth token, then establishing a session with a Federated Identity Pool.
+
+If all of that succeeds we transition to 'LOGGED_IN'.

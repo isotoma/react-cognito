@@ -100,6 +100,8 @@ const BaseDashboard = ({ state, user, attributes }) => {
   switch (state) {
     case CognitoState.LOGGED_IN:
       return loggedInPage(user, attributes);
+    case CognitoState.AUTHENTICATED:
+    case CognitoStte.LOGGING_IN:
     case CognitoState.LOGGED_OUT:
     case CognitoState.LOGIN_FAILURE:
       return loggedOutPage();
@@ -114,7 +116,7 @@ const BaseDashboard = ({ state, user, attributes }) => {
     default:
       return (
         <div>
-          <p>errol</p>
+          <p>Unrecognised cognito state</p>
         </div>
       );
   }
