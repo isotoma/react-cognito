@@ -1,6 +1,5 @@
-
+  
 import { Action } from './actions';
-import { loginOrVerifyEmail, emailVerificationIsMandatory } from './auth';
 
 /**
  * Request that a verification code is sent by email or SMS to verify
@@ -52,8 +51,6 @@ const updateAttributes = (user, attributes, config) =>
     user.updateAttributes(attributeList, (err) => {
       if (err) {
         reject(err.message);
-      } else if (emailVerificationIsMandatory(config)) {
-        resolve(loginOrVerifyEmail(user, config));
       } else {
         resolve(Action.updateAttributes(attributes));
       }

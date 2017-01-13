@@ -142,6 +142,7 @@ export const cognito = (state = initial, action) => {
     case 'COGNITO_UPDATE_USER_ATTRIBUTES':
       return Object.assign({}, state, {
         attributes: Object.assign({}, state.attributes, action.attributes),
+        state: CognitoState.AUTHENTICATED,
       });
 
     default:
