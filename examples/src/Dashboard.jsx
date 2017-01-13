@@ -101,7 +101,7 @@ const BaseDashboard = ({ state, user, attributes }) => {
     case CognitoState.LOGGED_IN:
       return loggedInPage(user, attributes);
     case CognitoState.AUTHENTICATED:
-    case CognitoStte.LOGGING_IN:
+    case CognitoState.LOGGING_IN:
     case CognitoState.LOGGED_OUT:
     case CognitoState.LOGIN_FAILURE:
       return loggedOutPage();

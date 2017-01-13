@@ -1,12 +1,8 @@
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import { CognitoIdentityCredentials } from 'aws-cognito-sdk';
 import { Action } from './actions';
-import {
-  mkAttrList,
-  sendAttributeVerificationCode,
-  buildLogins,
-} from './utils';
-
+import { mkAttrList, sendAttributeVerificationCode } from './attributes';
+import { buildLogins } from './utils';
 
 const emailVerificationFlow = (user, attributes) =>
   new Promise(resolve =>

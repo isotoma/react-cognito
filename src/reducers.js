@@ -104,30 +104,33 @@ export const cognito = (state = initial, action) => {
         state: CognitoState.NEW_PASSWORD_REQUIRED,
       });
 
-    case 'COGNITO_NEW_PASSWORD_REQUIRED_FAILURE':
+    case 'COGNITO_USER_UNCONFIRMED':
       return Object.assign({}, state, {
         user: action.user,
+        state: CognitoState.CONFIRMATION_REQUIRED,
+        error: action.error,
+      });
+
+    case 'COGNITO_NEW_PASSWORD_REQUIRED_FAILURE':
+      return Object.assign({}, state, {
         error: action.error,
         state: CognitoState.NEW_PASSWORD_REQUIRED,
       });
 
     case 'COGNITO_EMAIL_VERIFICATION_REQUIRED':
       return Object.assign({}, state, addAttributes({
-        user: action.user,
         error: '',
         state: CognitoState.EMAIL_VERIFICATION_REQUIRED,
       }, action.attributes));
 
     case 'COGNITO_EMAIL_VERIFICATION_FAILED':
       return Object.assign({}, state, addAttributes({
-        user: action.user,
         error: action.error,
         state: CognitoState.EMAIL_VERIFICATION_REQUIRED,
       }, action.attributes));
 
     case 'COGNITO_BEGIN_FORGOTTEN_PASSWORD_FLOW':
       return Object.assign({}, state, {
-        user: action.user,
         error: action.error,
       });
 
@@ -141,12 +144,6 @@ export const cognito = (state = initial, action) => {
         attributes: Object.assign({}, state.attributes, action.attributes),
       });
 
-    case 'COGNITO_USER_UNCONFIRMED':
-      return Object.assign({}, state, {
-        user: action.user,
-        state: CognitoState.CONFIRMATION_REQUIRED,
-        error: action.error,
-      });
     default:
       return state;
   }
