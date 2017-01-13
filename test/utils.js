@@ -85,7 +85,9 @@ sinon.stub(CognitoUser.prototype, 'authenticateUser', (creds, f) => {
   }
 });
 
+/** @test {sendAttributeVerificationCode} */
 describe('sendAttributeVerificationCode', () => {
+  /** @test {sendAttributeVerificationCode#test success} */
   it('should return false on success', () => {
     const u = {
       getAttributeVerificationCode: (a, f) => f.onSuccess(),

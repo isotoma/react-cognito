@@ -38,6 +38,12 @@ const guard = (store, forbiddenUrl, expr = {}, routeState, replace, callback) =>
   });
 };
 
+/**
+ * creates a guard function you can use in <Route> tags
+ * @param {object} store - the redux store
+ * @param {string} forbiddenUrl - the default url to navigate to if forbidden
+ * @returns {function} - a function that can be provided to onEnter
+*/
 const createGuard = (store, forbiddenUrl) => expr => (state, replace, callback) =>
   guard(store, forbiddenUrl, expr, state, replace, callback);
 

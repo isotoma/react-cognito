@@ -38,7 +38,7 @@ const sendAttributeVerificationCode = (user, attribute) =>
  * Fetches the user attributes from Cognito, and turns them into
  * an object
  * @param {object} user - the cognito user object
- * @returns {Promise<object|string>} resolves with the attributes or rejects with an error message
+ * @returns {Promise} resolves with the attributes or rejects with an error message
 */
 const getUserAttributes = user =>
   new Promise((resolve, reject) =>

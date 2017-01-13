@@ -17,7 +17,7 @@
     "react"
   ],
   "options": {
-    "mocha": "--require scripts/mocha_runner src/__tests__/*.js"
+    "mocha": "--require scripts/mocha_runner test/*.js"
   },
   "scripts": {
     "prepublish": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ --out-dir ./dist",
@@ -28,7 +28,7 @@
     "test": "npm run lint && npm run testonly",
     "test-watch": "npm run testonly -- --watch --watch-extensions js",
     "examples": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ examples/src --out-file examples/dist/bundle.js",
-    "doc": "jsdoc -c .jsdoc.conf -d docs src/*.js src/*.jsx"
+    "doc": "esdoc"
   },
   "devDependencies": {
     "amazon-cognito-identity-js": "git+https://github.com/aws/amazon-cognito-identity-js.git",
@@ -46,6 +46,7 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
     "enzyme": "^2.2.0",
+    "esdoc": "^0.5.2",
     "eslint": "^3.12.2",
     "eslint-config-airbnb": "^13.0.0",
     "eslint-import-resolver-webpack": "^0.8.0",
@@ -55,7 +56,6 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.8.0",
     "extract-text-webpack-plugin": "^1.0.1",
-    "jsdoc": "^3.4.3",
     "jsdom": "^9.9.1",
     "json-loader": "^0.5.4",
     "karma-webpack": "^1.8.1",

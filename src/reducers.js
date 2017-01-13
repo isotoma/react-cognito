@@ -42,6 +42,12 @@ const addAttributes = (s, attributes) => {
   return s2;
 };
 
+/**
+ * reducer function to be passed to redux combineReducers
+ * @param {object} state
+ * @param {object} action
+*/
+
 export const cognito = (state = initial, action) => {
   switch (action.type) {
 

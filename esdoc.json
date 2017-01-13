@@ -1,0 +1,11 @@
+{
+    "source": "./src",
+    "destination": "./doc",
+    "index": "./README.md",
+    "package": "./package.json",
+    "title": "ESDoc",
+    "test": {
+        "type": "mocha",
+        "source": "./test"
+    }
+}
