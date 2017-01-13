@@ -20,9 +20,9 @@ const baseConfig = {
   externals: undefined,
 
   module: {
-    preLoaders: [
-      {test: /\.jsx?$/, exclude: /node_modules/, loader: 'eslint-loader'}
-    ],
+    //preLoaders: [
+      //{test: /\.jsx?$/, exclude: /node_modules/, loader: 'eslint-loader'}
+    //],
     loaders: [
       { test: /\.js/, loader: jsLoader, exclude: /node_modules/ }
     ],

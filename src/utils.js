@@ -25,7 +25,7 @@ const sendAttributeVerificationCode = (user, attribute) =>
   });
 
 const getUserAttributes = user =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve, reject) =>
     user.getUserAttributes((error, result) => {
       if (error) {
         reject(error.message);
@@ -38,11 +38,11 @@ const getUserAttributes = user =>
         }
         resolve(attributes);
       }
-    });
-  });
+    }),
+  );
 
 const emailVerificationFlow = (user, attributes) =>
-  new Promise((resolve) => {
+  new Promise(resolve =>
     sendAttributeVerificationCode(user, 'email').then((required) => {
       if (required) {
         resolve(Action.emailVerificationRequired(user, attributes));
@@ -53,25 +53,23 @@ const emailVerificationFlow = (user, attributes) =>
     }, (error) => {
       // some odd classes of error here
       resolve(Action.emailVerificationFailed(user, error, attributes));
-    });
-  });
+    }));
 
 const emailVerificationIsMandatory = config =>
   !(config && config.mandatoryEmailVerification === false);
 
 const loginOrVerifyEmail = (user, config) =>
-  new Promise((resolve) => {
-    // we default to mandatory
+  new Promise(resolve =>
     getUserAttributes(user).then((attributes) => {
       if (emailVerificationIsMandatory(config) && (attributes.email_verified !== 'true')) {
         resolve(emailVerificationFlow(user, attributes));
       } else {
         resolve(Action.login(user, attributes));
       }
-    });
-  });
+    }));
 
-const buildIdentityCredentials = (username, jwtToken, config) => {
+
+const buildLogins = (username, jwtToken, config) => {
   const loginDomain = `cognito-idp.${config.region}.amazonaws.com`;
   const loginUrl = `${loginDomain}/${config.userPool}`;
   const creds = {
@@ -85,9 +83,9 @@ const buildIdentityCredentials = (username, jwtToken, config) => {
 
 const refreshIdentityCredentials = (username, jwtToken, config) =>
   new Promise((resolve, reject) => {
-    const creds = buildIdentityCredentials(username, jwtToken, config);
-    AWSCognito.config.credentials = new CognitoIdentityCredentials(creds);
-    AWSCognito.config.credentials.refresh((error) => {
+    const logins = buildLogins(username, jwtToken, config);
+    const creds = new CognitoIdentityCredentials(logins);
+    creds.refresh((error) => {
       if (error) {
         reject(error.message);
       } else {
@@ -106,7 +104,7 @@ const performLogin = (user, config) =>
           const jwtToken = session.getIdToken().getJwtToken();
           const username = user.getUsername();
           refreshIdentityCredentials(username, jwtToken, config).then(
-            () => resolve(loginOrVerifyEmail(user, config)),
+            () => loginOrVerifyEmail(user, config).then(resolve),
             message => resolve(Action.loginFailure(user, message)));
         }
       });
@@ -150,7 +148,7 @@ const authenticate = (username, password, userPool, config) =>
     });
 
     user.authenticateUser(creds, {
-      onSuccess: () => resolve(performLogin(user, config)),
+      onSuccess: () => performLogin(user, config).then(resolve),
       onFailure: (error) => {
         if (error.code === 'UserNotConfirmedException') {
           resolve(Action.confirmationRequired(user));
@@ -196,6 +194,7 @@ const registerUser = (userPool, config, username, password, attributes) =>
     }));
 
 export {
+  emailVerificationIsMandatory,
   sendAttributeVerificationCode,
   authenticate,
   registerUser,

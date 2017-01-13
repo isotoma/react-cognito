@@ -2,8 +2,7 @@
 // for reasons best know the the AWS dev team
 
 window = {}
-//require('aws-cognito-sdk-real');
-require("./node_modules/amazon-cognito-identity-js/dist/aws-cognito-sdk.js");
+require('aws-cognito-sdk-real');
 Object.keys(window.AWSCognito).forEach(key => {
   exports[key] = window.AWSCognito[key];
 });

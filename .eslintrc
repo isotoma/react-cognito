@@ -20,6 +20,8 @@
     "extends": ["airbnb"],
     "rules": {
         "no-empty": ["error", { "allowEmptyCatch": true }],
+        "consistent-return": 0,
+        "no-else-return": 0,
         "import/no-extraneous-dependencies": 0,
         "import/no-unresolved": ["error", { "ignore": ["gojs"] }],
         "react/forbid-prop-types": 0,
