@@ -4,6 +4,12 @@ import { Action } from './actions';
 import { mkAttrList, sendAttributeVerificationCode } from './attributes';
 import { buildLogins } from './utils';
 
+/**
+ * sends the email verification code and transitions to the correct state
+ * @param {object} user - the CognitoUser object
+ * @param {object} attributes - the attributes dictionary
+ * @return {Promise<object>} a promise that resolves to a redux action
+*/
 const emailVerificationFlow = (user, attributes) =>
   new Promise(resolve =>
     sendAttributeVerificationCode(user, 'email').then((required) => {
@@ -18,6 +24,13 @@ const emailVerificationFlow = (user, attributes) =>
       resolve(Action.emailVerificationFailed(error, attributes));
     }));
 
+/**
+ * logs in to the federated identity pool with a JWT
+ * @param {string} username - the username
+ * @param {string} jwtToken - a token from the session
+ * @param {object} config - the react-cognito config
+ * @return {Promise<object>} a promise that resolves to the federated identity credentials
+*/
 const refreshIdentityCredentials = (username, jwtToken, config) =>
   new Promise((resolve, reject) => {
     const logins = buildLogins(username, jwtToken, config);
@@ -31,6 +44,13 @@ const refreshIdentityCredentials = (username, jwtToken, config) =>
     });
   });
 
+/**
+ * establishes a session with the user pool, and logs into the federated identity
+ * pool using a token from the session
+ * @param {object} user - the CognitoUser object
+ * @param {object} config -the react-cognito config
+ * @return {Promise<object>} an action to be dispatched
+*/
 const performLogin = (user, config) =>
   new Promise((resolve, reject) => {
     if (user != null) {
@@ -76,7 +96,6 @@ const performLogin = (user, config) =>
  * @param {string} username - the username provided by the user
  * @param {string} password - the password provided by the user
  * @param {object} userPool - a Cognito User Pool object
- * @param {object} config - the react-cognito config
  * @return {Promise<object>} - a promise that resolves an action to be dispatched
  *
 */
@@ -106,6 +125,15 @@ const authenticate = (username, password, userPool) =>
     });
   });
 
+/**
+ * sign up this user with the user pool provided
+ * @param {object} userPool - a Cognito userpool (e.g. state.cognito.userPool)
+ * @param {object} config - the react-cognito config object
+ * @param {string} username - the username
+ * @param {string} password - the password
+ * @param {object} attributes - an attributes dictionary
+ * @return {Promise<object>} a promise that resolves a redux action
+*/
 const registerUser = (userPool, config, username, password, attributes) =>
   new Promise((resolve, reject) =>
     userPool.signUp(username, password, mkAttrList(attributes), null, (err, result) => {
@@ -114,7 +142,7 @@ const registerUser = (userPool, config, username, password, attributes) =>
       } else if (result.userConfirmed === false) {
         resolve(Action.confirmationRequired(result.user));
       } else {
-        resolve(authenticate(username, password, userPool, config));
+        resolve(authenticate(username, password, userPool));
       }
     }));
 

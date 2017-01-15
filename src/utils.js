@@ -15,6 +15,12 @@ const changePassword = (user, oldPassword, newPassword) =>
       }
     }));
 
+/**
+ * builds the federated identity pool login structure
+ * @param {string} username - the username of the user
+ * @param {string} jwtToken - a JWT Token from the session
+ * @param {object} config - the cognito react config object
+*/
 const buildLogins = (username, jwtToken, config) => {
   const loginDomain = `cognito-idp.${config.region}.amazonaws.com`;
   const loginUrl = `${loginDomain}/${config.userPool}`;

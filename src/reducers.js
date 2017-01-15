@@ -19,7 +19,7 @@ const initial = {
 };
 
 const configure = (state, action) => {
-  // naughty side-effect
+  // surprise side-effect!
   AWSCognito.config.region = action.config.region;
   const pool = new CognitoUserPool({
     UserPoolId: action.config.userPool,
@@ -139,6 +139,9 @@ export const cognito = (state = initial, action) => {
         error: action.error,
       });
 
+    // this moves us into the AUTHENTICATED state, potentially causing
+    // a number of side-effects. this is so we can re-verify the email
+    // address if we have to
     case 'COGNITO_UPDATE_USER_ATTRIBUTES':
       return Object.assign({}, state, {
         attributes: Object.assign({}, state.attributes, action.attributes),

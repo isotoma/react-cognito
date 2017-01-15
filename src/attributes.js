@@ -1,4 +1,4 @@
-  
+
 import { Action } from './actions';
 
 /**
@@ -39,13 +39,23 @@ const getUserAttributes = user =>
     }),
   );
 
+/**
+ * convert an attribute dictionary to an attribute list
+ * @param {object} attributes - a dictionary of attributes
+ * @return {array} AWS expected attribute list
+*/
 const mkAttrList = attributes =>
   Object.keys(attributes).map(key => ({
     Name: key,
     Value: attributes[key],
   }));
 
-const updateAttributes = (user, attributes, config) =>
+/**
+ * update the attributes in Cognito 
+ * @param {object} user - the CognitoUser object
+ * @param {object} attributes - an attributes dictionary with the attributes to be updated
+ * @return {Promise<object>} a promise that resolves to a redux action
+const updateAttributes = (user, attributes) =>
   new Promise((resolve, reject) => {
     const attributeList = mkAttrList(attributes);
     user.updateAttributes(attributeList, (err) => {

@@ -1,4 +1,6 @@
-
+/** 
+ * container for all the actions
+*/
 const Action = {
 
   configure: config => ({

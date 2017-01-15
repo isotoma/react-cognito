@@ -128,17 +128,21 @@ This is the current status of each use case in react-cognito:
 
 ### Planned for version 1, but not yet implemented
 
-- UC7 Delete a user attribute for an authenticated user
-- UC24 Retrieve the MFA options for the user in case MFA is optional
-
 ### Not planned for version 1
 
 #### Trivial anyway
 
+- UC7 Delete a user attribute for an authenticated user
 - UC9 Enable MFA for a user on a pool that has optional MFA
 - UC10 Disable MFA for a user on a pool that has optional MFA
 - UC13 Deleting an authenticated user
 - UC15 Global sign out (invalidates all issued tokens)
+
+#### MFA Support
+
+- UC24 Retrieve the MFA options for the user in case MFA is optional
+
+Plus any MFA implementation
 
 #### Device support
 

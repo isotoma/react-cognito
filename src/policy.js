@@ -3,6 +3,12 @@ import { getUserAttributes } from './attributes';
 import { emailVerificationFlow, performLogin } from './auth';
 import { CognitoState } from './states';
 
+/**
+ * subscribes a "policy" function to the store, and calls it
+ * with the state and the dispatch function
+ * @param {object} store - the redux store
+ * @param {function} f - f(state, dispatch)
+*/
 const enable = (store, f) => {
   store.subscribe(() => {
     const state = store.getState();
@@ -11,6 +17,11 @@ const enable = (store, f) => {
   });
 };
 
+/**
+ * requires email verification before transitioning from AUTHENTICATED
+ * @param {object} state - the redux store state
+ * @param {function} dispatch - the dispatch function
+*/
 const emailVerificationRequired = (state, dispatch) => {
   if (state.cognito.state === CognitoState.AUTHENTICATED) {
     const user = state.cognito.user;
@@ -24,6 +35,11 @@ const emailVerificationRequired = (state, dispatch) => {
   }
 };
 
+/**
+ * fetches and stores attributes before transitioning from AUTHENTICATED
+ * @param {object} state - the redux store state
+ * @param {function} dispatch - the dispatch function
+*/
 const fetchAttributes = (state, dispatch) => {
   if (state.cognito.state === CognitoState.AUTHENTICATED) {
     const user = state.cognito.user;
@@ -33,12 +49,23 @@ const fetchAttributes = (state, dispatch) => {
   }
 };
 
+/**
+ * transitions directly from AUTHENTICATED to LOGGING_IN
+ * @param {object} state - the redux store state
+ * @param {function} dispatch - the dispatch function
+*/
 const direct = (state, dispatch) => {
   if (state.cognito.state === CognitoState.AUTHENTICATED) {
     dispatch(Action.loggingIn());
   }
 };
 
+/**
+ * logs into the single federated identity pool to transition from LOGGING_IN
+ * to LOGGED_IN
+ * @param {object} state - the redux store state
+ * @param {function} dispatch - the dispatch function
+*/
 const identityPoolLogin = (state, dispatch) => {
   if (state.cognito.state === CognitoState.LOGGING_IN) {
     performLogin(state.cognito.user, state.cognito.config).then(dispatch);
@@ -46,7 +73,7 @@ const identityPoolLogin = (state, dispatch) => {
 };
 
 /**
- * sets up react-cognito with default policies
+ * sets up react-cognito with default policies.
 */
 const setupCognito = (store, config) => {
   store.dispatch(Action.configure(config));
