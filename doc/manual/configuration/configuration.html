@@ -46,7 +46,11 @@
 <div data-ice="manual" data-toc-name="configuration">
     <ul class="manual-toc">
       
-    </ul>
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-configuration" data-section-count="&#x25A0;" data-link="manual/configuration/configuration.html"><a href="manual/configuration/configuration.html" data-ice="link">Configuration</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/configuration/configuration.html"><a href="manual/configuration/configuration.html#userpool" data-ice="link">userPool</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/configuration/configuration.html"><a href="manual/configuration/configuration.html#identitypool" data-ice="link">identityPool</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/configuration/configuration.html"><a href="manual/configuration/configuration.html#clientid" data-ice="link">clientId</a></li>
+</ul>
   </div>
 <div data-ice="manual" data-toc-name="example">
     <ul class="manual-toc">
@@ -67,7 +71,7 @@
 <div data-ice="manual" data-toc-name="reference">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;" data-link="identifiers.html"><a href="identifiers.html" data-ice="link">Reference</a></li>
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;&#x25A0;" data-link="identifiers.html"><a href="identifiers.html" data-ice="link">Reference</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#function" data-ice="link">Function</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#variable" data-ice="link">Variable</a></li>
 </ul>
@@ -86,7 +90,22 @@
     <span>&#xBB;</span>
     <span data-ice="title">Configuration</span>
   </div>
-  
+  <div data-ice="content"><h1 id="configuration">Configuration</h1>
+<p>when you call the setup function, or dispatch a configuration action yourself, provide a configuration object like:</p>
+<pre><code><code class="source-code prettyprint">{
+    region: &apos;eu-west-1&apos;,
+    userPool: &apos;eu-west-1_xxxxxxxxx&apos;,
+    identityPool: &apos;eu-west-1:xxxxxx-xxxx-xxxx-xxxxxxxxxx&apos;,
+    clientId: &apos;xxxxxxxxxxxxxxxxxxxxxx&apos;,
+}</code>
+</code></pre><p>You can find these magic strings as follows:</p>
+<h2 id="userpool">userPool</h2>
+<p>tbc</p>
+<h2 id="identitypool">identityPool</h2>
+<p>tbc</p>
+<h2 id="clientid">clientId</h2>
+<p>tbc</p>
+</div>
 </div>
 </div>
 

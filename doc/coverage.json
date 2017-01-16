@@ -1,7 +1,7 @@
 {
   "coverage": "100%",
-  "expectCount": 16,
-  "actualCount": 16,
+  "expectCount": 20,
+  "actualCount": 20,
   "files": {
     "src/actions.js": {
       "expectCount": 1,
@@ -36,6 +36,11 @@
     "src/policy.js": {
       "expectCount": 6,
       "actualCount": 6,
+      "undocumentLines": []
+    },
+    "src/attributes.js": {
+      "expectCount": 4,
+      "actualCount": 4,
       "undocumentLines": []
     }
   }

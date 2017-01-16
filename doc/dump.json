@@ -32,6 +32,179 @@
   {
     "__docId__": 2,
     "kind": "file",
+    "name": "src/attributes.js",
+    "content": "\nimport { Action } from './actions';\n\n/**\n * Request that a verification code is sent by email or SMS to verify\n * an attribute\n * @param {object} user - the cognito user object\n * @param {string} attribute - the attribute name\n*/\nconst sendAttributeVerificationCode = (user, attribute) =>\n  new Promise((resolve, reject) => {\n    user.getAttributeVerificationCode(attribute, {\n      onSuccess: () => resolve(false),\n      inputVerificationCode: () => resolve(true),\n      onFailure: error => reject(error.message),\n    });\n  });\n\n/**\n * Fetches the user attributes from Cognito, and turns them into\n * an object\n * @param {object} user - the cognito user object\n * @returns {Promise} resolves with the attributes or rejects with an error message\n*/\nconst getUserAttributes = user =>\n  new Promise((resolve, reject) =>\n    user.getUserAttributes((error, result) => {\n      if (error) {\n        reject(error.message);\n      } else {\n        const attributes = {};\n        for (let i = 0; i < result.length; i += 1) {\n          const name = result[i].getName();\n          const value = result[i].getValue();\n          attributes[name] = value;\n        }\n        resolve(attributes);\n      }\n    }),\n  );\n\n/**\n * convert an attribute dictionary to an attribute list\n * @param {object} attributes - a dictionary of attributes\n * @return {array} AWS expected attribute list\n*/\nconst mkAttrList = attributes =>\n  Object.keys(attributes).map(key => ({\n    Name: key,\n    Value: attributes[key],\n  }));\n\n/**\n * update the attributes in Cognito \n * @param {object} user - the CognitoUser object\n * @param {object} attributes - an attributes dictionary with the attributes to be updated\n * @return {Promise<object>} a promise that resolves to a redux action\n*/\nconst updateAttributes = (user, attributes) =>\n  new Promise((resolve, reject) => {\n    const attributeList = mkAttrList(attributes);\n    user.updateAttributes(attributeList, (err) => {\n      if (err) {\n        reject(err.message);\n      } else {\n        resolve(Action.updateAttributes(attributes));\n      }\n    });\n  });\n\nexport {\n  sendAttributeVerificationCode,\n  getUserAttributes,\n  updateAttributes,\n  mkAttrList,\n};\n",
+    "static": true,
+    "longname": "src/attributes.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 3,
+    "kind": "function",
+    "name": "sendAttributeVerificationCode",
+    "memberof": "src/attributes.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/attributes.js~sendAttributeVerificationCode",
+    "access": null,
+    "export": true,
+    "importPath": "react-cognito/src/attributes.js",
+    "importStyle": "{sendAttributeVerificationCode}",
+    "description": "Request that a verification code is sent by email or SMS to verify\nan attribute",
+    "lineNumber": 10,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "user",
+        "description": "the cognito user object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "attribute",
+        "description": "the attribute name"
+      }
+    ]
+  },
+  {
+    "__docId__": 4,
+    "kind": "function",
+    "name": "getUserAttributes",
+    "memberof": "src/attributes.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/attributes.js~getUserAttributes",
+    "access": null,
+    "export": true,
+    "importPath": "react-cognito/src/attributes.js",
+    "importStyle": "{getUserAttributes}",
+    "description": "Fetches the user attributes from Cognito, and turns them into\nan object",
+    "lineNumber": 25,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Promise} resolves with the attributes or rejects with an error message"
+      }
+    ],
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "user",
+        "description": "the cognito user object"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise"
+      ],
+      "spread": false,
+      "description": "resolves with the attributes or rejects with an error message"
+    }
+  },
+  {
+    "__docId__": 5,
+    "kind": "function",
+    "name": "updateAttributes",
+    "memberof": "src/attributes.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/attributes.js~updateAttributes",
+    "access": null,
+    "export": true,
+    "importPath": "react-cognito/src/attributes.js",
+    "importStyle": "{updateAttributes}",
+    "description": "update the attributes in Cognito ",
+    "lineNumber": 59,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "user",
+        "description": "the CognitoUser object"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "attributes",
+        "description": "an attributes dictionary with the attributes to be updated"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Promise<object>"
+      ],
+      "spread": false,
+      "description": "a promise that resolves to a redux action"
+    }
+  },
+  {
+    "__docId__": 6,
+    "kind": "function",
+    "name": "mkAttrList",
+    "memberof": "src/attributes.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/attributes.js~mkAttrList",
+    "access": null,
+    "export": true,
+    "importPath": "react-cognito/src/attributes.js",
+    "importStyle": "{mkAttrList}",
+    "description": "convert an attribute dictionary to an attribute list",
+    "lineNumber": 47,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "attributes",
+        "description": "a dictionary of attributes"
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "array"
+      ],
+      "spread": false,
+      "description": "AWS expected attribute list"
+    }
+  },
+  {
+    "__docId__": 7,
+    "kind": "file",
     "name": "src/auth.js",
     "content": "import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';\nimport { CognitoIdentityCredentials } from 'aws-cognito-sdk';\nimport { Action } from './actions';\nimport { mkAttrList, sendAttributeVerificationCode } from './attributes';\nimport { buildLogins } from './utils';\n\n/**\n * sends the email verification code and transitions to the correct state\n * @param {object} user - the CognitoUser object\n * @param {object} attributes - the attributes dictionary\n * @return {Promise<object>} a promise that resolves to a redux action\n*/\nconst emailVerificationFlow = (user, attributes) =>\n  new Promise(resolve =>\n    sendAttributeVerificationCode(user, 'email').then((required) => {\n      if (required) {\n        resolve(Action.emailVerificationRequired(attributes));\n      } else {\n        // dead end?\n        resolve(Action.loggingIn(attributes));\n      }\n    }, (error) => {\n      // some odd classes of error here\n      resolve(Action.emailVerificationFailed(error, attributes));\n    }));\n\n/**\n * logs in to the federated identity pool with a JWT\n * @param {string} username - the username\n * @param {string} jwtToken - a token from the session\n * @param {object} config - the react-cognito config\n * @return {Promise<object>} a promise that resolves to the federated identity credentials\n*/\nconst refreshIdentityCredentials = (username, jwtToken, config) =>\n  new Promise((resolve, reject) => {\n    const logins = buildLogins(username, jwtToken, config);\n    const creds = new CognitoIdentityCredentials(logins);\n    creds.refresh((error) => {\n      if (error) {\n        reject(error.message);\n      } else {\n        resolve(creds);\n      }\n    });\n  });\n\n/**\n * establishes a session with the user pool, and logs into the federated identity\n * pool using a token from the session\n * @param {object} user - the CognitoUser object\n * @param {object} config -the react-cognito config\n * @return {Promise<object>} an action to be dispatched\n*/\nconst performLogin = (user, config) =>\n  new Promise((resolve, reject) => {\n    if (user != null) {\n      user.getSession((err, session) => {\n        if (err) {\n          resolve(Action.loginFailure(user, err.message));\n        } else {\n          const jwtToken = session.getIdToken().getJwtToken();\n          const username = user.getUsername();\n          refreshIdentityCredentials(username, jwtToken, config).then(\n            creds => resolve(Action.login(creds)),\n            message => resolve(Action.loginFailure(user, message)));\n        }\n      });\n    } else {\n      reject('user is null');\n    }\n  });\n\n/**\n *\n * Authenticates with a user pool, and handles responses.\n * if the authentication is successful it then logs in to the\n * identity pool.\n *\n * returns an action depending on the outcome.  Possible actions returned\n * are:\n *\n * - login - valid user who is logged in\n * - loginFailure - failed to authenticate with user pool or identity pool\n * - mfaRequired - user now needs to enter MFA\n * - newPasswordRequired - user must change password on first login\n * - emailVerificationRequired - user must verify their email address\n * - emailVerificationFailed - email verification is required, but won't work\n *\n * Dispatch the resulting action, e.g.:\n *\n * ```\n * const { userPool, config } = state.cognito;\n * authenticate(username, password, userPool, config).then(dispatch);\n * ```\n *\n * @param {string} username - the username provided by the user\n * @param {string} password - the password provided by the user\n * @param {object} userPool - a Cognito User Pool object\n * @return {Promise<object>} - a promise that resolves an action to be dispatched\n *\n*/\nconst authenticate = (username, password, userPool) =>\n  new Promise((resolve) => {\n    const creds = new AuthenticationDetails({\n      Username: username,\n      Password: password,\n    });\n\n    const user = new CognitoUser({\n      Username: username,\n      Pool: userPool,\n    });\n\n    user.authenticateUser(creds, {\n      onSuccess: () => resolve(Action.authenticated(user)),\n      onFailure: (error) => {\n        if (error.code === 'UserNotConfirmedException') {\n          resolve(Action.confirmationRequired(user));\n        } else {\n          resolve(Action.loginFailure(user, error.message));\n        }\n      },\n      mfaRequired: () => resolve(Action.mfaRequired(user)),\n      newPasswordRequired: () => resolve(Action.newPasswordRequired(user)),\n    });\n  });\n\n/**\n * sign up this user with the user pool provided\n * @param {object} userPool - a Cognito userpool (e.g. state.cognito.userPool)\n * @param {object} config - the react-cognito config object\n * @param {string} username - the username\n * @param {string} password - the password\n * @param {object} attributes - an attributes dictionary\n * @return {Promise<object>} a promise that resolves a redux action\n*/\nconst registerUser = (userPool, config, username, password, attributes) =>\n  new Promise((resolve, reject) =>\n    userPool.signUp(username, password, mkAttrList(attributes), null, (err, result) => {\n      if (err) {\n        reject(err.message);\n      } else if (result.userConfirmed === false) {\n        resolve(Action.confirmationRequired(result.user));\n      } else {\n        resolve(authenticate(username, password, userPool));\n      }\n    }));\n\n\nexport {\n  authenticate,\n  performLogin,\n  registerUser,\n  emailVerificationFlow,\n};\n",
     "static": true,
@@ -41,7 +214,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 3,
+    "__docId__": 8,
     "kind": "function",
     "name": "refreshIdentityCredentials",
     "memberof": "src/auth.js",
@@ -97,7 +270,7 @@
     }
   },
   {
-    "__docId__": 4,
+    "__docId__": 9,
     "kind": "function",
     "name": "authenticate",
     "memberof": "src/auth.js",
@@ -153,7 +326,7 @@
     }
   },
   {
-    "__docId__": 5,
+    "__docId__": 10,
     "kind": "function",
     "name": "performLogin",
     "memberof": "src/auth.js",
@@ -199,7 +372,7 @@
     }
   },
   {
-    "__docId__": 6,
+    "__docId__": 11,
     "kind": "function",
     "name": "registerUser",
     "memberof": "src/auth.js",
@@ -275,7 +448,7 @@
     }
   },
   {
-    "__docId__": 7,
+    "__docId__": 12,
     "kind": "function",
     "name": "emailVerificationFlow",
     "memberof": "src/auth.js",
@@ -321,7 +494,7 @@
     }
   },
   {
-    "__docId__": 8,
+    "__docId__": 13,
     "kind": "file",
     "name": "src/guard.js",
     "content": "\n/*\n Default behaviour is to restrict access to only logged in users\n*/\n\nconst testLoggedIn = (state, wantLoggedIn) => {\n  const isLoggedIn = state.cognito.user !== null;\n  if (isLoggedIn && wantLoggedIn) {\n    return true;\n  }\n  if (!isLoggedIn && !wantLoggedIn) {\n    return true;\n  }\n  return false;\n};\n\nconst permitted = (state, expr) =>\n  new Promise((resolve) => {\n    if (expr.loggedIn !== undefined) {\n      resolve(testLoggedIn(state, expr.loggedIn));\n    } else {\n      resolve(testLoggedIn(state, true));\n    }\n  });\n\nconst guard = (store, forbiddenUrl, expr = {}, routeState, replace, callback) => {\n  const state = store.getState();\n  let dest = forbiddenUrl;\n\n  if (expr.forbiddenUrl !== undefined) {\n    dest = expr.forbiddenUrl;\n  }\n  permitted(state, expr).then((allow) => {\n    if (!allow) {\n      replace(dest);\n    }\n    callback();\n  });\n};\n\n/**\n * creates a guard function you can use in <Route> tags\n * @param {object} store - the redux store\n * @param {string} forbiddenUrl - the default url to navigate to if forbidden\n * @returns {function} - a function that can be provided to onEnter\n*/\nconst createGuard = (store, forbiddenUrl) => expr => (state, replace, callback) =>\n  guard(store, forbiddenUrl, expr, state, replace, callback);\n\n\nexport { createGuard };\n",
@@ -332,7 +505,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 9,
+    "__docId__": 14,
     "kind": "function",
     "name": "testLoggedIn",
     "memberof": "src/guard.js",
@@ -374,7 +547,7 @@
     }
   },
   {
-    "__docId__": 10,
+    "__docId__": 15,
     "kind": "function",
     "name": "permitted",
     "memberof": "src/guard.js",
@@ -411,7 +584,7 @@
     ]
   },
   {
-    "__docId__": 11,
+    "__docId__": 16,
     "kind": "function",
     "name": "guard",
     "memberof": "src/guard.js",
@@ -475,7 +648,7 @@
     ]
   },
   {
-    "__docId__": 12,
+    "__docId__": 17,
     "kind": "function",
     "name": "createGuard",
     "memberof": "src/guard.js",
@@ -527,7 +700,7 @@
     }
   },
   {
-    "__docId__": 13,
+    "__docId__": 18,
     "kind": "file",
     "name": "src/index.js",
     "content": "export * from './reducers';\nexport * from './actions';\nexport * from './states';\nexport * from './utils';\nexport * from './guard';\nexport * from './auth';\nexport * from './attributes';\nexport * from './policy';\n\n\nexport * from './Login.jsx';\nexport * from './Logout.jsx';\nexport * from './NewPasswordRequired.jsx';\nexport * from './EmailVerification.jsx';\nexport * from './ForgottenPassword.jsx';\nexport * from './Confirm.jsx';\n",
@@ -538,7 +711,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 14,
+    "__docId__": 19,
     "kind": "file",
     "name": "src/policy.js",
     "content": "import { Action } from './actions';\nimport { getUserAttributes } from './attributes';\nimport { emailVerificationFlow, performLogin } from './auth';\nimport { CognitoState } from './states';\n\n/**\n * subscribes a \"policy\" function to the store, and calls it\n * with the state and the dispatch function\n * @param {object} store - the redux store\n * @param {function} f - f(state, dispatch)\n*/\nconst enable = (store, f) => {\n  store.subscribe(() => {\n    const state = store.getState();\n    const dispatch = store.dispatch;\n    f(state, dispatch);\n  });\n};\n\n/**\n * requires email verification before transitioning from AUTHENTICATED\n * @param {object} state - the redux store state\n * @param {function} dispatch - the dispatch function\n*/\nconst emailVerificationRequired = (state, dispatch) => {\n  if (state.cognito.state === CognitoState.AUTHENTICATED) {\n    const user = state.cognito.user;\n    getUserAttributes(user).then((attributes) => {\n      if (attributes.email_verified !== 'true') {\n        emailVerificationFlow(user, attributes).then(dispatch);\n      } else {\n        dispatch(Action.loggingIn(attributes));\n      }\n    });\n  }\n};\n\n/**\n * fetches and stores attributes before transitioning from AUTHENTICATED\n * @param {object} state - the redux store state\n * @param {function} dispatch - the dispatch function\n*/\nconst fetchAttributes = (state, dispatch) => {\n  if (state.cognito.state === CognitoState.AUTHENTICATED) {\n    const user = state.cognito.user;\n    getUserAttributes(user).then((attributes) => {\n      dispatch(Action.loggingIn(attributes));\n    });\n  }\n};\n\n/**\n * transitions directly from AUTHENTICATED to LOGGING_IN\n * @param {object} state - the redux store state\n * @param {function} dispatch - the dispatch function\n*/\nconst direct = (state, dispatch) => {\n  if (state.cognito.state === CognitoState.AUTHENTICATED) {\n    dispatch(Action.loggingIn());\n  }\n};\n\n/**\n * logs into the single federated identity pool to transition from LOGGING_IN\n * to LOGGED_IN\n * @param {object} state - the redux store state\n * @param {function} dispatch - the dispatch function\n*/\nconst identityPoolLogin = (state, dispatch) => {\n  if (state.cognito.state === CognitoState.LOGGING_IN) {\n    performLogin(state.cognito.user, state.cognito.config).then(dispatch);\n  }\n};\n\n/**\n * sets up react-cognito with default policies.\n*/\nconst setupCognito = (store, config) => {\n  store.dispatch(Action.configure(config));\n  enable(store, emailVerificationRequired);\n  enable(store, identityPoolLogin);\n};\n\nexport {\n  setupCognito,\n  enable,\n  direct,\n  fetchAttributes,\n  emailVerificationRequired,\n  identityPoolLogin,\n};\n",
@@ -549,7 +722,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 15,
+    "__docId__": 20,
     "kind": "function",
     "name": "setupCognito",
     "memberof": "src/policy.js",
@@ -579,7 +752,7 @@
     ]
   },
   {
-    "__docId__": 16,
+    "__docId__": 21,
     "kind": "function",
     "name": "enable",
     "memberof": "src/policy.js",
@@ -617,7 +790,7 @@
     ]
   },
   {
-    "__docId__": 17,
+    "__docId__": 22,
     "kind": "function",
     "name": "direct",
     "memberof": "src/policy.js",
@@ -655,7 +828,7 @@
     ]
   },
   {
-    "__docId__": 18,
+    "__docId__": 23,
     "kind": "function",
     "name": "fetchAttributes",
     "memberof": "src/policy.js",
@@ -693,7 +866,7 @@
     ]
   },
   {
-    "__docId__": 19,
+    "__docId__": 24,
     "kind": "function",
     "name": "emailVerificationRequired",
     "memberof": "src/policy.js",
@@ -731,7 +904,7 @@
     ]
   },
   {
-    "__docId__": 20,
+    "__docId__": 25,
     "kind": "function",
     "name": "identityPoolLogin",
     "memberof": "src/policy.js",
@@ -769,7 +942,7 @@
     ]
   },
   {
-    "__docId__": 21,
+    "__docId__": 26,
     "kind": "file",
     "name": "src/reducers.js",
     "content": "import { CognitoUserPool } from 'amazon-cognito-identity-js';\nimport { CognitoState } from './states';\n\n/* global AWSCognito */\n\nconst initial = {\n  user: null,\n  state: CognitoState.LOGGED_OUT,\n  error: '',\n  userPool: null,\n  attributes: {},\n  creds: null,\n  config: {\n    region: null,\n    userPool: null,\n    clientId: null,\n    identityPool: null,\n  },\n};\n\nconst configure = (state, action) => {\n  // surprise side-effect!\n  AWSCognito.config.region = action.config.region;\n  const pool = new CognitoUserPool({\n    UserPoolId: action.config.userPool,\n    ClientId: action.config.clientId,\n  });\n  const user = pool.getCurrentUser();\n  return Object.assign({}, state, {\n    config: action.config,\n    userPool: pool,\n    user,\n  });\n};\n\n// sometimes we don't get the attributes in later parts of the login flow\n// but lets not clobber the ones we've got if we've not got them\nconst addAttributes = (s, attributes) => {\n  const s2 = Object.assign({}, s);\n  if (attributes) {\n    s2.attributes = attributes;\n  }\n  return s2;\n};\n\n/**\n * reducer function to be passed to redux combineReducers\n * @param {object} state\n * @param {object} action\n*/\n\nexport const cognito = (state = initial, action) => {\n  switch (action.type) {\n\n    case 'COGNITO_CONFIGURE':\n      return configure(state, action);\n\n    case 'COGNITO_AUTHENTICATED':\n      return Object.assign({}, state, {\n        user: action.user,\n        error: '',\n        state: CognitoState.AUTHENTICATED,\n      });\n\n    case 'COGNITO_LOGGING_IN':\n      return Object.assign({}, state, {\n        state: CognitoState.LOGGING_IN,\n        attributes: action.attributes,\n      });\n\n    case 'COGNITO_LOGIN':\n      return Object.assign({}, state, addAttributes({\n        error: '',\n        creds: action.creds,\n        state: CognitoState.LOGGED_IN,\n      }, action.attributes));\n\n    case 'COGNITO_LOGOUT':\n      return Object.assign({}, state, {\n        user: null,\n        error: '',\n        creds: null,\n        state: CognitoState.LOGGED_OUT,\n      });\n\n    case 'COGNITO_LOGIN_FAILURE':\n      return Object.assign({}, state, {\n        user: action.user,\n        state: CognitoState.LOGGED_OUT,\n        error: action.error,\n      });\n\n    case 'COGNITO_LOGIN_MFA_REQUIRED':\n      return Object.assign({}, state, {\n        user: action.user,\n        error: '',\n        state: CognitoState.MFA_REQUIRED,\n      });\n\n    case 'COGNITO_LOGIN_NEW_PASSWORD_REQUIRED':\n      return Object.assign({}, state, {\n        user: action.user,\n        error: '',\n        state: CognitoState.NEW_PASSWORD_REQUIRED,\n      });\n\n    case 'COGNITO_USER_UNCONFIRMED':\n      return Object.assign({}, state, {\n        user: action.user,\n        state: CognitoState.CONFIRMATION_REQUIRED,\n        error: action.error,\n      });\n\n    case 'COGNITO_NEW_PASSWORD_REQUIRED_FAILURE':\n      return Object.assign({}, state, {\n        error: action.error,\n        state: CognitoState.NEW_PASSWORD_REQUIRED,\n      });\n\n    case 'COGNITO_EMAIL_VERIFICATION_REQUIRED':\n      return Object.assign({}, state, addAttributes({\n        error: '',\n        state: CognitoState.EMAIL_VERIFICATION_REQUIRED,\n      }, action.attributes));\n\n    case 'COGNITO_EMAIL_VERIFICATION_FAILED':\n      return Object.assign({}, state, addAttributes({\n        error: action.error,\n        state: CognitoState.EMAIL_VERIFICATION_REQUIRED,\n      }, action.attributes));\n\n    case 'COGNITO_BEGIN_FORGOTTEN_PASSWORD_FLOW':\n      return Object.assign({}, state, {\n        error: action.error,\n      });\n\n    case 'COGNITO_FINISH_FORGOTTEN_PASSWORD_FLOW':\n      return Object.assign({}, state, {\n        error: action.error,\n      });\n\n    // this moves us into the AUTHENTICATED state, potentially causing\n    // a number of side-effects. this is so we can re-verify the email\n    // address if we have to\n    case 'COGNITO_UPDATE_USER_ATTRIBUTES':\n      return Object.assign({}, state, {\n        attributes: Object.assign({}, state.attributes, action.attributes),\n        state: CognitoState.AUTHENTICATED,\n      });\n\n    default:\n      return state;\n  }\n};\n",
@@ -780,7 +953,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 22,
+    "__docId__": 27,
     "kind": "variable",
     "name": "initial",
     "memberof": "src/reducers.js",
@@ -806,7 +979,7 @@
     }
   },
   {
-    "__docId__": 23,
+    "__docId__": 28,
     "kind": "function",
     "name": "configure",
     "memberof": "src/reducers.js",
@@ -848,7 +1021,7 @@
     }
   },
   {
-    "__docId__": 24,
+    "__docId__": 29,
     "kind": "function",
     "name": "addAttributes",
     "memberof": "src/reducers.js",
@@ -890,7 +1063,7 @@
     }
   },
   {
-    "__docId__": 25,
+    "__docId__": 30,
     "kind": "function",
     "name": "cognito",
     "memberof": "src/reducers.js",
@@ -933,7 +1106,7 @@
     }
   },
   {
-    "__docId__": 26,
+    "__docId__": 31,
     "kind": "file",
     "name": "src/states.js",
     "content": "\n/** states stored in store.cognito.state */\nexport const CognitoState = {\n  LOGGED_OUT: 'LOGGED_OUT',\n  AUTHENTICATED: 'AUTHENTICATED',\n  LOGGING_IN: 'LOGGING_IN',\n  LOGGED_IN: 'LOGGED_IN',\n  NEW_PASSWORD_REQUIRED: 'NEW_PASSWORD_REQUIRED',\n  MFA_REQUIRED: 'MFA_REQUIRED',\n  EMAIL_VERIFICATION_REQUIRED: 'EMAIL_VERIFICATION_REQUIRED',\n  CONFIRMATION_REQUIRED: 'CONFIRMATION_REQUIRED',\n};\n\n",
@@ -944,7 +1117,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 27,
+    "__docId__": 32,
     "kind": "variable",
     "name": "CognitoState",
     "memberof": "src/states.js",
@@ -963,7 +1136,7 @@
     }
   },
   {
-    "__docId__": 28,
+    "__docId__": 33,
     "kind": "file",
     "name": "src/utils.js",
     "content": "\n/**\n * Change a user's password\n * @param {object} user - the cognito user object\n * @param {string} oldPassword - the current password\n * @param {string} newPassword - the new password\n*/\nconst changePassword = (user, oldPassword, newPassword) =>\n  new Promise((resolve, reject) =>\n    user.changePassword(oldPassword, newPassword, (err, result) => {\n      if (err) {\n        reject(err.message);\n      } else {\n        resolve(result);\n      }\n    }));\n\n/**\n * builds the federated identity pool login structure\n * @param {string} username - the username of the user\n * @param {string} jwtToken - a JWT Token from the session\n * @param {object} config - the cognito react config object\n*/\nconst buildLogins = (username, jwtToken, config) => {\n  const loginDomain = `cognito-idp.${config.region}.amazonaws.com`;\n  const loginUrl = `${loginDomain}/${config.userPool}`;\n  const creds = {\n    IdentityPoolId: config.identityPool,\n    Logins: {},\n    LoginId: username, // https://github.com/aws/aws-sdk-js/issues/609\n  };\n  creds.Logins[loginUrl] = jwtToken;\n  return creds;\n};\n\nexport {\n  changePassword,\n  buildLogins,\n};\n",
@@ -974,7 +1147,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 29,
+    "__docId__": 34,
     "kind": "function",
     "name": "changePassword",
     "memberof": "src/utils.js",
@@ -1022,7 +1195,7 @@
     ]
   },
   {
-    "__docId__": 30,
+    "__docId__": 35,
     "kind": "function",
     "name": "buildLogins",
     "memberof": "src/utils.js",
@@ -1075,7 +1248,7 @@
     }
   },
   {
-    "__docId__": 32,
+    "__docId__": 37,
     "kind": "external",
     "name": "Infinity",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
@@ -1087,7 +1260,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 33,
+    "__docId__": 38,
     "kind": "external",
     "name": "NaN",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
@@ -1099,7 +1272,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 34,
+    "__docId__": 39,
     "kind": "external",
     "name": "undefined",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
@@ -1111,7 +1284,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 35,
+    "__docId__": 40,
     "kind": "external",
     "name": "null",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
@@ -1123,7 +1296,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 36,
+    "__docId__": 41,
     "kind": "external",
     "name": "Object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -1135,7 +1308,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 37,
+    "__docId__": 42,
     "kind": "external",
     "name": "object",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
@@ -1147,7 +1320,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 38,
+    "__docId__": 43,
     "kind": "external",
     "name": "Function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -1159,7 +1332,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 39,
+    "__docId__": 44,
     "kind": "external",
     "name": "function",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
@@ -1171,7 +1344,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 40,
+    "__docId__": 45,
     "kind": "external",
     "name": "Boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -1183,7 +1356,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 41,
+    "__docId__": 46,
     "kind": "external",
     "name": "boolean",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
@@ -1195,7 +1368,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 42,
+    "__docId__": 47,
     "kind": "external",
     "name": "Symbol",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
@@ -1207,7 +1380,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 43,
+    "__docId__": 48,
     "kind": "external",
     "name": "Error",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
@@ -1219,7 +1392,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 44,
+    "__docId__": 49,
     "kind": "external",
     "name": "EvalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
@@ -1231,7 +1404,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 45,
+    "__docId__": 50,
     "kind": "external",
     "name": "InternalError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
@@ -1243,7 +1416,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 46,
+    "__docId__": 51,
     "kind": "external",
     "name": "RangeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
@@ -1255,7 +1428,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 47,
+    "__docId__": 52,
     "kind": "external",
     "name": "ReferenceError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
@@ -1267,7 +1440,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 48,
+    "__docId__": 53,
     "kind": "external",
     "name": "SyntaxError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
@@ -1279,7 +1452,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 49,
+    "__docId__": 54,
     "kind": "external",
     "name": "TypeError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
@@ -1291,7 +1464,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 50,
+    "__docId__": 55,
     "kind": "external",
     "name": "URIError",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
@@ -1303,7 +1476,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 51,
+    "__docId__": 56,
     "kind": "external",
     "name": "Number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -1315,7 +1488,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 52,
+    "__docId__": 57,
     "kind": "external",
     "name": "number",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
@@ -1327,7 +1500,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 53,
+    "__docId__": 58,
     "kind": "external",
     "name": "Date",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
@@ -1339,7 +1512,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 54,
+    "__docId__": 59,
     "kind": "external",
     "name": "String",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -1351,7 +1524,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 55,
+    "__docId__": 60,
     "kind": "external",
     "name": "string",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
@@ -1363,7 +1536,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 56,
+    "__docId__": 61,
     "kind": "external",
     "name": "RegExp",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
@@ -1375,7 +1548,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 57,
+    "__docId__": 62,
     "kind": "external",
     "name": "Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
@@ -1387,7 +1560,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 58,
+    "__docId__": 63,
     "kind": "external",
     "name": "Int8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
@@ -1399,7 +1572,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 59,
+    "__docId__": 64,
     "kind": "external",
     "name": "Uint8Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
@@ -1411,7 +1584,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 60,
+    "__docId__": 65,
     "kind": "external",
     "name": "Uint8ClampedArray",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
@@ -1423,7 +1596,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 61,
+    "__docId__": 66,
     "kind": "external",
     "name": "Int16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
@@ -1435,7 +1608,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 62,
+    "__docId__": 67,
     "kind": "external",
     "name": "Uint16Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
@@ -1447,7 +1620,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 63,
+    "__docId__": 68,
     "kind": "external",
     "name": "Int32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
@@ -1459,7 +1632,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 64,
+    "__docId__": 69,
     "kind": "external",
     "name": "Uint32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
@@ -1471,7 +1644,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 65,
+    "__docId__": 70,
     "kind": "external",
     "name": "Float32Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
@@ -1483,7 +1656,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 66,
+    "__docId__": 71,
     "kind": "external",
     "name": "Float64Array",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
@@ -1495,7 +1668,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 67,
+    "__docId__": 72,
     "kind": "external",
     "name": "Map",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
@@ -1507,7 +1680,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 68,
+    "__docId__": 73,
     "kind": "external",
     "name": "Set",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
@@ -1519,7 +1692,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 69,
+    "__docId__": 74,
     "kind": "external",
     "name": "WeakMap",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
@@ -1531,7 +1704,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 70,
+    "__docId__": 75,
     "kind": "external",
     "name": "WeakSet",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
@@ -1543,7 +1716,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 71,
+    "__docId__": 76,
     "kind": "external",
     "name": "ArrayBuffer",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
@@ -1555,7 +1728,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 72,
+    "__docId__": 77,
     "kind": "external",
     "name": "DataView",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
@@ -1567,7 +1740,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 73,
+    "__docId__": 78,
     "kind": "external",
     "name": "JSON",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
@@ -1579,7 +1752,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 74,
+    "__docId__": 79,
     "kind": "external",
     "name": "Promise",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
@@ -1591,7 +1764,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 75,
+    "__docId__": 80,
     "kind": "external",
     "name": "Generator",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
@@ -1603,7 +1776,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 76,
+    "__docId__": 81,
     "kind": "external",
     "name": "GeneratorFunction",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
@@ -1615,7 +1788,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 77,
+    "__docId__": 82,
     "kind": "external",
     "name": "Reflect",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
@@ -1627,7 +1800,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 78,
+    "__docId__": 83,
     "kind": "external",
     "name": "Proxy",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
@@ -1640,7 +1813,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 80,
+    "__docId__": 85,
     "kind": "external",
     "name": "CanvasRenderingContext2D",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
@@ -1652,7 +1825,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 81,
+    "__docId__": 86,
     "kind": "external",
     "name": "DocumentFragment",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
@@ -1664,7 +1837,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 82,
+    "__docId__": 87,
     "kind": "external",
     "name": "Element",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
@@ -1676,7 +1849,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 83,
+    "__docId__": 88,
     "kind": "external",
     "name": "Event",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
@@ -1688,7 +1861,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 84,
+    "__docId__": 89,
     "kind": "external",
     "name": "Node",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
@@ -1700,7 +1873,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 85,
+    "__docId__": 90,
     "kind": "external",
     "name": "NodeList",
     "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
@@ -1712,7 +1885,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 86,
+    "__docId__": 91,
     "kind": "external",
     "name": "XMLHttpRequest",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
@@ -1724,7 +1897,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 87,
+    "__docId__": 92,
     "kind": "external",
     "name": "AudioContext",
     "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
@@ -1737,7 +1910,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 88,
+    "__docId__": 93,
     "kind": "testFile",
     "name": "test/attributes.js",
     "content": "import chai from 'chai';\nimport chaiAsPromised from 'chai-as-promised';\nimport {\n  sendAttributeVerificationCode,\n} from '../src/attributes';\n\nchai.use(chaiAsPromised);\nconst expect = chai.expect;\n\n/** @test {sendAttributeVerificationCode} */\ndescribe('sendAttributeVerificationCode', () => {\n  /** @test {sendAttributeVerificationCode#test success} */\n  it('should return false on success', () => {\n    const u = {\n      getAttributeVerificationCode: (a, f) => f.onSuccess(),\n    };\n    return expect(sendAttributeVerificationCode(u, '')).to.eventually.equal(false);\n  });\n});\n",
@@ -1748,7 +1921,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 89,
+    "__docId__": 94,
     "kind": "testDescribe",
     "name": "describe0",
     "testId": 0,
@@ -1770,7 +1943,7 @@
     ]
   },
   {
-    "__docId__": 90,
+    "__docId__": 95,
     "kind": "testIt",
     "name": "it1",
     "testId": 1,
@@ -1792,7 +1965,7 @@
     ]
   },
   {
-    "__docId__": 91,
+    "__docId__": 96,
     "kind": "testFile",
     "name": "test/auth.js",
     "content": "import chai from 'chai';\nimport chaiAsPromised from 'chai-as-promised';\nimport sinon from 'sinon';\nimport assert from 'assert';\nimport { CognitoUser } from 'amazon-cognito-identity-js';\nimport { CognitoIdentityCredentials } from 'aws-cognito-sdk';\nimport {\n  authenticate,\n  performLogin,\n} from '../src/auth';\n\nchai.use(chaiAsPromised);\nconst expect = chai.expect;\n\nsinon.stub(CognitoIdentityCredentials.prototype, 'refresh', function f(callback) {\n  const username = this.params.LoginId;\n  switch (username) {\n    case 'identity-pool-failure':\n      callback('bad refresh in test');\n      break;\n    case 'success':\n    case 'email-verification-required':\n      callback();\n      break;\n    default:\n      assert(false, 'unrecognised username in credentials refresh');\n  }\n});\n\nconst mockSession = {\n  getIdToken: () => ({\n    getJwtToken: () => 'jwt_token',\n  }),\n};\n\nsinon.stub(CognitoUser.prototype, 'getAttributeVerificationCode', (attribute, callbacks) =>\n  callbacks.inputVerificationCode(),\n);\n\nsinon.stub(CognitoUser.prototype, 'getUserAttributes', function f(callback) {\n  const verified = this.username === 'email-verification-required' ? 'false' : 'true';\n  callback(undefined, [{\n    getName: () => 'email_verified',\n    getValue: () => verified,\n  }]);\n});\n\nsinon.stub(CognitoUser.prototype, 'getSession', function f(callback) {\n  switch (this.username) {\n    case 'session-error':\n      callback(true, null);\n      break;\n    case 'success':\n    case 'email-verification-required':\n      callback(false, mockSession);\n      break;\n    default:\n      assert(false, 'unrecognised username in getSession stub');\n  }\n});\n\nsinon.stub(CognitoUser.prototype, 'authenticateUser', (creds, f) => {\n  switch (creds.username) {\n    case 'success':\n    case 'session-error':\n    case 'email-verification-required':\n      f.onSuccess();\n      break;\n    case 'failure-bad-creds':\n      f.onFailure({ code: 'NotAuthorizedException' });\n      break;\n    case 'failure-not-confirmed':\n      f.onFailure({ code: 'UserNotConfirmedException' });\n      break;\n    case 'mfa':\n      f.mfaRequired();\n      break;\n    case 'newpass':\n      f.newPasswordRequired();\n      break;\n    default:\n      assert(false, 'unrecognised username in authenticateUser stub');\n      break;\n  }\n});\n\ndescribe('performLogin', () => {\n  it('should return loginFailure action when session error', () => {\n    const user = new CognitoUser({\n      Username: 'session-error',\n      Pool: {},\n    });\n    expect(performLogin(user, {}))\n    .to.eventually.have.property('type')\n    .to.equal('COGNITO_LOGIN_FAILURE');\n  });\n});\n\n/** @test {authenticate} */\n// cannot stub performLogin, and useful to test entire orchestration\ndescribe('authenticate', () => {\n  const pool = {};\n  const a = username => authenticate(username, '', pool, {});\n\n  it('should return an authenticated action on success', () =>\n    expect(a('success'))\n    .to.eventually.have.property('type')\n    .to.equal('COGNITO_AUTHENTICATED'));\n\n  /** @test {authenticate#failed passwords} */\n  it('should return a loginFailure action for failed passwords', () =>\n    expect(a('failure-bad-creds'))\n    .to.eventually.have.property('type')\n    .to.equal('COGNITO_LOGIN_FAILURE'));\n\n  /** @test {authenticate#not confirmed} */\n  it('should return a confirmationRequired action when not confirmed', () =>\n    expect(a('failure-not-confirmed'))\n    .to.eventually.have.property('type')\n    .to.equal('COGNITO_USER_UNCONFIRMED'));\n\n  it('should return an mfaRequired action when MFA is required', () =>\n    expect(a('mfa'))\n    .to.eventually.have.property('type')\n    .to.equal('COGNITO_LOGIN_MFA_REQUIRED'));\n\n  it('should return newPasswordRequired action when new password is required', () =>\n    expect(a('newpass'))\n    .to.eventually.have.property('type')\n    .to.equal('COGNITO_LOGIN_NEW_PASSWORD_REQUIRED'));\n});\n",
@@ -1803,7 +1976,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 92,
+    "__docId__": 97,
     "kind": "testDescribe",
     "name": "describe2",
     "testId": 2,
@@ -1816,7 +1989,7 @@
     "lineNumber": 87
   },
   {
-    "__docId__": 93,
+    "__docId__": 98,
     "kind": "testIt",
     "name": "it3",
     "testId": 3,
@@ -1829,7 +2002,7 @@
     "lineNumber": 88
   },
   {
-    "__docId__": 94,
+    "__docId__": 99,
     "kind": "testDescribe",
     "name": "describe4",
     "testId": 4,
@@ -1842,7 +2015,7 @@
     "lineNumber": 101
   },
   {
-    "__docId__": 95,
+    "__docId__": 100,
     "kind": "testIt",
     "name": "it5",
     "testId": 5,
@@ -1855,7 +2028,7 @@
     "lineNumber": 105
   },
   {
-    "__docId__": 96,
+    "__docId__": 101,
     "kind": "testIt",
     "name": "it6",
     "testId": 6,
@@ -1877,7 +2050,7 @@
     ]
   },
   {
-    "__docId__": 97,
+    "__docId__": 102,
     "kind": "testIt",
     "name": "it7",
     "testId": 7,
@@ -1899,7 +2072,7 @@
     ]
   },
   {
-    "__docId__": 98,
+    "__docId__": 103,
     "kind": "testIt",
     "name": "it8",
     "testId": 8,
@@ -1912,7 +2085,7 @@
     "lineNumber": 122
   },
   {
-    "__docId__": 99,
+    "__docId__": 104,
     "kind": "testIt",
     "name": "it9",
     "testId": 9,
@@ -1925,7 +2098,7 @@
     "lineNumber": 127
   },
   {
-    "__docId__": 100,
+    "__docId__": 105,
     "kind": "testFile",
     "name": "test/utils.js",
     "content": "import chai from 'chai';\nimport chaiAsPromised from 'chai-as-promised';\nimport {\n} from '../src/utils';\n\nchai.use(chaiAsPromised);\nconst expect = chai.expect;\n",

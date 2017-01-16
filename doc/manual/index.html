@@ -46,7 +46,11 @@
 <div data-ice="manual" data-toc-name="configuration">
     <ul class="manual-toc">
       
-    </ul>
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-configuration" data-section-count="&#x25A0;" data-link="manual/configuration/configuration.html"><a href="manual/configuration/configuration.html" data-ice="link">Configuration</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/configuration/configuration.html"><a href="manual/configuration/configuration.html#userpool" data-ice="link">userPool</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/configuration/configuration.html"><a href="manual/configuration/configuration.html#identitypool" data-ice="link">identityPool</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/configuration/configuration.html"><a href="manual/configuration/configuration.html#clientid" data-ice="link">clientId</a></li>
+</ul>
   </div>
 <div data-ice="manual" data-toc-name="example">
     <ul class="manual-toc">
@@ -67,7 +71,7 @@
 <div data-ice="manual" data-toc-name="reference">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;" data-link="identifiers.html"><a href="identifiers.html" data-ice="link">Reference</a></li>
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;&#x25A0;" data-link="identifiers.html"><a href="identifiers.html" data-ice="link">Reference</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#function" data-ice="link">Function</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#variable" data-ice="link">Variable</a></li>
 </ul>
@@ -95,6 +99,19 @@
 </code></pre><p>Change into that directory, and then run the npm installer:</p><pre><code><code class="source-code prettyprint">npm install</code>
 </code></pre></div>
         <a data-ice="link" href="manual/installation/install.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <h1 data-ice="label" class="manual-color manual-color-configuration" data-section-count="&#x25A0;"><span data-ice="label-inner">Configuration</span></h1>
+      <div class="manual-card">
+        <div data-ice="card"><h1>Configuration</h1><p>when you call the setup function, or dispatch a configuration action yourself, provide a configuration object like:</p><pre><code><code class="source-code prettyprint">{
+    region: &apos;eu-west-1&apos;,
+    userPool: &apos;eu-west-1_xxxxxxxxx&apos;,
+    identityPool: &apos;eu-west-1:xxxxxx-xxxx-xxxx-xxxxxxxxxx&apos;,
+    clientId: &apos;xxxxxxxxxxxxxxxxxxxxxx&apos;,
+}</code>
+</code></pre><p>You can find these magic strings as follows:</p><h2>userPool</h2><p>tbc</p><h2>identityPool</h2><p>tbc</p><h2>clientId</h2><p>tbc</p></div>
+        <a data-ice="link" href="manual/configuration/configuration.html"></a>
       </div>
     </div>
 <div class="manual-card-wrap" data-ice="cards">
@@ -163,7 +180,7 @@ be required to enter the verification code.</p><h4>Password recovery</h4><ol>
       </div>
     </div>
 <div class="manual-card-wrap" data-ice="cards">
-      <h1 data-ice="label" class="manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;"><span data-ice="label-inner">References</span></h1>
+      <h1 data-ice="label" class="manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;&#x25A0;"><span data-ice="label-inner">References</span></h1>
       <div class="manual-card">
         <div data-ice="card"><h1>References</h1>
 
@@ -466,6 +483,35 @@ with the state and the dispatch function</p>
         <p>
           
           
+          <span data-ice="name"><span><a href="function/index.html#static-function-getUserAttributes">getUserAttributes</a></span></span><span data-ice="signature">(user: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Fetches the user attributes from Cognito, and turns them into
+an object</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
           <span data-ice="name"><span><a href="function/index.html#static-function-identityPoolLogin">identityPoolLogin</a></span></span><span data-ice="signature">(state: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, dispatch: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>)</span>
         </p>
       </div>
@@ -474,6 +520,34 @@ with the state and the dispatch function</p>
         
         <div data-ice="description"><p>logs into the single federated identity pool to transition from LOGGING_IN
 to LOGGED_IN</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="function/index.html#static-function-mkAttrList">mkAttrList</a></span></span><span data-ice="signature">(attributes: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span>array</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>convert an attribute dictionary to an attribute list</p>
 </div>
       </div>
     </td>
@@ -552,6 +626,35 @@ pool using a token from the session</p>
         <p>
           
           
+          <span data-ice="name"><span><a href="function/index.html#static-function-sendAttributeVerificationCode">sendAttributeVerificationCode</a></span></span><span data-ice="signature">(user: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, attribute: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Request that a verification code is sent by email or SMS to verify
+an attribute</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
           <span data-ice="name"><span><a href="function/index.html#static-function-setupCognito">setupCognito</a></span></span><span data-ice="signature">(store: <span>*</span>, config: <span>*</span>)</span>
         </p>
       </div>
@@ -559,6 +662,34 @@ pool using a token from the session</p>
         
         
         <div data-ice="description"><p>sets up react-cognito with default policies.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="function/index.html#static-function-updateAttributes">updateAttributes</a></span></span><span data-ice="signature">(user: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, attributes: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>&gt;</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>update the attributes in Cognito </p>
 </div>
       </div>
     </td>

@@ -72,9 +72,21 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "react-cognito/src/attributes.js~getuserattributes",
+    "function/index.html#static-function-getUserAttributes",
+    "<span>getUserAttributes</span> <span class=\"search-result-import-path\">react-cognito/src/attributes.js</span>",
+    "function"
+  ],
+  [
     "react-cognito/src/policy.js~identitypoollogin",
     "function/index.html#static-function-identityPoolLogin",
     "<span>identityPoolLogin</span> <span class=\"search-result-import-path\">react-cognito/src/policy.js</span>",
+    "function"
+  ],
+  [
+    "react-cognito/src/attributes.js~mkattrlist",
+    "function/index.html#static-function-mkAttrList",
+    "<span>mkAttrList</span> <span class=\"search-result-import-path\">react-cognito/src/attributes.js</span>",
     "function"
   ],
   [
@@ -90,9 +102,21 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "react-cognito/src/attributes.js~sendattributeverificationcode",
+    "function/index.html#static-function-sendAttributeVerificationCode",
+    "<span>sendAttributeVerificationCode</span> <span class=\"search-result-import-path\">react-cognito/src/attributes.js</span>",
+    "function"
+  ],
+  [
     "react-cognito/src/policy.js~setupcognito",
     "function/index.html#static-function-setupCognito",
     "<span>setupCognito</span> <span class=\"search-result-import-path\">react-cognito/src/policy.js</span>",
+    "function"
+  ],
+  [
+    "react-cognito/src/attributes.js~updateattributes",
+    "function/index.html#static-function-updateAttributes",
+    "<span>updateAttributes</span> <span class=\"search-result-import-path\">react-cognito/src/attributes.js</span>",
     "function"
   ],
   [
@@ -474,7 +498,7 @@ window.esdocSearchIndex = [
     "test"
   ],
   [
-    "sendattributeverificationcode sendattributeverificationcode,sendattributeverificationcode",
+    "sendattributeverificationcode src/attributes.js~sendattributeverificationcode,sendattributeverificationcode",
     "test-file/test/attributes.js.html#lineNumber11",
     "sendAttributeVerificationCode",
     "test"
@@ -489,6 +513,12 @@ window.esdocSearchIndex = [
     "src/actions.js",
     "file/src/actions.js.html",
     "src/actions.js",
+    "file"
+  ],
+  [
+    "src/attributes.js",
+    "file/src/attributes.js.html",
+    "src/attributes.js",
     "file"
   ],
   [
