@@ -9,7 +9,7 @@ export default {
 
   output: {
     path: './dist',
-    filename: options.optimizeMinimize ? '[name].min.js' : '[name].js',
+    filename: options.optimizeMinimize ? 'react-cognito.min.js' : 'react-cognito.js',
     library: 'ReactCognito',
     libraryTarget: 'umd',
   },

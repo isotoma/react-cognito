@@ -1,7 +1,9 @@
 {
-  "name": "react-cognito",
+  "name": "@isotoma/react-cognito",
+  "scope": "winjer",
   "version": "1.0.0",
   "description": "Use Amazon Cognito with React and Redux",
+  "main": "dist/react-cognito.min.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/isotoma/react-cognito.git"
@@ -28,7 +30,8 @@
     "test": "npm run lint && npm run testonly",
     "test-watch": "npm run testonly -- --watch --watch-extensions js",
     "examples": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ examples/src --out-file examples/dist/bundle.js",
-    "doc": "esdoc"
+    "doc": "esdoc",
+    "build": "webpack -p"
   },
   "devDependencies": {
     "amazon-cognito-identity-js": "git+https://github.com/aws/amazon-cognito-identity-js.git",
