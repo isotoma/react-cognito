@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">Example</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/isotoma/react-cognito.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual" data-toc-name="design">
+    <ul class="manual-toc">
+      
+    </ul>
+  </div>
+<div data-ice="manual" data-toc-name="installation">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-installation" data-section-count="&#x25A0;" data-link="manual/installation/install.html"><a href="manual/installation/install.html" data-ice="link">react-cognito</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/install.html"><a href="manual/installation/install.html#installation" data-ice="link">Installation</a></li>
+</ul>
+  </div>
+<div data-ice="manual" data-toc-name="configuration">
+    <ul class="manual-toc">
+      
+    </ul>
+  </div>
+<div data-ice="manual" data-toc-name="example">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-example" data-section-count="&#x25A0;&#x25A0;&#x25A0;" data-link="manual/example/example.html"><a href="manual/example/example.html" data-ice="link">Usage</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/example/example.html"><a href="manual/example/example.html#running-the-example" data-ice="link">Running the example</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/example/example.html"><a href="manual/example/example.html#trying-it-out" data-ice="link">Trying it out</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/example.html"><a href="manual/example/example.html#set-up-your-user-and-identity-pools" data-ice="link">Set up your user and identity pools</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/example/example.html"><a href="manual/example/example.html#try-it-out" data-ice="link">Try it out</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/example/example.html"><a href="manual/example/example.html#create-a-test-user" data-ice="link">Create a test user</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/example/example.html"><a href="manual/example/example.html#first-time-login" data-ice="link">First time login</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/example/example.html"><a href="manual/example/example.html#logout-and-login" data-ice="link">Logout and Login</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/example/example.html"><a href="manual/example/example.html#password-changing" data-ice="link">Password changing</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/example/example.html"><a href="manual/example/example.html#change-email-address" data-ice="link">Change email address</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/example/example.html"><a href="manual/example/example.html#password-recovery" data-ice="link">Password recovery</a></li>
+</ul>
+  </div>
+<div data-ice="manual" data-toc-name="reference">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;" data-link="identifiers.html"><a href="identifiers.html" data-ice="link">Reference</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#function" data-ice="link">Function</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#variable" data-ice="link">Variable</a></li>
+</ul>
+  </div>
+<div data-ice="manual" data-toc-name="changelog">
+    <ul class="manual-toc">
+      
+    </ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown">
+  <div class="manual-breadcrumb-list">
+    <a href="./manual/./index.html">Manual</a>
+    <span>&#xBB;</span>
+    <span data-ice="title">Example</span>
+  </div>
+  <div data-ice="content"><h1 id="usage">Usage</h1>
+<h2 id="running-the-example">Running the example</h2>
+<p>The package <code>local-web-server</code> is included as a development dependency, so if
+you have installed the development packages you should have the <code>ws</code> command in
+<code>node_modules/.bin</code>.</p>
+<p>First build the library, and then the examples, then change into the htdocs directory and run the webserver:</p>
+<pre><code><code class="source-code prettyprint">webpack -d
+webpack -d --config webpack.examples.js
+cd examples/htdocs
+ws -s index.html</code>
+</code></pre><p>The <code>-s</code> means all requests are sent to the single page application.</p>
+<h2 id="trying-it-out">Trying it out</h2>
+<h3 id="set-up-your-user-and-identity-pools">Set up your user and identity pools</h3>
+<p>TBC</p>
+<h3 id="try-it-out">Try it out</h3>
+<h4 id="create-a-test-user">Create a test user</h4>
+<ol>
+<li>Go to your user pool and go to &quot;Users and groups&quot;</li>
+<li>Click &quot;create user&quot;</li>
+<li>Complete the form:<ul>
+<li>Enter a username </li>
+<li>Enter a password that conforms to the rules of the user pool</li>
+<li>Uncheck &apos;Mark phone number as verified?&apos;</li>
+<li>Uncheck &apos;Mark email as verified?&apos;</li>
+<li>Enter a valid email address</li>
+<li>Click &apos;Create User&apos;</li>
+</ul>
+</li>
+</ol>
+<h4 id="first-time-login">First time login</h4>
+<ol>
+<li>Go to your deployed example application webserver</li>
+<li>You should see the login form</li>
+<li>Enter the username and password created above</li>
+<li>You should be asked for a new password, since this is your first login</li>
+<li>Enter a new password. It must conform to the rules of the user pool.</li>
+<li>You should then be taken to a verification code entry screen.  check your email and enter the code.</li>
+<li>You should now see the logged in screen, showing your attributes and giving you some options.</li>
+</ol>
+<p>Note that during this flow quitting and reloading the browser, then navigating back to this page, 
+will result in you returning to the correct step.</p>
+<h4 id="logout-and-login">Logout and Login</h4>
+<ol>
+<li>Click &apos;log out&apos;</li>
+<li>You should see the login form</li>
+<li>Login again using your username and the new password you chose above.</li>
+<li>You should be taken to the logged in screen</li>
+</ol>
+<h4 id="password-changing">Password changing</h4>
+<ol>
+<li>Click &apos;Change password&apos;</li>
+<li>Enter your existing password and a new password</li>
+<li>Click set new password</li>
+<li>you should see a message saying your password has been changed</li>
+<li>Click &apos;Home&apos;</li>
+</ol>
+<h4 id="change-email-address">Change email address</h4>
+<ol>
+<li>Click &apos;Change email address&apos;</li>
+<li>You should see a form with your existing email address</li>
+<li>Enter a new valid email address</li>
+<li>You should be asked for a verification code.  Check your email for the code.</li>
+<li>Enter the code.</li>
+<li>You will be taken to the logged in screen.</li>
+</ol>
+<p>Note that you can also reload the page after step 4, or close your browser, and you will 
+be required to enter the verification code.</p>
+<h4 id="password-recovery">Password recovery</h4>
+<ol>
+<li>Log out</li>
+<li>Click &apos;Password Reset&apos;</li>
+<li>Enter your username</li>
+<li>Click &apos;send verification code&apos;</li>
+<li>It should say &apos;verification code sent&apos;</li>
+<li>Check your email and get the code</li>
+<li>enter the code and your new password</li>
+<li>Click &apos;set new password&apos;</li>
+<li>It should say &apos;Password reset&apos;</li>
+<li>Click &apos;Home&apos;</li>
+<li>Log in with your new password</li>
+</ol>
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

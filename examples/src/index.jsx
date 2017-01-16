@@ -103,5 +103,4 @@ const render = () => {
 // we defer rendering the application until we've fetched the user
 // from local storage and potentially updated their local state
 performLogin(state.cognito.user, state.cognito.config).then(
-  store.dispatch, render).then(
-  render);
+  store.dispatch, render).then(render);

@@ -11,13 +11,6 @@ const BaseForgottenPassword = props =>
     setPassword: props.setPassword,
   });
 
-const setPassword = (user, code, password) =>
-  new Promise(resolve =>
-    user.confirmPassword(code, password, {
-      onSuccess: () => resolve(Action.finishForgottenPasswordFlow('Password reset')),
-      onFailure: err => resolve(Action.beginForgottenPasswordFlow(user, err.message)),
-    }));
-
 const getUser = (username, userPool) => {
   const user = new CognitoUser({
     Username: username,
@@ -25,6 +18,16 @@ const getUser = (username, userPool) => {
   });
   return user;
 };
+
+const setPassword = (username, userPool, code, password) =>
+  new Promise((resolve) => {
+    const user = getUser(username, userPool);
+    user.confirmPassword(code, password, {
+      onSuccess: () => resolve(Action.finishForgottenPasswordFlow('Password reset')),
+      onFailure: err => resolve(Action.beginForgottenPasswordFlow(user, err.message)),
+    });
+  });
+
 
 const sendVerificationCode = (username, userPool) =>
   new Promise((resolve) => {
@@ -53,8 +56,8 @@ const mapDispatchToProps = dispatch => ({
   sendVerificationCodePartial: (username, userPool) => {
     sendVerificationCode(username, userPool).then(dispatch);
   },
-  setPasswordPartial: (user, code, password) => {
-    setPassword(user, code, password).then(dispatch);
+  setPasswordPartial: (user, userPool, code, password) => {
+    setPassword(user, userPool, code, password).then(dispatch);
   },
 });
 
@@ -62,8 +65,8 @@ const mergeProps = (stateProps, dispatchProps, ownProps) =>
   Object.assign({}, ownProps, stateProps, {
     sendVerificationCode: username =>
       dispatchProps.sendVerificationCodePartial(username, stateProps.userPool),
-    setPassword: (code, password) =>
-      dispatchProps.setPasswordPartial(stateProps.user, code, password),
+    setPassword: (username, code, password) =>
+      dispatchProps.setPasswordPartial(username, stateProps.userPool, code, password),
   });
 
 export const ForgottenPassword = connect(

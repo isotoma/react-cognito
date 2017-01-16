@@ -8,5 +8,13 @@
         "type": "mocha",
         "source": "./test",
         "includes": [".*.js"]
+    },
+    "manual": {
+        "globalIndex": true,
+        "installation": ["./manual/install.md"],
+        "example": ["./manual/example.md"],
+        "configuration": ["./manual/configuration.md"],
+        "changelog": ["./CHANGELOG.md"],
+        "design": ["./manual/design.md"]
     }
 }

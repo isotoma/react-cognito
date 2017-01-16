@@ -55,6 +55,7 @@ const mkAttrList = attributes =>
  * @param {object} user - the CognitoUser object
  * @param {object} attributes - an attributes dictionary with the attributes to be updated
  * @return {Promise<object>} a promise that resolves to a redux action
+*/
 const updateAttributes = (user, attributes) =>
   new Promise((resolve, reject) => {
     const attributeList = mkAttrList(attributes);

@@ -14,7 +14,7 @@ class ForgottenPasswordForm extends React.Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    this.props.setPassword(this.state.code, this.state.password);
+    this.props.setPassword(this.state.username, this.state.code, this.state.password);
   }
 
   sendVerificationCode = (event) => {

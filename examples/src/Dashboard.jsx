@@ -102,6 +102,11 @@ const BaseDashboard = ({ state, user, attributes }) => {
       return loggedInPage(user, attributes);
     case CognitoState.AUTHENTICATED:
     case CognitoState.LOGGING_IN:
+      return (
+        <div>
+          <img src="ajax-loader.gif" />
+        </div>
+        )
     case CognitoState.LOGGED_OUT:
     case CognitoState.LOGIN_FAILURE:
       return loggedOutPage();
