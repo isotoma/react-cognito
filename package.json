@@ -22,7 +22,6 @@
     "mocha": "--require scripts/mocha_runner test/*.js"
   },
   "scripts": {
-    "prepublish": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ --out-dir ./dist",
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
     "testonly": "PWD=$(pwd) NODE_ENV=test mocha $npm_package_options_mocha || true",
@@ -31,7 +30,7 @@
     "test-watch": "npm run testonly -- --watch --watch-extensions js",
     "examples": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ examples/src --out-file examples/dist/bundle.js",
     "doc": "esdoc",
-    "build": "webpack -p"
+    "prepublish": "webpack -p"
   },
   "devDependencies": {
     "amazon-cognito-identity-js": "git+https://github.com/aws/amazon-cognito-identity-js.git",
