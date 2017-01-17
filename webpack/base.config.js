@@ -1,5 +1,6 @@
 import webpack from 'webpack';
 import yargs from 'yargs';
+import path from 'path';
 
 export const options = yargs
   .alias('p', 'optimize-minimize')
@@ -28,6 +29,9 @@ const baseConfig = {
     ],
     resolve: {
       extensions: ['', '.js', '.jsx'],
+    },
+    resolveLoader: {
+      root: path.join(__dirname, "../node_modules"),
     },
   },
 

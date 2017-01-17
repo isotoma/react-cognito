@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/attributes.js | ESDoc API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  <a href="test.html" data-ice="testLink">Test</a>
+  <a data-ice="repoURL" href="https://github.com/isotoma/react-cognito.git" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getUserAttributes">getUserAttributes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mkAttrList">mkAttrList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendAttributeVerificationCode">sendAttributeVerificationCode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateAttributes">updateAttributes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authenticate">authenticate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-emailVerificationFlow">emailVerificationFlow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-performLogin">performLogin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-registerUser">registerUser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createGuard">createGuard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-direct">direct</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-emailVerificationRequired">emailVerificationRequired</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-enable">enable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchAttributes">fetchAttributes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-identityPoolLogin">identityPoolLogin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setupCognito">setupCognito</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-cognito">cognito</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-buildLogins">buildLogins</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changePassword">changePassword</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Action">Action</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CognitoState">CognitoState</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/attributes.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">
+import { Action } from &apos;./actions&apos;;
+
+/**
+ * Request that a verification code is sent by email or SMS to verify
+ * an attribute
+ * @param {object} user - the cognito user object
+ * @param {string} attribute - the attribute name
+*/
+const sendAttributeVerificationCode = (user, attribute) =&gt;
+  new Promise((resolve, reject) =&gt; {
+    user.getAttributeVerificationCode(attribute, {
+      onSuccess: () =&gt; resolve(false),
+      inputVerificationCode: () =&gt; resolve(true),
+      onFailure: error =&gt; reject(error.message),
+    });
+  });
+
+/**
+ * Fetches the user attributes from Cognito, and turns them into
+ * an object
+ * @param {object} user - the cognito user object
+ * @returns {Promise} resolves with the attributes or rejects with an error message
+*/
+const getUserAttributes = user =&gt;
+  new Promise((resolve, reject) =&gt;
+    user.getUserAttributes((error, result) =&gt; {
+      if (error) {
+        reject(error.message);
+      } else {
+        const attributes = {};
+        for (let i = 0; i &lt; result.length; i += 1) {
+          const name = result[i].getName();
+          const value = result[i].getValue();
+          attributes[name] = value;
+        }
+        resolve(attributes);
+      }
+    }),
+  );
+
+/**
+ * convert an attribute dictionary to an attribute list
+ * @param {object} attributes - a dictionary of attributes
+ * @return {array} AWS expected attribute list
+*/
+const mkAttrList = attributes =&gt;
+  Object.keys(attributes).map(key =&gt; ({
+    Name: key,
+    Value: attributes[key],
+  }));
+
+/**
+ * update the attributes in Cognito 
+ * @param {object} user - the CognitoUser object
+ * @param {object} attributes - an attributes dictionary with the attributes to be updated
+ * @return {Promise&lt;object&gt;} a promise that resolves to a redux action
+*/
+const updateAttributes = (user, attributes) =&gt;
+  new Promise((resolve, reject) =&gt; {
+    const attributeList = mkAttrList(attributes);
+    user.updateAttributes(attributeList, (err) =&gt; {
+      if (err) {
+        reject(err.message);
+      } else {
+        resolve(Action.updateAttributes(attributes));
+      }
+    });
+  });
+
+export {
+  sendAttributeVerificationCode,
+  getUserAttributes,
+  updateAttributes,
+  mkAttrList,
+};
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.5.2)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

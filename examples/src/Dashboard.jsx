@@ -57,7 +57,7 @@ const loggedOutPage = () => (
     </Login>
     <ul>
       <li><Link to="/register">Register</Link></li>
-      <li><Link to="/forgotten_password">Password reset</Link></li>
+      <li><Link to="/reset">Password reset</Link></li>
     </ul>
   </div>
 );

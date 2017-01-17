@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { CognitoUser } from 'amazon-cognito-identity-js';
 import { Action } from './actions';
 
-const BaseForgottenPassword = props =>
+const BasePasswordReset = props =>
   React.cloneElement(props.children, {
     error: props.error,
     username: props.username,
@@ -23,8 +23,8 @@ const setPassword = (username, userPool, code, password) =>
   new Promise((resolve) => {
     const user = getUser(username, userPool);
     user.confirmPassword(code, password, {
-      onSuccess: () => resolve(Action.finishForgottenPasswordFlow('Password reset')),
-      onFailure: err => resolve(Action.beginForgottenPasswordFlow(user, err.message)),
+      onSuccess: () => resolve(Action.finishPasswordResetFlow('Password reset')),
+      onFailure: err => resolve(Action.beginPasswordResetFlow(user, err.message)),
     });
   });
 
@@ -33,8 +33,8 @@ const sendVerificationCode = (username, userPool) =>
   new Promise((resolve) => {
     const user = getUser(username, userPool);
     user.forgotPassword({
-      onSuccess: () => resolve(Action.beginForgottenPasswordFlow(user, 'Verification code sent')),
-      onFailure: err => resolve(Action.beginForgottenPasswordFlow(user, err.message)),
+      onSuccess: () => resolve(Action.beginPasswordResetFlow(user, 'Verification code sent')),
+      onFailure: err => resolve(Action.beginPasswordResetFlow(user, err.message)),
     });
   });
 
@@ -69,8 +69,8 @@ const mergeProps = (stateProps, dispatchProps, ownProps) =>
       dispatchProps.setPasswordPartial(username, stateProps.userPool, code, password),
   });
 
-export const ForgottenPassword = connect(
+export const PasswordReset = connect(
   mapStateToProps,
   mapDispatchToProps,
   mergeProps,
-)(BaseForgottenPassword);
+)(BasePasswordReset);

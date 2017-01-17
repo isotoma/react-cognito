@@ -1,4 +1,4 @@
-/** 
+/**
  * container for all the actions
 */
 const Action = {
@@ -60,14 +60,14 @@ const Action = {
     attributes,
   }),
 
-  beginForgottenPasswordFlow: (user, error) => ({
-    type: 'COGNITO_BEGIN_FORGOTTEN_PASSWORD_FLOW',
+  beginPasswordResetFlow: (user, error) => ({
+    type: 'COGNITO_BEGIN_PASSWORD_RESET_FLOW',
     user,
     error,
   }),
 
-  finishForgottenPasswordFlow: error => ({
-    type: 'COGNITO_FINISH_FORGOTTEN_PASSWORD_FLOW',
+  finishPasswordResetFlow: error => ({
+    type: 'COGNITO_FINISH_PASSWORD_RESET_FLOW',
     error,
   }),
 

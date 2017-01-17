@@ -4,7 +4,7 @@ import { Router, Link, Route, IndexRoute, browserHistory } from 'react-router';
 import {
   cognito,
   createGuard,
-  ForgottenPassword,
+  PasswordReset,
   performLogin,
   setupCognito,
 } from 'react-cognito';
@@ -13,7 +13,7 @@ import { createStore, combineReducers } from 'redux';
 import App from './App';
 import Dashboard from './Dashboard';
 import ChangePasswordForm from './ChangePasswordForm';
-import ForgottenPasswordForm from './ForgottenPasswordForm';
+import PasswordResetForm from './PasswordResetForm';
 import UpdateEmailForm from './UpdateEmailForm';
 import RegisterForm from './RegisterForm';
 
@@ -53,10 +53,10 @@ const updateEmail = () => (
   </div>
 );
 
-const forgottenPassword = () => (
-  <ForgottenPassword>
-    <ForgottenPasswordForm />
-  </ForgottenPassword>
+const passwordReset = () => (
+  <PasswordReset>
+    <PasswordResetForm/>
+  </PasswordReset>
 );
 
 const registerForm = () => (
@@ -79,8 +79,8 @@ const render = () => {
             onEnter={guard()}
           />
           <Route
-            path="/forgotten_password"
-            component={forgottenPassword}
+            path="/reset"
+            component={passwordReset}
             onEnter={guard({ loggedIn: false })}
           />
           <Route

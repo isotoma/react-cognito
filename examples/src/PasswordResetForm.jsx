@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 
-class ForgottenPasswordForm extends React.Component {
+class PasswordResetForm extends React.Component {
 
   constructor(props) {
     super(props);
@@ -59,10 +59,10 @@ class ForgottenPasswordForm extends React.Component {
     </div>
   )
 }
-ForgottenPasswordForm.propTypes = {
+PasswordResetForm.propTypes = {
   error: PropTypes.string,
   username: PropTypes.string,
   sendVerificationCode: PropTypes.func,
   setPassword: PropTypes.func,
 };
-export default ForgottenPasswordForm;
+export default PasswordResetForm;
