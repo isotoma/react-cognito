@@ -188,12 +188,12 @@ export const cognito = (state = initial, action) =&gt; {
         state: CognitoState.EMAIL_VERIFICATION_REQUIRED,
       }, action.attributes));
 
-    case &apos;COGNITO_BEGIN_FORGOTTEN_PASSWORD_FLOW&apos;:
+    case &apos;COGNITO_BEGIN_PASSWORD_RESET_FLOW&apos;:
       return Object.assign({}, state, {
         error: action.error,
       });
 
-    case &apos;COGNITO_FINISH_FORGOTTEN_PASSWORD_FLOW&apos;:
+    case &apos;COGNITO_FINISH_PASSWORD_RESET_FLOW&apos;:
       return Object.assign({}, state, {
         error: action.error,
       });

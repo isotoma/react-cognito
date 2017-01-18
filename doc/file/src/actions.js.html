@@ -57,7 +57,7 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/actions.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/** 
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
  * container for all the actions
 */
 const Action = {
@@ -119,14 +119,14 @@ const Action = {
     attributes,
   }),
 
-  beginForgottenPasswordFlow: (user, error) =&gt; ({
-    type: &apos;COGNITO_BEGIN_FORGOTTEN_PASSWORD_FLOW&apos;,
+  beginPasswordResetFlow: (user, error) =&gt; ({
+    type: &apos;COGNITO_BEGIN_PASSWORD_RESET_FLOW&apos;,
     user,
     error,
   }),
 
-  finishForgottenPasswordFlow: error =&gt; ({
-    type: &apos;COGNITO_FINISH_FORGOTTEN_PASSWORD_FLOW&apos;,
+  finishPasswordResetFlow: error =&gt; ({
+    type: &apos;COGNITO_FINISH_PASSWORD_RESET_FLOW&apos;,
     error,
   }),
 

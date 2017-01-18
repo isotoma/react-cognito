@@ -1,7 +1,7 @@
 {
   "type": "File",
   "start": 0,
-  "end": 428,
+  "end": 424,
   "loc": {
     "start": {
       "line": 1,
@@ -15,7 +15,7 @@
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 428,
+    "end": 424,
     "loc": {
       "start": {
         "line": 1,
@@ -451,7 +451,7 @@
       {
         "type": "ExportAllDeclaration",
         "start": 356,
-        "end": 396,
+        "end": 392,
         "loc": {
           "start": {
             "line": 15,
@@ -459,13 +459,13 @@
           },
           "end": {
             "line": 15,
-            "column": 40
+            "column": 36
           }
         },
         "source": {
           "type": "StringLiteral",
           "start": 370,
-          "end": 395,
+          "end": 391,
           "loc": {
             "start": {
               "line": 15,
@@ -473,20 +473,20 @@
             },
             "end": {
               "line": 15,
-              "column": 39
+              "column": 35
             }
           },
           "extra": {
-            "rawValue": "./ForgottenPassword.jsx",
-            "raw": "'./ForgottenPassword.jsx'"
+            "rawValue": "./PasswordReset.jsx",
+            "raw": "'./PasswordReset.jsx'"
           },
-          "value": "./ForgottenPassword.jsx"
+          "value": "./PasswordReset.jsx"
         }
       },
       {
         "type": "ExportAllDeclaration",
-        "start": 397,
-        "end": 427,
+        "start": 393,
+        "end": 423,
         "loc": {
           "start": {
             "line": 16,
@@ -499,8 +499,8 @@
         },
         "source": {
           "type": "StringLiteral",
-          "start": 411,
-          "end": 426,
+          "start": 407,
+          "end": 422,
           "loc": {
             "start": {
               "line": 16,
@@ -2225,9 +2225,9 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "./ForgottenPassword.jsx",
+      "value": "./PasswordReset.jsx",
       "start": 370,
-      "end": 395,
+      "end": 391,
       "loc": {
         "start": {
           "line": 15,
@@ -2235,7 +2235,7 @@
         },
         "end": {
           "line": 15,
-          "column": 39
+          "column": 35
         }
       }
     },
@@ -2252,16 +2252,16 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 395,
-      "end": 396,
+      "start": 391,
+      "end": 392,
       "loc": {
         "start": {
           "line": 15,
-          "column": 39
+          "column": 35
         },
         "end": {
           "line": 15,
-          "column": 40
+          "column": 36
         }
       }
     },
@@ -2280,8 +2280,8 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 397,
-      "end": 403,
+      "start": 393,
+      "end": 399,
       "loc": {
         "start": {
           "line": 16,
@@ -2307,8 +2307,8 @@
         "updateContext": null
       },
       "value": "*",
-      "start": 404,
-      "end": 405,
+      "start": 400,
+      "end": 401,
       "loc": {
         "start": {
           "line": 16,
@@ -2333,8 +2333,8 @@
         "binop": null
       },
       "value": "from",
-      "start": 406,
-      "end": 410,
+      "start": 402,
+      "end": 406,
       "loc": {
         "start": {
           "line": 16,
@@ -2360,8 +2360,8 @@
         "updateContext": null
       },
       "value": "./Confirm.jsx",
-      "start": 411,
-      "end": 426,
+      "start": 407,
+      "end": 422,
       "loc": {
         "start": {
           "line": 16,
@@ -2386,8 +2386,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 426,
-      "end": 427,
+      "start": 422,
+      "end": 423,
       "loc": {
         "start": {
           "line": 16,
@@ -2412,8 +2412,8 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 428,
-      "end": 428,
+      "start": 424,
+      "end": 424,
       "loc": {
         "start": {
           "line": 17,

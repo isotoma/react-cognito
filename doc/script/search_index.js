@@ -1,122 +1,122 @@
 window.esdocSearchIndex = [
   [
-    "react-cognito/src/actions.js~action",
+    "@isotoma/react-cognito/src/actions.js~action",
     "variable/index.html#static-variable-Action",
-    "<span>Action</span> <span class=\"search-result-import-path\">react-cognito/src/actions.js</span>",
+    "<span>Action</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/actions.js</span>",
     "variable"
   ],
   [
-    "react-cognito/src/states.js~cognitostate",
+    "@isotoma/react-cognito/src/states.js~cognitostate",
     "variable/index.html#static-variable-CognitoState",
-    "<span>CognitoState</span> <span class=\"search-result-import-path\">react-cognito/src/states.js</span>",
+    "<span>CognitoState</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/states.js</span>",
     "variable"
   ],
   [
-    "react-cognito/src/auth.js~authenticate",
+    "@isotoma/react-cognito/src/auth.js~authenticate",
     "function/index.html#static-function-authenticate",
-    "<span>authenticate</span> <span class=\"search-result-import-path\">react-cognito/src/auth.js</span>",
+    "<span>authenticate</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/auth.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/utils.js~buildlogins",
+    "@isotoma/react-cognito/src/utils.js~buildlogins",
     "function/index.html#static-function-buildLogins",
-    "<span>buildLogins</span> <span class=\"search-result-import-path\">react-cognito/src/utils.js</span>",
+    "<span>buildLogins</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/utils.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/utils.js~changepassword",
+    "@isotoma/react-cognito/src/utils.js~changepassword",
     "function/index.html#static-function-changePassword",
-    "<span>changePassword</span> <span class=\"search-result-import-path\">react-cognito/src/utils.js</span>",
+    "<span>changePassword</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/utils.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/reducers.js~cognito",
+    "@isotoma/react-cognito/src/reducers.js~cognito",
     "function/index.html#static-function-cognito",
-    "<span>cognito</span> <span class=\"search-result-import-path\">react-cognito/src/reducers.js</span>",
+    "<span>cognito</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/reducers.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/guard.js~createguard",
+    "@isotoma/react-cognito/src/guard.js~createguard",
     "function/index.html#static-function-createGuard",
-    "<span>createGuard</span> <span class=\"search-result-import-path\">react-cognito/src/guard.js</span>",
+    "<span>createGuard</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/guard.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/policy.js~direct",
+    "@isotoma/react-cognito/src/policy.js~direct",
     "function/index.html#static-function-direct",
-    "<span>direct</span> <span class=\"search-result-import-path\">react-cognito/src/policy.js</span>",
+    "<span>direct</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/policy.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/auth.js~emailverificationflow",
+    "@isotoma/react-cognito/src/auth.js~emailverificationflow",
     "function/index.html#static-function-emailVerificationFlow",
-    "<span>emailVerificationFlow</span> <span class=\"search-result-import-path\">react-cognito/src/auth.js</span>",
+    "<span>emailVerificationFlow</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/auth.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/policy.js~emailverificationrequired",
+    "@isotoma/react-cognito/src/policy.js~emailverificationrequired",
     "function/index.html#static-function-emailVerificationRequired",
-    "<span>emailVerificationRequired</span> <span class=\"search-result-import-path\">react-cognito/src/policy.js</span>",
+    "<span>emailVerificationRequired</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/policy.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/policy.js~enable",
+    "@isotoma/react-cognito/src/policy.js~enable",
     "function/index.html#static-function-enable",
-    "<span>enable</span> <span class=\"search-result-import-path\">react-cognito/src/policy.js</span>",
+    "<span>enable</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/policy.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/policy.js~fetchattributes",
+    "@isotoma/react-cognito/src/policy.js~fetchattributes",
     "function/index.html#static-function-fetchAttributes",
-    "<span>fetchAttributes</span> <span class=\"search-result-import-path\">react-cognito/src/policy.js</span>",
+    "<span>fetchAttributes</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/policy.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/attributes.js~getuserattributes",
+    "@isotoma/react-cognito/src/attributes.js~getuserattributes",
     "function/index.html#static-function-getUserAttributes",
-    "<span>getUserAttributes</span> <span class=\"search-result-import-path\">react-cognito/src/attributes.js</span>",
+    "<span>getUserAttributes</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/attributes.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/policy.js~identitypoollogin",
+    "@isotoma/react-cognito/src/policy.js~identitypoollogin",
     "function/index.html#static-function-identityPoolLogin",
-    "<span>identityPoolLogin</span> <span class=\"search-result-import-path\">react-cognito/src/policy.js</span>",
+    "<span>identityPoolLogin</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/policy.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/attributes.js~mkattrlist",
+    "@isotoma/react-cognito/src/attributes.js~mkattrlist",
     "function/index.html#static-function-mkAttrList",
-    "<span>mkAttrList</span> <span class=\"search-result-import-path\">react-cognito/src/attributes.js</span>",
+    "<span>mkAttrList</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/attributes.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/auth.js~performlogin",
+    "@isotoma/react-cognito/src/auth.js~performlogin",
     "function/index.html#static-function-performLogin",
-    "<span>performLogin</span> <span class=\"search-result-import-path\">react-cognito/src/auth.js</span>",
+    "<span>performLogin</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/auth.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/auth.js~registeruser",
+    "@isotoma/react-cognito/src/auth.js~registeruser",
     "function/index.html#static-function-registerUser",
-    "<span>registerUser</span> <span class=\"search-result-import-path\">react-cognito/src/auth.js</span>",
+    "<span>registerUser</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/auth.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/attributes.js~sendattributeverificationcode",
+    "@isotoma/react-cognito/src/attributes.js~sendattributeverificationcode",
     "function/index.html#static-function-sendAttributeVerificationCode",
-    "<span>sendAttributeVerificationCode</span> <span class=\"search-result-import-path\">react-cognito/src/attributes.js</span>",
+    "<span>sendAttributeVerificationCode</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/attributes.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/policy.js~setupcognito",
+    "@isotoma/react-cognito/src/policy.js~setupcognito",
     "function/index.html#static-function-setupCognito",
-    "<span>setupCognito</span> <span class=\"search-result-import-path\">react-cognito/src/policy.js</span>",
+    "<span>setupCognito</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/policy.js</span>",
     "function"
   ],
   [
-    "react-cognito/src/attributes.js~updateattributes",
+    "@isotoma/react-cognito/src/attributes.js~updateattributes",
     "function/index.html#static-function-updateAttributes",
-    "<span>updateAttributes</span> <span class=\"search-result-import-path\">react-cognito/src/attributes.js</span>",
+    "<span>updateAttributes</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/attributes.js</span>",
     "function"
   ],
   [
