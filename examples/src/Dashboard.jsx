@@ -15,16 +15,12 @@ import EmailVerificationForm from './EmailVerificationForm';
 import NewPasswordRequiredForm from './NewPasswordRequiredForm';
 import ConfirmForm from './ConfirmForm';
 
-const loggedOut = () => {
-  console.log("LOGGED OUT");
-}
-
 const loggedInPage = (user, attributes) => (
   <div>
     <p>logged in as {user.getUsername()}</p>
     <ul>
       <li>
-        <Logout onLogout={loggedOut}>
+        <Logout onLogout>
           <LogoutButton />
         </Logout>
       </li>

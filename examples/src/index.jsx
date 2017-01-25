@@ -16,6 +16,7 @@ import ChangePasswordForm from './ChangePasswordForm';
 import PasswordResetForm from './PasswordResetForm';
 import UpdateEmailForm from './UpdateEmailForm';
 import RegisterForm from './RegisterForm';
+import config from '../config.json';
 
 const reducers = combineReducers({
   cognito,
@@ -26,12 +27,7 @@ const store = createStore(
   // eslint-disable-next-line no-underscore-dangle
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-setupCognito(store, {
-  region: 'eu-west-1',
-  userPool: 'eu-west-1_4bpnxxQKX',
-  identityPool: 'eu-west-1:3e151c70-ad45-4e36-8b87-f0125da6c13e',
-  clientId: '7oc1qboh1jldlrd929ksv7cgta',
-});
+setupCognito(store, config);
 
 // this attempts to retrieve the user from local storage and establish
 // a new session for them

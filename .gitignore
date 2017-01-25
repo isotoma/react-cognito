@@ -9,3 +9,4 @@ node_modules
 dist
 *.sublime-workspace
 path.sh
+examples/config.json

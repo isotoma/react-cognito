@@ -25,7 +25,8 @@ const baseConfig = {
       //{test: /\.jsx?$/, exclude: /node_modules/, loader: 'eslint-loader'}
     //],
     loaders: [
-      { test: /\.js/, loader: jsLoader, exclude: /node_modules/ }
+      { test: /\.js/, loader: jsLoader, exclude: /node_modules/ },
+      { test: /\.json$/, loader: 'json' },
     ],
     resolve: {
       extensions: ['', '.js', '.jsx'],
