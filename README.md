@@ -9,6 +9,10 @@ a separate server.
 This Javascript package provides a set of React components and supporting code
 to make integrating with Cognito very easy, if you are using React and Redux.
 
+Full documentation for this package can be found here:
+
+    https://doc.esdoc.org/github.com/isotoma/react-cognito/
+
 ## Introduction
 
 This library should be installed using npm, and depends on React, Redux, React
