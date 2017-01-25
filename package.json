@@ -28,7 +28,7 @@
     "debug": "PWD=$(pwd) NODE_ENV=test mocha --debug-brk --inspect $npm_package_options_mocha",
     "test": "npm run lint && npm run testonly",
     "test-watch": "npm run testonly -- --watch --watch-extensions js",
-    "examples": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ examples/src --out-file examples/dist/bundle.js",
+    "examples": "babel --plugins transform-es2015-modules-umd src --ignore __tests__ examples/src --out-file examples/htdocs/dist/bundle.js",
     "doc": "esdoc",
     "prepublish": "webpack -p"
   },
