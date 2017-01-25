@@ -11,6 +11,8 @@ to make integrating with Cognito very easy, if you are using React and Redux.
 
 [Full documentation for this package](https://doc.esdoc.org/github.com/isotoma/react-cognito/) is available.
 
+[This package is available on npm](https://www.npmjs.com/package/react-cognito).
+
 ## Introduction
 
 This library should be installed using npm, and depends on React, Redux, React
