@@ -15,7 +15,7 @@
 
 <header>
   <a href="./">Home</a>
-  
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   <a href="test.html" data-ice="testLink">Test</a>
@@ -34,8 +34,18 @@
 <div data-ice="manual" data-toc-name="design">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-design" data-section-count="&#x25A0;" data-link="manual/design/design.html"><a href="manual/design/design.html" data-ice="link">Design</a></li>
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-design" data-section-count="&#x25A0;&#x25A0;&#x25A0;" data-link="manual/design/design.html"><a href="manual/design/design.html#design" data-ice="link">Design</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/design/design.html"><a href="manual/design/design.html#state-machine" data-ice="link">State machine</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/design/design.html"><a href="manual/design/design.html#summary-of-use-cases" data-ice="link">Summary of use cases</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/design/design.html"><a href="manual/design/design.html#completed" data-ice="link">Completed</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/design/design.html"><a href="manual/design/design.html#planned-for-version-1-but-not-yet-implemented" data-ice="link">Planned for version 1, but not yet implemented</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/design/design.html"><a href="manual/design/design.html#not-planned-for-version-1" data-ice="link">Not planned for version 1</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/design/design.html"><a href="manual/design/design.html#trivial-anyway" data-ice="link">Trivial anyway</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/design/design.html"><a href="manual/design/design.html#mfa-support" data-ice="link">MFA Support</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/design/design.html"><a href="manual/design/design.html#device-support" data-ice="link">Device support</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/design/design.html"><a href="manual/design/design.html#issues" data-ice="link">Issues</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-design" data-section-count="&#x25A0;&#x25A0;&#x25A0;" data-link="manual/design/design.html"><a href="manual/design/design.html#the-redux-model" data-ice="link">The Redux Model</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/design/design.html"><a href="manual/design/design.html#state-machine" data-ice="link">State Machine</a></li>
 </ul>
   </div>
 <div data-ice="manual" data-toc-name="installation">
@@ -74,6 +84,7 @@
     <ul class="manual-toc">
       
     <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;&#x25A0;" data-link="identifiers.html"><a href="identifiers.html" data-ice="link">Reference</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#class" data-ice="link">Class</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#function" data-ice="link">Function</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#variable" data-ice="link">Variable</a></li>
 </ul>
@@ -96,6 +107,74 @@
 <h2 id="state-machine">State machine</h2>
 <p>This the the local state machine model:</p>
 <p><img src="./manual/./states.png" alt="state diagram"></p>
+<h2 id="summary-of-use-cases">Summary of use cases</h2>
+<p>The cognito js library helpfully lists all of the 24 use cases <a href="https://github.com/aws/amazon-cognito-identity-js/">on their github</a>.</p>
+<p>This is the current status of each use case in react-cognito:</p>
+<h3 id="completed">Completed</h3>
+<ul>
+<li>UC1 Registering a user with the application</li>
+<li>UC2 Confirming a registered, unauthenticated user</li>
+<li>UC3 Resending a confirmation code via SMS</li>
+<li>UC4 Authenticating and establishing a session</li>
+<li>UC5 Retrieving user attributes for an authenticated user</li>
+<li>UC6 Verify email address for an authenticated user</li>
+<li>UC8 Update a user attribute for an authenticated user</li>
+<li>UC11 Change the current password for an authenticated user</li>
+<li>UC12 Starting and completing a forgotten password flow for an unauthenticated user</li>
+<li>UC14 Sign out</li>
+<li>UC16 Retrieve the user from local storage</li>
+<li>UC17 Log into an identity pool with a cognito user</li>
+<li>UC23 Set a new password on inital login for an admin created user</li>
+</ul>
+<h3 id="planned-for-version-1-but-not-yet-implemented">Planned for version 1, but not yet implemented</h3>
+<h3 id="not-planned-for-version-1">Not planned for version 1</h3>
+<h4 id="trivial-anyway">Trivial anyway</h4>
+<ul>
+<li>UC7 Delete a user attribute for an authenticated user</li>
+<li>UC9 Enable MFA for a user on a pool that has optional MFA</li>
+<li>UC10 Disable MFA for a user on a pool that has optional MFA</li>
+<li>UC13 Deleting an authenticated user</li>
+<li>UC15 Global sign out (invalidates all issued tokens)</li>
+</ul>
+<h4 id="mfa-support">MFA Support</h4>
+<ul>
+<li>UC24 Retrieve the MFA options for the user in case MFA is optional</li>
+</ul>
+<p>Plus any MFA implementation</p>
+<h4 id="device-support">Device support</h4>
+<ul>
+<li>UC18 List all remembered devices for an authenticated user</li>
+<li>UC19 List all information about the current device</li>
+<li>UC20 Remember a device</li>
+<li>UC21 Do not remember a device</li>
+<li>UC22 Forget the current device</li>
+</ul>
+<h2 id="issues">Issues</h2>
+<ul>
+<li>Review how visual transitions should be integrated into e.g. logging in</li>
+<li>Consider offline / liefi use</li>
+</ul>
+<h1 id="the-redux-model">The Redux Model</h1>
+<h2 id="state-machine">State Machine</h2>
+<p>Users start in state <code>LOGGED_OUT</code>.</p>
+<p>When they enter a username and password we call <code>authenticateUser</code> on the CognitoUser
+object and transition to a new state if the credentials worked:</p>
+<ul>
+<li><code>MFA_REQUIRED</code></li>
+<li><code>NEW_PASSWORD_REQUIRED</code></li>
+<li><code>CONFIRMATION_REQUIRED</code></li>
+<li><code>AUTHENTICATED</code></li>
+</ul>
+<p>If in <code>AUTHENTICATED</code> then a transition happens using a store subscriber. There are
+three options:</p>
+<ol>
+<li>no-verification - the state transitions directly to LOGGING_IN</li>
+<li>fetch-attributes - attributes are fetched then transitions to LOGGING_IN</li>
+<li>verify-email - the attributes are fetched and email_verified checked, then 
+transitions to LOGGING_IN or EMAIL_VERIFICATION_REQUIRED.</li>
+</ol>
+<p>From LOGGING_IN default behaviour is to get a session (using <code>CognitoUser.getSession</code>) from which we can get an auth token, then establishing a session with a Federated Identity Pool.</p>
+<p>If all of that succeeds we transition to &apos;LOGGED_IN&apos;.</p>
 </div>
 </div>
 </div>

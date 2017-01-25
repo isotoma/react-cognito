@@ -49,6 +49,22 @@ const mergeProps = (stateProps, dispatchProps, ownProps) =>
      dispatchProps.onResendPartial(stateProps.user),
   });
 
+/**
+ * Container for a confirmation form.  Magically adds the following props to the 
+ * contained form:
+ *
+ *  * user - the Cognito User from the redux store
+ *  * error - the persisted error from the redux store
+ *  * onSubmit - a handler that calls the Cognito confirm API
+ *  * onResend - a handler that calls the Cognito resend request API
+ *  * onCancel - Logs the user out completely
+ *
+ * @example
+ * <Confirm>
+ *   <ConfirmForm />
+ * </Confirm>
+ *
+ */
 export const Confirm = connect(
   mapStateToProps,
   mapDispatchToProps,

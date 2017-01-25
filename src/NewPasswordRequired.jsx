@@ -37,6 +37,21 @@ const mergeProps = (stateProps, dispatchProps, ownProps) =>
       userAttributes),
   });
 
+/**
+ * Wrapper for a New Password Required form
+ *
+ * Magically provides the following props to the wrapped element:
+ *
+ * * user - the Cognito user
+ * * error - the persistent react-cognito error message
+ * * onSubmit - a handler that calls the Set New Password API
+ *
+ * @example
+ *
+ * <NewPasswordRequired>
+ *   <NewPasswordRequiredForm />
+ * </NewPasswordRequired>
+ */
 export const NewPasswordRequired = connect(
   mapStateToProps,
   mapDispatchToProps,

@@ -2,8 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <base data-ice="baseUrl" href="./">
-  <title data-ice="title">Manual</title>
+  <base data-ice="baseUrl">
+  <title data-ice="title">ESDoc API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -11,11 +11,11 @@
   
   <script src="script/manual.js"></script>
 </head>
-<body class="layout-container manual-root manual-index" data-ice="rootContainer">
+<body class="layout-container" data-ice="rootContainer">
 
 <header>
   <a href="./">Home</a>
-  
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   <a href="test.html" data-ice="testLink">Test</a>
@@ -29,757 +29,77 @@
   </div>
 </header>
 
-<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
-  
-<div data-ice="manual" data-toc-name="design">
-    <ul class="manual-toc">
-      
-    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-design" data-section-count="&#x25A0;" data-link="manual/design/design.html"><a href="manual/design/design.html" data-ice="link">Design</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/design/design.html"><a href="manual/design/design.html#state-machine" data-ice="link">State machine</a></li>
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/Logout.jsx~Logout.html">Logout</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-getUserAttributes">getUserAttributes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-mkAttrList">mkAttrList</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-sendAttributeVerificationCode">sendAttributeVerificationCode</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-updateAttributes">updateAttributes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-authenticate">authenticate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-emailVerificationFlow">emailVerificationFlow</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-performLogin">performLogin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-registerUser">registerUser</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-createGuard">createGuard</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-direct">direct</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-emailVerificationRequired">emailVerificationRequired</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-enable">enable</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-fetchAttributes">fetchAttributes</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-identityPoolLogin">identityPoolLogin</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-setupCognito">setupCognito</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-cognito">cognito</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-buildLogins">buildLogins</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-changePassword">changePassword</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Confirm">Confirm</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-EmailVerification">EmailVerification</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Login">Login</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-NewPasswordRequired">NewPasswordRequired</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-PasswordReset">PasswordReset</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Action">Action</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-CognitoState">CognitoState</a></span></span></li>
 </ul>
-  </div>
-<div data-ice="manual" data-toc-name="installation">
-    <ul class="manual-toc">
-      
-    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-installation" data-section-count="&#x25A0;" data-link="manual/installation/install.html"><a href="manual/installation/install.html" data-ice="link">react-cognito</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/installation/install.html"><a href="manual/installation/install.html#installation" data-ice="link">Installation</a></li>
-</ul>
-  </div>
-<div data-ice="manual" data-toc-name="configuration">
-    <ul class="manual-toc">
-      
-    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-configuration" data-section-count="&#x25A0;" data-link="manual/configuration/configuration.html"><a href="manual/configuration/configuration.html" data-ice="link">Configuration</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/configuration/configuration.html"><a href="manual/configuration/configuration.html#userpool" data-ice="link">userPool</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/configuration/configuration.html"><a href="manual/configuration/configuration.html#identitypool" data-ice="link">identityPool</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/configuration/configuration.html"><a href="manual/configuration/configuration.html#clientid" data-ice="link">clientId</a></li>
-</ul>
-  </div>
-<div data-ice="manual" data-toc-name="example">
-    <ul class="manual-toc">
-      
-    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-example" data-section-count="&#x25A0;&#x25A0;&#x25A0;" data-link="manual/example/example.html"><a href="manual/example/example.html" data-ice="link">Usage</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/example/example.html"><a href="manual/example/example.html#running-the-example" data-ice="link">Running the example</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="manual/example/example.html"><a href="manual/example/example.html#trying-it-out" data-ice="link">Trying it out</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/example.html"><a href="manual/example/example.html#set-up-your-user-and-identity-pools" data-ice="link">Set up your user and identity pools</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/example/example.html"><a href="manual/example/example.html#try-it-out" data-ice="link">Try it out</a></li>
-<li data-ice="manualNav" class="indent-h4" data-link="manual/example/example.html"><a href="manual/example/example.html#create-a-test-user" data-ice="link">Create a test user</a></li>
-<li data-ice="manualNav" class="indent-h4" data-link="manual/example/example.html"><a href="manual/example/example.html#first-time-login" data-ice="link">First time login</a></li>
-<li data-ice="manualNav" class="indent-h4" data-link="manual/example/example.html"><a href="manual/example/example.html#logout-and-login" data-ice="link">Logout and Login</a></li>
-<li data-ice="manualNav" class="indent-h4" data-link="manual/example/example.html"><a href="manual/example/example.html#password-changing" data-ice="link">Password changing</a></li>
-<li data-ice="manualNav" class="indent-h4" data-link="manual/example/example.html"><a href="manual/example/example.html#change-email-address" data-ice="link">Change email address</a></li>
-<li data-ice="manualNav" class="indent-h4" data-link="manual/example/example.html"><a href="manual/example/example.html#password-recovery" data-ice="link">Password recovery</a></li>
-</ul>
-  </div>
-<div data-ice="manual" data-toc-name="reference">
-    <ul class="manual-toc">
-      
-    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;&#x25A0;" data-link="identifiers.html"><a href="identifiers.html" data-ice="link">Reference</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#function" data-ice="link">Function</a></li>
-<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#variable" data-ice="link">Variable</a></li>
-</ul>
-  </div>
-<div data-ice="manual" data-toc-name="changelog">
-    <ul class="manual-toc">
-      
-    </ul>
-  </div>
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div class="github-markdown">
-  
-
-  <p class="manual-badge" data-ice="manualBadge"><img src="./manual-badge.svg"></p>
-
-  <div class="manual-cards">
-    
-  <div class="manual-card-wrap" data-ice="cards">
-      <h1 data-ice="label" class="manual-color manual-color-design" data-section-count="&#x25A0;"><span data-ice="label-inner">Design</span></h1>
-      <div class="manual-card">
-        <div data-ice="card"><h1>Design</h1><h2>State machine</h2><p>This the the local state machine model:</p><p><img src="./manual/./states.png" alt="state diagram"></p></div>
-        <a data-ice="link" href="manual/design/design.html"></a>
-      </div>
-    </div>
-<div class="manual-card-wrap" data-ice="cards">
-      <h1 data-ice="label" class="manual-color manual-color-installation" data-section-count="&#x25A0;"><span data-ice="label-inner">react-cognito</span></h1>
-      <div class="manual-card">
-        <div data-ice="card"><h1>react-cognito</h1><h2>Installation</h2><p>Install the prerequisites:</p><pre><code><code class="source-code prettyprint">sudo apt install npm</code>
-</code></pre><p>Check out the code somewhere:</p><pre><code><code class="source-code prettyprint">git clone git@github.com:isotoma/react-cognito.git</code>
-</code></pre><p>Change into that directory, and then run the npm installer:</p><pre><code><code class="source-code prettyprint">npm install</code>
-</code></pre></div>
-        <a data-ice="link" href="manual/installation/install.html"></a>
-      </div>
-    </div>
-<div class="manual-card-wrap" data-ice="cards">
-      <h1 data-ice="label" class="manual-color manual-color-configuration" data-section-count="&#x25A0;"><span data-ice="label-inner">Configuration</span></h1>
-      <div class="manual-card">
-        <div data-ice="card"><h1>Configuration</h1><p>when you call the setup function, or dispatch a configuration action yourself, provide a configuration object like:</p><pre><code><code class="source-code prettyprint">{
-    region: &apos;eu-west-1&apos;,
-    userPool: &apos;eu-west-1_xxxxxxxxx&apos;,
-    identityPool: &apos;eu-west-1:xxxxxx-xxxx-xxxx-xxxxxxxxxx&apos;,
-    clientId: &apos;xxxxxxxxxxxxxxxxxxxxxx&apos;,
-}</code>
-</code></pre><p>You can find these magic strings as follows:</p><h2>userPool</h2><p>tbc</p><h2>identityPool</h2><p>tbc</p><h2>clientId</h2><p>tbc</p></div>
-        <a data-ice="link" href="manual/configuration/configuration.html"></a>
-      </div>
-    </div>
-<div class="manual-card-wrap" data-ice="cards">
-      <h1 data-ice="label" class="manual-color manual-color-example" data-section-count="&#x25A0;&#x25A0;&#x25A0;"><span data-ice="label-inner">Usage</span></h1>
-      <div class="manual-card">
-        <div data-ice="card"><h1>Usage</h1><h2>Running the example</h2><p>The package <code>local-web-server</code> is included as a development dependency, so if
-you have installed the development packages you should have the <code>ws</code> command in
-<code>node_modules/.bin</code>.</p><p>First build the library, and then the examples, then change into the htdocs directory and run the webserver:</p><pre><code><code class="source-code prettyprint">webpack -d
-webpack -d --config webpack.examples.js
-cd examples/htdocs
-ws -s index.html</code>
-</code></pre><p>The <code>-s</code> means all requests are sent to the single page application.</p><h2>Trying it out</h2><h3>Set up your user and identity pools</h3><p>TBC</p><h3>Try it out</h3><h4>Create a test user</h4><ol>
-<li>Go to your user pool and go to &quot;Users and groups&quot;</li>
-<li>Click &quot;create user&quot;</li>
-<li>Complete the form:<ul>
-<li>Enter a username </li>
-<li>Enter a password that conforms to the rules of the user pool</li>
-<li>Uncheck &apos;Mark phone number as verified?&apos;</li>
-<li>Uncheck &apos;Mark email as verified?&apos;</li>
-<li>Enter a valid email address</li>
-<li>Click &apos;Create User&apos;</li>
-</ul>
-</li>
-</ol><h4>First time login</h4><ol>
-<li>Go to your deployed example application webserver</li>
-<li>You should see the login form</li>
-<li>Enter the username and password created above</li>
-<li>You should be asked for a new password, since this is your first login</li>
-<li>Enter a new password. It must conform to the rules of the user pool.</li>
-<li>You should then be taken to a verification code entry screen.  check your email and enter the code.</li>
-<li>You should now see the logged in screen, showing your attributes and giving you some options.</li>
-</ol><p>Note that during this flow quitting and reloading the browser, then navigating back to this page, 
-will result in you returning to the correct step.</p><h4>Logout and Login</h4><ol>
-<li>Click &apos;log out&apos;</li>
-<li>You should see the login form</li>
-<li>Login again using your username and the new password you chose above.</li>
-<li>You should be taken to the logged in screen</li>
-</ol><h4>Password changing</h4><ol>
-<li>Click &apos;Change password&apos;</li>
-<li>Enter your existing password and a new password</li>
-<li>Click set new password</li>
-<li>you should see a message saying your password has been changed</li>
-<li>Click &apos;Home&apos;</li>
-</ol><h4>Change email address</h4><ol>
-<li>Click &apos;Change email address&apos;</li>
-<li>You should see a form with your existing email address</li>
-<li>Enter a new valid email address</li>
-<li>You should be asked for a verification code.  Check your email for the code.</li>
-<li>Enter the code.</li>
-<li>You will be taken to the logged in screen.</li>
-</ol><p>Note that you can also reload the page after step 4, or close your browser, and you will 
-be required to enter the verification code.</p><h4>Password recovery</h4><ol>
-<li>Log out</li>
-<li>Click &apos;Password Reset&apos;</li>
-<li>Enter your username</li>
-<li>Click &apos;send verification code&apos;</li>
-<li>It should say &apos;verification code sent&apos;</li>
-<li>Check your email and get the code</li>
-<li>enter the code and your new password</li>
-<li>Click &apos;set new password&apos;</li>
-<li>It should say &apos;Password reset&apos;</li>
-<li>Click &apos;Home&apos;</li>
-<li>Log in with your new password</li>
-</ol></div>
-        <a data-ice="link" href="manual/example/example.html"></a>
-      </div>
-    </div>
-<div class="manual-card-wrap" data-ice="cards">
-      <h1 data-ice="label" class="manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;&#x25A0;"><span data-ice="label-inner">References</span></h1>
-      <div class="manual-card">
-        <div data-ice="card"><h1>References</h1>
-
-
-<div data-ice="functionSummary"><h2 id="function">Function Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Static Public Function Summary</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-authenticate">authenticate</a></span></span><span data-ice="signature">(username: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, password: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, userPool: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>&gt;</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Authenticates with a user pool, and handles responses.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-buildLogins">buildLogins</a></span></span><span data-ice="signature">(username: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, jwtToken: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, config: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>builds the federated identity pool login structure</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-changePassword">changePassword</a></span></span><span data-ice="signature">(user: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, oldPassword: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, newPassword: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Change a user&apos;s password</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-cognito">cognito</a></span></span><span data-ice="signature">(state: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, action: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span>*</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>reducer function to be passed to redux combineReducers</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-createGuard">createGuard</a></span></span><span data-ice="signature">(store: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, forbiddenUrl: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>creates a guard function you can use in &lt;Route&gt; tags</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-direct">direct</a></span></span><span data-ice="signature">(state: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, dispatch: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>)</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>transitions directly from AUTHENTICATED to LOGGING_IN</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-emailVerificationFlow">emailVerificationFlow</a></span></span><span data-ice="signature">(user: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, attributes: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>&gt;</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>sends the email verification code and transitions to the correct state</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-emailVerificationRequired">emailVerificationRequired</a></span></span><span data-ice="signature">(state: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, dispatch: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>)</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>requires email verification before transitioning from AUTHENTICATED</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-enable">enable</a></span></span><span data-ice="signature">(store: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, f: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>)</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>subscribes a &quot;policy&quot; function to the store, and calls it
-with the state and the dispatch function</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-fetchAttributes">fetchAttributes</a></span></span><span data-ice="signature">(state: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, dispatch: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>)</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>fetches and stores attributes before transitioning from AUTHENTICATED</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-getUserAttributes">getUserAttributes</a></span></span><span data-ice="signature">(user: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Fetches the user attributes from Cognito, and turns them into
-an object</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-identityPoolLogin">identityPoolLogin</a></span></span><span data-ice="signature">(state: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, dispatch: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">function</a></span>)</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>logs into the single federated identity pool to transition from LOGGING_IN
-to LOGGED_IN</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-mkAttrList">mkAttrList</a></span></span><span data-ice="signature">(attributes: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span>array</span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>convert an attribute dictionary to an attribute list</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-performLogin">performLogin</a></span></span><span data-ice="signature">(user: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, config: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>&gt;</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>establishes a session with the user pool, and logs into the federated identity
-pool using a token from the session</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-registerUser">registerUser</a></span></span><span data-ice="signature">(userPool: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, config: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, username: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, password: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, attributes: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>&gt;</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>sign up this user with the user pool provided</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-sendAttributeVerificationCode">sendAttributeVerificationCode</a></span></span><span data-ice="signature">(user: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, attribute: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>)</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>Request that a verification code is sent by email or SMS to verify
-an attribute</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-setupCognito">setupCognito</a></span></span><span data-ice="signature">(store: <span>*</span>, config: <span>*</span>)</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>sets up react-cognito with default policies.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="function/index.html#static-function-updateAttributes">updateAttributes</a></span></span><span data-ice="signature">(user: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>, attributes: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promise</a></span>&lt;<span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>&gt;</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>update the attributes in Cognito</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
-<div data-ice="variableSummary"><h2 id="variable">Variable Summary</h2><table class="summary" data-ice="summary">
-  <thead><tr><td data-ice="title" colspan="3">Static Public Variable Summary</td></tr></thead>
-  <tbody>
-  
-  <tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="variable/index.html#static-variable-Action">Action</a></span></span><span data-ice="signature">: {&quot;configure&quot;: <span>*</span>, &quot;authenticated&quot;: <span>*</span>, &quot;loggingIn&quot;: <span>*</span>, &quot;login&quot;: <span>*</span>, &quot;logout&quot;: <span>*</span>, &quot;loginFailure&quot;: <span>*</span>, &quot;mfaRequired&quot;: <span>*</span>, &quot;newPasswordRequired&quot;: <span>*</span>, &quot;newPasswordRequiredFailure&quot;: <span>*</span>, &quot;emailVerificationRequired&quot;: <span>*</span>, &quot;emailVerificationFailed&quot;: <span>*</span>, &quot;beginPasswordResetFlow&quot;: <span>*</span>, &quot;finishPasswordResetFlow&quot;: <span>*</span>, &quot;updateAttributes&quot;: <span>*</span>, &quot;confirmationRequired&quot;: <span>*</span>}</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>container for all the actions</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          <span data-ice="name"><span><a href="variable/index.html#static-variable-CognitoState">CognitoState</a></span></span><span data-ice="signature">: {&quot;LOGGED_OUT&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;AUTHENTICATED&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;LOGGING_IN&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;LOGGED_IN&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;NEW_PASSWORD_REQUIRED&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;MFA_REQUIRED&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;EMAIL_VERIFICATION_REQUIRED&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, &quot;CONFIRMATION_REQUIRED&quot;: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>}</span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>states stored in store.cognito.state</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-</tbody>
-</table>
-</div>
-
-
-</div>
-        <a data-ice="link" href="identifiers.html"></a>
-      </div>
-    </div>
-</div>
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="react-cognito">React Cognito</h1>
+<p>You can now use Amazon Cognito to handle authentication and authorization for
+your mobile and web applications.  This is particularly useful for serverless
+single-page applications (SPAs).  SPAs can be hosted in S3 buckets and use AWS
+services such as API Gateway, Lambda, S3, DynamoDB and others without requiring
+a separate server.</p>
+<p>This Javascript package provides a set of React components and supporting code
+to make integrating with Cognito very easy, if you are using React and Redux.</p>
+<h2 id="introduction">Introduction</h2>
+<p>This library should be installed using npm, and depends on React, Redux, React
+Router, and of course the underlying AWS packages.</p>
+<p>In a nutshell this library allows you to write all of your own forms and UI
+components, but abstracts out all of the interfacing with Cognito, and
+determining which parts of UI should be rendered.</p>
+<h3 id="redux-state">Redux State</h3>
+<p>This package depends entirely on Redux to manage client-side state.  As well as
+storing important state variables there is also a client-side state machine
+that helps you display the correct UI depending on the state of the user with
+respect to their authentication status.</p>
+<p>All state is stored in redux under the key <code>cognito</code>. in there you can find:</p>
+<h4 id="user">user</h4>
+<p>This is either <code>null</code> or a valid <code>CognitoUser</code> object.  You are unlikely to
+need to use this yourself, and it is located by components using the context.</p>
+<h4 id="state">state</h4>
+<p>This is a string indicating the client-side state.  See State Machine below.</p>
+<h4 id="error">error</h4>
+<p>If errors are encountered from the Cognito API they are stored here, and then
+exposed as appropriate to UI components.  This means most error handling is
+transparent and automatic for you.</p>
+<h4 id="userpool">userPool</h4>
+<p>The CognitoUserPool object, used to create users.</p>
+<h4 id="attributes">attributes</h4>
+<p>This contains all the user&apos;s Cognito attributes, if you&apos;ve chosen to fetch them at login (the default).</p>
+<h4 id="creds">creds</h4>
+<p>A CognitoIdentityCredentials object, used to authenticate against a Federated
+User Pool.  Contains no secret material.</p>
+<h4 id="config">config</h4>
+<p>The configuration provided by the application, used to contact Cognito.</p>
 </div>
 </div>
 

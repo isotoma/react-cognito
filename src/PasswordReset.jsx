@@ -69,6 +69,22 @@ const mergeProps = (stateProps, dispatchProps, ownProps) =>
       dispatchProps.setPasswordPartial(username, stateProps.userPool, code, password),
   });
 
+/**
+ * Container for a Password Reset form
+ *
+ * Magically provides the following props to the wrapped element:
+ *
+ *  * user
+ *  * username
+ *  * error
+ *  * sendVerificationCode
+ *  * setPassword
+ *
+ * @example
+ * <PasswordReset>
+ *   <PasswordResetForm />
+ * </PasswordReset>
+ */
 export const PasswordReset = connect(
   mapStateToProps,
   mapDispatchToProps,

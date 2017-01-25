@@ -1,80 +1,61 @@
-# react-cognito README
+# React Cognito
 
-## Summary of use cases
+You can now use Amazon Cognito to handle authentication and authorization for
+your mobile and web applications.  This is particularly useful for serverless
+single-page applications (SPAs).  SPAs can be hosted in S3 buckets and use AWS
+services such as API Gateway, Lambda, S3, DynamoDB and others without requiring
+a separate server.
 
-The cognito js library helpfully lists all of the 24 use cases [on their github](https://github.com/aws/amazon-cognito-identity-js/).
+This Javascript package provides a set of React components and supporting code
+to make integrating with Cognito very easy, if you are using React and Redux.
 
-This is the current status of each use case in react-cognito:
+## Introduction
 
-### Completed
+This library should be installed using npm, and depends on React, Redux, React
+Router, and of course the underlying AWS packages.
 
-- UC1 Registering a user with the application
-- UC2 Confirming a registered, unauthenticated user
-- UC3 Resending a confirmation code via SMS
-- UC4 Authenticating and establishing a session
-- UC5 Retrieving user attributes for an authenticated user
-- UC6 Verify email address for an authenticated user
-- UC8 Update a user attribute for an authenticated user
-- UC11 Change the current password for an authenticated user
-- UC12 Starting and completing a forgotten password flow for an unauthenticated user
-- UC14 Sign out
-- UC16 Retrieve the user from local storage
-- UC17 Log into an identity pool with a cognito user
-- UC23 Set a new password on inital login for an admin created user
+In a nutshell this library allows you to write all of your own forms and UI
+components, but abstracts out all of the interfacing with Cognito, and
+determining which parts of UI should be rendered.
 
-### Planned for version 1, but not yet implemented
+### Redux State
 
-### Not planned for version 1
+This package depends entirely on Redux to manage client-side state.  As well as
+storing important state variables there is also a client-side state machine
+that helps you display the correct UI depending on the state of the user with
+respect to their authentication status.
 
-#### Trivial anyway
+All state is stored in redux under the key `cognito`. in there you can find:
 
-- UC7 Delete a user attribute for an authenticated user
-- UC9 Enable MFA for a user on a pool that has optional MFA
-- UC10 Disable MFA for a user on a pool that has optional MFA
-- UC13 Deleting an authenticated user
-- UC15 Global sign out (invalidates all issued tokens)
+#### user
 
-#### MFA Support
+This is either `null` or a valid `CognitoUser` object.  You are unlikely to
+need to use this yourself, and it is located by components using the context.
 
-- UC24 Retrieve the MFA options for the user in case MFA is optional
+#### state
 
-Plus any MFA implementation
+This is a string indicating the client-side state.  See State Machine below.
 
-#### Device support
+#### error
 
-- UC18 List all remembered devices for an authenticated user
-- UC19 List all information about the current device
-- UC20 Remember a device
-- UC21 Do not remember a device
-- UC22 Forget the current device
+If errors are encountered from the Cognito API they are stored here, and then
+exposed as appropriate to UI components.  This means most error handling is
+transparent and automatic for you.
 
-## Issues
+#### userPool
 
-- Review how visual transitions should be integrated into e.g. logging in
-- Consider offline / liefi use
+The CognitoUserPool object, used to create users.
 
-# The Redux Model
+#### attributes
 
-## State Machine
+This contains all the user's Cognito attributes, if you've chosen to fetch them at login (the default).
 
-Users start in state `LOGGED_OUT`.
+#### creds
 
-When they enter a username and password we call `authenticateUser` on the CognitoUser
-object and transition to a new state if the credentials worked:
+A CognitoIdentityCredentials object, used to authenticate against a Federated
+User Pool.  Contains no secret material.
 
-- `MFA_REQUIRED`
-- `NEW_PASSWORD_REQUIRED`
-- `CONFIRMATION_REQUIRED`
-- `AUTHENTICATED`
+#### config
 
-If in `AUTHENTICATED` then a transition happens using a store subscriber. There are
-three options:
+The configuration provided by the application, used to contact Cognito.
 
-1. no-verification - the state transitions directly to LOGGING_IN
-2. fetch-attributes - attributes are fetched then transitions to LOGGING_IN
-3. verify-email - the attributes are fetched and email_verified checked, then 
-   transitions to LOGGING_IN or EMAIL_VERIFICATION_REQUIRED.
-
-From LOGGING_IN default behaviour is to get a session (using `CognitoUser.getSession`) from which we can get an auth token, then establishing a session with a Federated Identity Pool.
-
-If all of that succeeds we transition to 'LOGGED_IN'.

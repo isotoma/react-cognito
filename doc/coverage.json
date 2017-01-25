@@ -1,7 +1,7 @@
 {
   "coverage": "100%",
-  "expectCount": 20,
-  "actualCount": 20,
+  "expectCount": 28,
+  "actualCount": 28,
   "files": {
     "src/actions.js": {
       "expectCount": 1,
@@ -9,6 +9,36 @@
       "undocumentLines": []
     },
     "src/states.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Confirm.jsx": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/EmailVerification.jsx": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Login.jsx": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/Logout.jsx": {
+      "expectCount": 3,
+      "actualCount": 3,
+      "undocumentLines": []
+    },
+    "src/NewPasswordRequired.jsx": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/PasswordReset.jsx": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []

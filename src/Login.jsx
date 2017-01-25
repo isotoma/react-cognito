@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { authenticate } from './auth';
 
-/* global AWSCognito */
-
 const BaseLogin = props =>
   React.cloneElement(props.children, {
     username: props.username,
@@ -36,6 +34,20 @@ const mergeProps = (stateProps, dispatchProps, ownProps) =>
       dispatchProps.authenticator(username, password, stateProps.userPool, stateProps.config),
   });
 
+/**
+ * Container for login behaviour, wrapping a login form.
+ *
+ * Magically provides the following props to the wrapped form:
+ *
+ *  * username
+ *  * error
+ *  * onSubmit
+ *
+ * @example
+ * <Login>
+ *   <LoginForm />
+ * </Login>
+ */
 const Login = connect(
   mapStateToProps,
   mapDispatchToProps,

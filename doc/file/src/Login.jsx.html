@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/index.js | ESDoc API Document</title>
+  <title data-ice="title">src/Login.jsx | ESDoc API Document</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -62,23 +62,64 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/index.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">export * from &apos;./reducers&apos;;
-export * from &apos;./actions&apos;;
-export * from &apos;./states&apos;;
-export * from &apos;./utils&apos;;
-export * from &apos;./guard&apos;;
-export * from &apos;./auth&apos;;
-export * from &apos;./attributes&apos;;
-export * from &apos;./policy&apos;;
+<div class="content" data-ice="content"><h1 data-ice="title">src/Login.jsx</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import React from &apos;react&apos;;
+import { connect } from &apos;react-redux&apos;;
+import { authenticate } from &apos;./auth&apos;;
 
+const BaseLogin = props =&gt;
+  React.cloneElement(props.children, {
+    username: props.username,
+    error: props.error,
+    onSubmit: props.onSubmit,
+  });
 
-export * from &apos;./Login.jsx&apos;;
-export * from &apos;./Logout.jsx&apos;;
-export * from &apos;./NewPasswordRequired.jsx&apos;;
-export * from &apos;./EmailVerification.jsx&apos;;
-export * from &apos;./PasswordReset.jsx&apos;;
-export * from &apos;./Confirm.jsx&apos;;
+const mapStateToProps = (state) =&gt; {
+  let username = &apos;&apos;;
+  if (state.cognito.user) {
+    username = state.cognito.user.getUsername();
+  }
+  return {
+    username,
+    error: state.cognito.error,
+    config: state.cognito.config,
+    userPool: state.cognito.userPool,
+  };
+};
+
+const mapDispatchToProps = dispatch =&gt; ({
+  authenticator: (username, password, userPool, config) =&gt; {
+    authenticate(username, password, userPool, config).then(dispatch);
+  },
+});
+
+const mergeProps = (stateProps, dispatchProps, ownProps) =&gt;
+  Object.assign({}, ownProps, stateProps, {
+    onSubmit: (username, password) =&gt;
+      dispatchProps.authenticator(username, password, stateProps.userPool, stateProps.config),
+  });
+
+/**
+ * Container for login behaviour, wrapping a login form.
+ *
+ * Magically provides the following props to the wrapped form:
+ *
+ *  * username
+ *  * error
+ *  * onSubmit
+ *
+ * @example
+ * &lt;Login&gt;
+ *   &lt;LoginForm /&gt;
+ * &lt;/Login&gt;
+ */
+const Login = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  mergeProps,
+)(BaseLogin);
+
+export { Login };
 </code></pre>
 
 </div>

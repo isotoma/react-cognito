@@ -15,7 +15,7 @@
 
 <header>
   <a href="./">Home</a>
-  
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   <a href="test.html" data-ice="testLink">Test</a>
@@ -34,8 +34,18 @@
 <div data-ice="manual" data-toc-name="design">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-design" data-section-count="&#x25A0;" data-link="manual/design/design.html"><a href="manual/design/design.html" data-ice="link">Design</a></li>
+    <li data-ice="manualNav" class="indent-h1 manual-color manual-color-design" data-section-count="&#x25A0;&#x25A0;&#x25A0;" data-link="manual/design/design.html"><a href="manual/design/design.html#design" data-ice="link">Design</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/design/design.html"><a href="manual/design/design.html#state-machine" data-ice="link">State machine</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/design/design.html"><a href="manual/design/design.html#summary-of-use-cases" data-ice="link">Summary of use cases</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/design/design.html"><a href="manual/design/design.html#completed" data-ice="link">Completed</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/design/design.html"><a href="manual/design/design.html#planned-for-version-1-but-not-yet-implemented" data-ice="link">Planned for version 1, but not yet implemented</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/design/design.html"><a href="manual/design/design.html#not-planned-for-version-1" data-ice="link">Not planned for version 1</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/design/design.html"><a href="manual/design/design.html#trivial-anyway" data-ice="link">Trivial anyway</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/design/design.html"><a href="manual/design/design.html#mfa-support" data-ice="link">MFA Support</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/design/design.html"><a href="manual/design/design.html#device-support" data-ice="link">Device support</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/design/design.html"><a href="manual/design/design.html#issues" data-ice="link">Issues</a></li>
+<li data-ice="manualNav" class="indent-h1 manual-color manual-color-design" data-section-count="&#x25A0;&#x25A0;&#x25A0;" data-link="manual/design/design.html"><a href="manual/design/design.html#the-redux-model" data-ice="link">The Redux Model</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/design/design.html"><a href="manual/design/design.html#state-machine" data-ice="link">State Machine</a></li>
 </ul>
   </div>
 <div data-ice="manual" data-toc-name="installation">
@@ -74,6 +84,7 @@
     <ul class="manual-toc">
       
     <li data-ice="manualNav" class="indent-h1 manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;&#x25A0;" data-link="identifiers.html"><a href="identifiers.html" data-ice="link">Reference</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#class" data-ice="link">Class</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#function" data-ice="link">Function</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="identifiers.html"><a href="identifiers.html#variable" data-ice="link">Variable</a></li>
 </ul>
@@ -94,10 +105,22 @@
   <div class="manual-cards">
     
   <div class="manual-card-wrap" data-ice="cards">
-      <h1 data-ice="label" class="manual-color manual-color-design" data-section-count="&#x25A0;"><span data-ice="label-inner">Design</span></h1>
+      <h1 data-ice="label" class="manual-color manual-color-design" data-section-count="&#x25A0;&#x25A0;&#x25A0;"><span data-ice="label-inner">The Redux Model</span></h1>
       <div class="manual-card">
-        <div data-ice="card"><h1>Design</h1><h2>State machine</h2><p>This the the local state machine model:</p><p><img src="./manual/./states.png" alt="state diagram"></p></div>
-        <a data-ice="link" href="manual/design/design.html"></a>
+        <div data-ice="card"><h1>The Redux Model</h1><h2>State Machine</h2><p>Users start in state <code>LOGGED_OUT</code>.</p><p>When they enter a username and password we call <code>authenticateUser</code> on the CognitoUser
+object and transition to a new state if the credentials worked:</p><ul>
+<li><code>MFA_REQUIRED</code></li>
+<li><code>NEW_PASSWORD_REQUIRED</code></li>
+<li><code>CONFIRMATION_REQUIRED</code></li>
+<li><code>AUTHENTICATED</code></li>
+</ul><p>If in <code>AUTHENTICATED</code> then a transition happens using a store subscriber. There are
+three options:</p><ol>
+<li>no-verification - the state transitions directly to LOGGING_IN</li>
+<li>fetch-attributes - attributes are fetched then transitions to LOGGING_IN</li>
+<li>verify-email - the attributes are fetched and email_verified checked, then 
+transitions to LOGGING_IN or EMAIL_VERIFICATION_REQUIRED.</li>
+</ol><p>From LOGGING_IN default behaviour is to get a session (using <code>CognitoUser.getSession</code>) from which we can get an auth token, then establishing a session with a Federated Identity Pool.</p><p>If all of that succeeds we transition to &apos;LOGGED_IN&apos;.</p></div>
+        <a data-ice="link" href="manual/design/design.html#the-redux-model"></a>
       </div>
     </div>
 <div class="manual-card-wrap" data-ice="cards">
@@ -192,7 +215,41 @@ be required to enter the verification code.</p><h4>Password recovery</h4><ol>
       <h1 data-ice="label" class="manual-color manual-color-reference" data-section-count="&#x25A0;&#x25A0;&#x25A0;&#x25A0;"><span data-ice="label-inner">References</span></h1>
       <div class="manual-card">
         <div data-ice="card"><h1>References</h1>
-
+<div data-ice="classSummary"><h2 id="class">Class Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Public Class Summary</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="class/src/Logout.jsx~Logout.html">Logout</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Container for logout behaviour.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
 
 <div data-ice="functionSummary"><h2 id="function">Function Summary</h2><table class="summary" data-ice="summary">
   <thead><tr><td data-ice="title" colspan="3">Static Public Function Summary</td></tr></thead>
@@ -762,6 +819,146 @@ an attribute</p>
         
         
         <div data-ice="description"><p>states stored in store.cognito.state</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="variable/index.html#static-variable-Confirm">Confirm</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Container for a confirmation form.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="variable/index.html#static-variable-EmailVerification">EmailVerification</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Wrapper for an Email Verification Form.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="variable/index.html#static-variable-Login">Login</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Container for login behaviour, wrapping a login form.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="variable/index.html#static-variable-NewPasswordRequired">NewPasswordRequired</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Wrapper for a New Password Required form</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          <span data-ice="name"><span><a href="variable/index.html#static-variable-PasswordReset">PasswordReset</a></span></span><span data-ice="signature">: <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Container for a Password Reset form</p>
 </div>
       </div>
     </td>

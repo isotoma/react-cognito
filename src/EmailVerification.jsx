@@ -33,6 +33,20 @@ const mergeProps = (stateProps, dispatchProps, ownProps) =>
      dispatchProps.verifyPartial(verificationCode, stateProps.user),
   });
 
+/**
+ * Wrapper for an Email Verification Form.
+ * Magically adds the following props to the contained form:
+ *
+ *  * user - the Cognito user from the Redux store
+ *  * error - the persisted error from the Redux store
+ *  * onSubmit - a handler that calls the Cognito verification API
+ *
+ * @example
+ * <EmailVerification>
+ *   <EmailVerificationForm />
+ * </EmailVerification>
+ *
+ */
 export const EmailVerification = connect(
   mapStateToProps,
   mapDispatchToProps,

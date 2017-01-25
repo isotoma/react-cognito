@@ -12,6 +12,42 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "@isotoma/react-cognito/src/confirm.jsx~confirm",
+    "variable/index.html#static-variable-Confirm",
+    "<span>Confirm</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/Confirm.jsx</span>",
+    "variable"
+  ],
+  [
+    "@isotoma/react-cognito/src/emailverification.jsx~emailverification",
+    "variable/index.html#static-variable-EmailVerification",
+    "<span>EmailVerification</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/EmailVerification.jsx</span>",
+    "variable"
+  ],
+  [
+    "@isotoma/react-cognito/src/login.jsx~login",
+    "variable/index.html#static-variable-Login",
+    "<span>Login</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/Login.jsx</span>",
+    "variable"
+  ],
+  [
+    "@isotoma/react-cognito/src/logout.jsx~logout",
+    "class/src/Logout.jsx~Logout.html",
+    "<span>Logout</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/Logout.jsx</span>",
+    "class"
+  ],
+  [
+    "@isotoma/react-cognito/src/newpasswordrequired.jsx~newpasswordrequired",
+    "variable/index.html#static-variable-NewPasswordRequired",
+    "<span>NewPasswordRequired</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/NewPasswordRequired.jsx</span>",
+    "variable"
+  ],
+  [
+    "@isotoma/react-cognito/src/passwordreset.jsx~passwordreset",
+    "variable/index.html#static-variable-PasswordReset",
+    "<span>PasswordReset</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/PasswordReset.jsx</span>",
+    "variable"
+  ],
+  [
     "@isotoma/react-cognito/src/auth.js~authenticate",
     "function/index.html#static-function-authenticate",
     "<span>authenticate</span> <span class=\"search-result-import-path\">@isotoma/react-cognito/src/auth.js</span>",
@@ -508,6 +544,54 @@ window.esdocSearchIndex = [
     "test-file/test/attributes.js.html#lineNumber13",
     "sendAttributeVerificationCode should return false on success",
     "test"
+  ],
+  [
+    "src/confirm.jsx",
+    "file/src/Confirm.jsx.html",
+    "src/Confirm.jsx",
+    "file"
+  ],
+  [
+    "src/emailverification.jsx",
+    "file/src/EmailVerification.jsx.html",
+    "src/EmailVerification.jsx",
+    "file"
+  ],
+  [
+    "src/login.jsx",
+    "file/src/Login.jsx.html",
+    "src/Login.jsx",
+    "file"
+  ],
+  [
+    "src/logout.jsx",
+    "file/src/Logout.jsx.html",
+    "src/Logout.jsx",
+    "file"
+  ],
+  [
+    "src/logout.jsx~logout#onclick",
+    "class/src/Logout.jsx~Logout.html#instance-member-onClick",
+    "src/Logout.jsx~Logout#onClick",
+    "member"
+  ],
+  [
+    "src/logout.jsx~logout#render",
+    "class/src/Logout.jsx~Logout.html#instance-method-render",
+    "src/Logout.jsx~Logout#render",
+    "method"
+  ],
+  [
+    "src/newpasswordrequired.jsx",
+    "file/src/NewPasswordRequired.jsx.html",
+    "src/NewPasswordRequired.jsx",
+    "file"
+  ],
+  [
+    "src/passwordreset.jsx",
+    "file/src/PasswordReset.jsx.html",
+    "src/PasswordReset.jsx",
+    "file"
   ],
   [
     "src/actions.js",
