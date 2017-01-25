@@ -19,9 +19,13 @@ The `-s` means all requests are sent to the single page application.
 
 ### Set up your user and identity pools
 
-TBC
+Go to the AWS Console and create a user pool and a federated identity pool.
+The user pool needs an associated app which must NOT have a secret.
 
-### Try it out
+copy the config.json.example as config.json and fill in the identifiers for
+your user pool and identity pool.
+
+### Walkthrough
 
 #### Create a test user
 
