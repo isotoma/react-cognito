@@ -20,7 +20,7 @@ const loggedInPage = (user, attributes) => (
     <p>logged in as {user.getUsername()}</p>
     <ul>
       <li>
-        <Logout onLogout>
+        <Logout>
           <LogoutButton />
         </Logout>
       </li>
