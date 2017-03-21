@@ -6,26 +6,24 @@ The package `local-web-server` is included as a development dependency, so if
 you have installed the development packages you should have the `ws` command in
 `node_modules/.bin`.
 
+### Set up your user and identity pools
+
+Go to the AWS Console and create a user pool and a federated identity pool.
+The user pool needs an associated app which must NOT have a secret.
 First build the library, and then the examples, then change into the htdocs directory and run the webserver:
 
+## Building
+
     webpack -d
+
+copy the config.json.example as config.json and fill in the identifiers for
+your user pool and identity pool.
+
     webpack -d --config webpack.examples.js
     cd examples/htdocs
     ws -s index.html
 
 The `-s` means all requests are sent to the single page application.
-
-## Trying it out
-
-### Set up your user and identity pools
-
-Go to the AWS Console and create a user pool and a federated identity pool.
-The user pool needs an associated app which must NOT have a secret.
-
-copy the config.json.example as config.json and fill in the identifiers for
-your user pool and identity pool.
-
-### Walkthrough
 
 #### Create a test user
 
