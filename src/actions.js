@@ -54,10 +54,10 @@ const Action = {
     attributes,
   }),
 
-  emailVerificationFailed: (error, attributes) => ({
+  emailVerificationFailed: (user, error) => ({
     type: 'COGNITO_EMAIL_VERIFICATION_FAILED',
+    user,
     error,
-    attributes,
   }),
 
   beginPasswordResetFlow: (user, error) => ({
