@@ -23,8 +23,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  authenticator: (username, password, userPool, config) => 
-    authenticate(username, password, userPool, config).then(dispatch)
+  authenticator: (username, password, userPool, config) =>
+    authenticate(username, password, userPool, config).then(dispatch),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) =>
