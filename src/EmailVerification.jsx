@@ -9,7 +9,7 @@ const BaseEmailVerification = props =>
     onCancel: props.onCancel,
   });
 
-const verifyEmail = (verificationCode, user, dispatch) =>
+export const verifyEmail = (verificationCode, user, dispatch) =>
   new Promise((resolve, reject) => {
     user.verifyAttribute('email', verificationCode, {
       onSuccess: () => {
@@ -20,7 +20,7 @@ const verifyEmail = (verificationCode, user, dispatch) =>
         dispatch(Action.emailVerificationRequired(user));
         reject();
       },
-      onFailure: error => {
+      onFailure: (error) => {
         dispatch(Action.emailVerificationFailed(user, error.message));
         reject();
       },
