@@ -24,7 +24,8 @@ const verifyEmail = (verificationCode, user, dispatch) =>
         dispatch(Action.emailVerificationFailed(user, error.message));
         reject();
       },
-    }));
+    });
+  });
 
 const mapStateToProps = state => ({
   error: state.cognito.error,
