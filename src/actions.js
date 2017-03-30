@@ -82,6 +82,11 @@ const Action = {
     error,
   }),
 
+  confirmFailed: (user, error) => ({
+    type: 'COGNITO_USER_CONFIRM_FAILED',
+    user,
+    error,
+  }),
 };
 
 export { Action };
