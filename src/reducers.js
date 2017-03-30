@@ -111,6 +111,13 @@ export const cognito = (state = initial, action) => {
         error: action.error,
       });
 
+    case 'COGNITO_USER_CONFIRM_FAILED':
+      return Object.assign({}, state, {
+        user: action.user,
+        state: CognitoState.CONFIRMATION_REQUIRED,
+        error: action.error,
+      });
+
     case 'COGNITO_NEW_PASSWORD_REQUIRED_FAILURE':
       return Object.assign({}, state, {
         error: action.error,
