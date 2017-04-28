@@ -23,8 +23,8 @@ export default {
       redux: 'Redux',
       'react-redux': 'ReactRedux',
       'react-router': 'ReactRouter',
-      'aws-cognito-sdk': 'AWSCognito',
+      'aws-sdk': 'AWS',
       'amazon-cognito-identity-js': 'AmazonCognitoIdentity',
-      
+
   },
 };
