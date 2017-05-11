@@ -141,10 +141,11 @@ export const cognito = (state = initial, action) => {
         error: action.error,
       });
 
+    case 'COGNITO_CONTINUE_PASSWORD_RESET_FLOW':
+      return state;
+
     case 'COGNITO_FINISH_PASSWORD_RESET_FLOW':
-      return Object.assign({}, state, {
-        error: action.error,
-      });
+      return state;
 
     // this moves us into the AUTHENTICATED state, potentially causing
     // a number of side-effects. this is so we can re-verify the email

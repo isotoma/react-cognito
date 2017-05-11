@@ -19,22 +19,34 @@ const getUser = (username, userPool) => {
   return user;
 };
 
-const setPassword = (username, userPool, code, password) =>
+const setPassword = (username, userPool, code, password, dispatch) =>
   new Promise((resolve) => {
     const user = getUser(username, userPool);
     user.confirmPassword(code, password, {
-      onSuccess: () => resolve(Action.finishPasswordResetFlow('Password reset')),
-      onFailure: err => resolve(Action.beginPasswordResetFlow(user, err.message)),
+      onSuccess: () => {
+        dispatch(Action.finishPasswordResetFlow()),
+        resolve();
+      },
+      onFailure: err => {
+        dispatch(Action.beginPasswordResetFlow(user, err.message)),
+        reject(err);
+      }
     });
   });
 
 
-const sendVerificationCode = (username, userPool) =>
-  new Promise((resolve) => {
+const sendVerificationCode = (username, userPool, dispatch) =>
+  new Promise((resolve, reject) => {
     const user = getUser(username, userPool);
     user.forgotPassword({
-      onSuccess: () => resolve(Action.beginPasswordResetFlow(user, 'Verification code sent')),
-      onFailure: err => resolve(Action.beginPasswordResetFlow(user, err.message)),
+      onSuccess: () => {
+        dispatch(Action.continuePasswordResetFlow(user));
+        resolve();
+      },
+      onFailure: err => {
+        dispatch(Action.beginPasswordResetFlow(user, err.message));
+        reject(err);
+      }
     });
   });
 
@@ -53,12 +65,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  sendVerificationCodePartial: (username, userPool) => {
-    sendVerificationCode(username, userPool).then(dispatch);
-  },
-  setPasswordPartial: (user, userPool, code, password) => {
-    setPassword(user, userPool, code, password).then(dispatch);
-  },
+  sendVerificationCodePartial: (username, userPool) =>
+    sendVerificationCode(username, userPool, dispatch),
+  setPasswordPartial: (user, userPool, code, password) =>
+    setPassword(user, userPool, code, password, dispatch),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) =>

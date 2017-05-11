@@ -9,17 +9,22 @@ class PasswordResetForm extends React.Component {
       username: props.username,
       code: '',
       password: '',
+      message: '',
     };
   }
 
   onSubmit = (event) => {
     event.preventDefault();
-    this.props.setPassword(this.state.username, this.state.code, this.state.password);
+    this.props.setPassword(this.state.username, this.state.code, this.state.password)
+      .then(() => this.setState({ message: 'Password reset' }))
+      .catch((error) => console.error(error));
   }
 
   sendVerificationCode = (event) => {
     event.preventDefault();
-    this.props.sendVerificationCode(this.state.username);
+    this.props.sendVerificationCode(this.state.username)
+      .then(() => this.setState({ message: 'Verification code sent' }))
+      .catch((error) => console.error(error));
   }
 
   changePassword = (event) => {
@@ -37,6 +42,7 @@ class PasswordResetForm extends React.Component {
   render = () => (
     <div>
       <div>{this.props.error}</div>
+      <div>{this.state.message}</div>
       <form onSubmit={this.sendVerificationCode}>
         <label>
           Username
