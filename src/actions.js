@@ -66,8 +66,8 @@ const Action = {
     error,
   }),
 
-  continuePasswordResetFlow: (user, error) => ({
-    type: 'COGNITO_CONTINEU_PASSWORD_RESET_FLOW',
+  continuePasswordResetFlow: user => ({
+    type: 'COGNITO_CONTINUE_PASSWORD_RESET_FLOW',
     user,
   }),
 
