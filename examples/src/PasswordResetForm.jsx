@@ -17,14 +17,14 @@ class PasswordResetForm extends React.Component {
     event.preventDefault();
     this.props.setPassword(this.state.username, this.state.code, this.state.password)
       .then(() => this.setState({ message: 'Password reset' }))
-      .catch((error) => console.error(error));
+      .catch(console.error(error));
   }
 
   sendVerificationCode = (event) => {
     event.preventDefault();
     this.props.sendVerificationCode(this.state.username)
       .then(() => this.setState({ message: 'Verification code sent' }))
-      .catch((error) => console.error(error));
+      .catch(console.error(error));
   }
 
   changePassword = (event) => {
