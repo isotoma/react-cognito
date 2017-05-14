@@ -20,7 +20,7 @@ const getUser = (username, userPool) => {
 };
 
 const setPassword = (username, userPool, code, password, dispatch) =>
-  new Promise((resolve) => {
+  new Promise((resolve, reject) => {
     const user = getUser(username, userPool);
     user.confirmPassword(code, password, {
       onSuccess: () => {
