@@ -69,7 +69,8 @@
     "react-dom": "^15.0.0",
     "react-redux": "^5.0.1",
     "redux": "^3.6.0",
-    "sinon": "^1.17.7",
+    "sinon": "^2.2.0",
+    "sinon-chai": "^2.10.0",
     "webpack": "^1.14.0",
     "webpack-dev-server": "^1.16.2"
   },

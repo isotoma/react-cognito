@@ -1,6 +1,7 @@
 import chai from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 import sinon from 'sinon';
+import sinonChai from 'sinon-chai';
 import assert from 'assert';
 import { CognitoUser } from 'amazon-cognito-identity-js';
 import { CognitoIdentityCredentials } from 'aws-cognito-sdk';
@@ -10,9 +11,10 @@ import {
 } from '../src/auth';
 
 chai.use(chaiAsPromised);
+chai.use(sinonChai);
 const expect = chai.expect;
 
-sinon.stub(CognitoIdentityCredentials.prototype, 'refresh', function f(callback) {
+sinon.stub(CognitoIdentityCredentials.prototype, 'refresh').callsFake(function f(callback) {
   const username = this.params.LoginId;
   switch (username) {
     case 'identity-pool-failure':
@@ -33,11 +35,11 @@ const mockSession = {
   }),
 };
 
-sinon.stub(CognitoUser.prototype, 'getAttributeVerificationCode', (attribute, callbacks) =>
+sinon.stub(CognitoUser.prototype, 'getAttributeVerificationCode').callsFake((attribute, callbacks) =>
   callbacks.inputVerificationCode(),
 );
 
-sinon.stub(CognitoUser.prototype, 'getUserAttributes', function f(callback) {
+sinon.stub(CognitoUser.prototype, 'getUserAttributes').callsFake(function f(callback) {
   const verified = this.username === 'email-verification-required' ? 'false' : 'true';
   callback(undefined, [{
     getName: () => 'email_verified',
@@ -45,7 +47,7 @@ sinon.stub(CognitoUser.prototype, 'getUserAttributes', function f(callback) {
   }]);
 });
 
-sinon.stub(CognitoUser.prototype, 'getSession', function f(callback) {
+sinon.stub(CognitoUser.prototype, 'getSession').callsFake(function f(callback) {
   switch (this.username) {
     case 'session-error':
       callback(true, null);
@@ -59,7 +61,7 @@ sinon.stub(CognitoUser.prototype, 'getSession', function f(callback) {
   }
 });
 
-sinon.stub(CognitoUser.prototype, 'authenticateUser', (creds, f) => {
+sinon.stub(CognitoUser.prototype, 'authenticateUser').callsFake((creds, f) => {
   switch (creds.username) {
     case 'success':
     case 'session-error':
@@ -100,32 +102,39 @@ describe('performLogin', () => {
 // cannot stub performLogin, and useful to test entire orchestration
 describe('authenticate', () => {
   const pool = {};
-  const a = username => authenticate(username, '', pool, {});
+  const mockDispatch = sinon.stub().callsFake((action) => {
+    return action.type;
+  });
+  const a = username => authenticate(username, '', pool, {}, mockDispatch);
 
-  it('should return an authenticated action on success', () =>
+  it('should return nothing and dispatch authenticated on success', () => {
     expect(a('success'))
-    .to.eventually.have.property('type')
-    .to.equal('COGNITO_AUTHENTICATED'));
+    .to.eventually.equal();
+    expect(mockDispatch.lastCall).to.have.returned('COGNITO_AUTHENTICATED');
+  });
 
   /** @test {authenticate#failed passwords} */
-  it('should return a loginFailure action for failed passwords', () =>
+  it('should return a NotAuthorizedException for failed passwords', () =>
     expect(a('failure-bad-creds'))
-    .to.eventually.have.property('type')
-    .to.equal('COGNITO_LOGIN_FAILURE'));
+    .to.be.rejected.and.eventually.have.property('code')
+    .to.equal('NotAuthorizedException'));
 
   /** @test {authenticate#not confirmed} */
-  it('should return a confirmationRequired action when not confirmed', () =>
+  it('should return nothing and dispatch confirmed when not confirmed', () => {
     expect(a('failure-not-confirmed'))
-    .to.eventually.have.property('type')
-    .to.equal('COGNITO_USER_UNCONFIRMED'));
+    .to.eventually.equal();
+    expect(mockDispatch.lastCall).to.have.returned('COGNITO_USER_UNCONFIRMED');
+  });
 
-  it('should return an mfaRequired action when MFA is required', () =>
+  it('should return nothing and dispatch mfa when MFA is required', () => {
     expect(a('mfa'))
-    .to.eventually.have.property('type')
-    .to.equal('COGNITO_LOGIN_MFA_REQUIRED'));
+    .to.eventually.equal();
+    expect(mockDispatch.lastCall).to.have.returned('COGNITO_LOGIN_MFA_REQUIRED');
+  });
 
-  it('should return newPasswordRequired action when new password is required', () =>
+  it('should return nothing dispatch newPasswordRequired when new password is required', () => {
     expect(a('newpass'))
-    .to.eventually.have.property('type')
-    .to.equal('COGNITO_LOGIN_NEW_PASSWORD_REQUIRED'));
+    .to.eventually.equal();
+    expect(mockDispatch.lastCall).to.have.returned('COGNITO_LOGIN_NEW_PASSWORD_REQUIRED');
+  });
 });
