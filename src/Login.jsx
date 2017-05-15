@@ -5,7 +5,6 @@ import { authenticate } from './auth';
 const BaseLogin = props =>
   React.cloneElement(props.children, {
     username: props.username,
-    error: props.error,
     onSubmit: props.onSubmit,
   });
 
@@ -16,7 +15,6 @@ const mapStateToProps = (state) => {
   }
   return {
     username,
-    error: state.cognito.error,
     config: state.cognito.config,
     userPool: state.cognito.userPool,
   };
@@ -39,7 +37,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) =>
  * Magically provides the following props to the wrapped form:
  *
  *  * username
- *  * error
  *  * onSubmit
  *
  * @example
