@@ -5,7 +5,6 @@ import { Action } from './actions';
 
 const BasePasswordReset = props =>
   React.cloneElement(props.children, {
-    error: props.error,
     username: props.username,
     sendVerificationCode: props.sendVerificationCode,
     setPassword: props.setPassword,
@@ -53,7 +52,6 @@ const sendVerificationCode = (username, userPool, dispatch) =>
 
 const mapStateToProps = (state) => {
   const props = {
-    error: state.cognito.error || '',
     user: state.cognito.user,
     username: '',
     userPool: state.cognito.userPool,
@@ -86,7 +84,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) =>
  *
  *  * user
  *  * username
- *  * error
  *  * sendVerificationCode
  *  * setPassword
  *

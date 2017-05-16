@@ -6,14 +6,15 @@ class LoginForm extends React.Component {
     super(props);
     this.state = {
       username: props.username,
-      error: props.error,
+      error: '',
       password: '',
     };
   }
 
   onSubmit = (event) => {
     event.preventDefault();
-    this.props.onSubmit(this.state.username, this.state.password);
+    this.props.onSubmit(this.state.username, this.state.password)
+      .catch((error) => this.setState({ error: error.message }));
   }
 
   changeUsername = (event) => {
@@ -26,7 +27,7 @@ class LoginForm extends React.Component {
 
   render = () => (
     <form onSubmit={this.onSubmit}>
-      <div>{this.props.error}</div>
+      <div>{this.state.error}</div>
       <label>
         Username
         <input placeholder="Username" value={this.state.username} onChange={this.changeUsername} required />

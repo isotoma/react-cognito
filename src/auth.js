@@ -99,8 +99,8 @@ const performLogin = (user, config) =>
  * @return {Promise<object>} - a promise that resolves an action to be dispatched
  *
 */
-const authenticate = (username, password, userPool) =>
-  new Promise((resolve) => {
+const authenticate = (username, password, userPool, config, dispatch) =>
+  new Promise((resolve, reject) => {
     const creds = new AuthenticationDetails({
       Username: username,
       Password: password,
@@ -112,16 +112,28 @@ const authenticate = (username, password, userPool) =>
     });
 
     user.authenticateUser(creds, {
-      onSuccess: () => resolve(Action.authenticated(user)),
+      onSuccess: () => {
+        console.log('dispatching', dispatch);
+        dispatch(Action.authenticated(user));
+        resolve();
+      },
       onFailure: (error) => {
         if (error.code === 'UserNotConfirmedException') {
-          resolve(Action.confirmationRequired(user));
+          dispatch(Action.confirmationRequired(user));
+          resolve();
         } else {
-          resolve(Action.loginFailure(user, error.message));
+          dispatch(Action.loginFailure(user, error.message));
+          reject(error);
         }
       },
-      mfaRequired: () => resolve(Action.mfaRequired(user)),
-      newPasswordRequired: () => resolve(Action.newPasswordRequired(user)),
+      mfaRequired: () => {
+        dispatch(Action.mfaRequired(user));
+        resolve();
+      },
+      newPasswordRequired: () => {
+        dispatch(Action.newPasswordRequired(user));
+        resolve();
+      },
     });
   });
 
