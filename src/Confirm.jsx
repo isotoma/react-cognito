@@ -10,15 +10,18 @@ const BaseConfirm = props =>
     onCancel: props.onCancel,
   });
 
-const confirm = (verificationCode, user, dispatch) => {
-  user.confirmRegistration(verificationCode, true, (error) => {
-    if (error) {
-      dispatch(Action.confirmFailed(user, error.message));
-    } else {
-      dispatch(Action.logout());
-    }
+const confirm = (verificationCode, user, dispatch) =>
+  new Promise((resolve, reject) => {
+    user.confirmRegistration(verificationCode, true, (error) => {
+      if (error) {
+        dispatch(Action.confirmFailed(user));
+        reject(error.message);
+      } else {
+        dispatch(Action.logout());
+        resolve(user);
+      }
+    });
   });
-};
 
 const resend = (user, dispatch) =>
   user.resendConfirmationCode((err) => {

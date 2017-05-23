@@ -5,14 +5,20 @@ class ConfirmForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: props.error,
+      error: '',
       verificationCode: '',
     };
   }
 
   onSubmit = (event) => {
     event.preventDefault();
-    this.props.onSubmit(this.state.verificationCode);
+    this.props.onSubmit(this.state.verificationCode)
+     .then((user) => {
+       console.log(user);
+     })
+     .catch((error) => {
+       this.setState({ error });
+     });
   }
 
   changeVerificationCode = (event) => {
@@ -21,7 +27,7 @@ class ConfirmForm extends React.Component {
 
   render = () => (
     <form onSubmit={this.onSubmit}>
-      <div>{this.props.error}</div>
+      <div>{this.state.error}</div>
       <label>
         Verification Code
         <input placeholder="code" onChange={this.changeVerificationCode} required />
