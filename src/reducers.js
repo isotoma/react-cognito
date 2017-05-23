@@ -5,6 +5,7 @@ import { CognitoState } from './states';
 
 const initial = {
   user: null,
+  userName: null, // cached for post register login
   state: CognitoState.LOGGED_OUT,
   error: '',
   userPool: null,
@@ -58,6 +59,7 @@ export const cognito = (state = initial, action) => {
     case 'COGNITO_AUTHENTICATED':
       return Object.assign({}, state, {
         user: action.user,
+        userName: null,
         error: '',
         state: CognitoState.AUTHENTICATED,
       });
@@ -78,6 +80,16 @@ export const cognito = (state = initial, action) => {
     case 'COGNITO_LOGOUT':
       return Object.assign({}, state, {
         user: null,
+        userName: null,
+        error: '',
+        creds: null,
+        state: CognitoState.LOGGED_OUT,
+      });
+
+    case 'COGNITO_PARTIAL_LOGOUT':
+      return Object.assign({}, state, {
+        user: null,
+        userName: state.user.username,
         error: '',
         creds: null,
         state: CognitoState.LOGGED_OUT,

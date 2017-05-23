@@ -27,6 +27,10 @@ const Action = {
     type: 'COGNITO_LOGOUT',
   }),
 
+  partialLogout: () => ({
+    type: 'COGNITO_PARTIAL_LOGOUT',
+  }),
+
   loginFailure: (user, error) => ({
     type: 'COGNITO_LOGIN_FAILURE',
     user,

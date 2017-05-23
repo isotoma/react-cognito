@@ -10,7 +10,9 @@ const BaseLogin = props =>
 
 const mapStateToProps = (state) => {
   let username = '';
-  if (state.cognito.user) {
+  if (state.cognito.userName) {
+    username = state.cognito.userName;
+  } else if (state.cognito.user) {
     username = state.cognito.user.getUsername();
   }
   return {

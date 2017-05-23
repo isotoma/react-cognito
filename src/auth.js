@@ -113,7 +113,6 @@ const authenticate = (username, password, userPool, config, dispatch) =>
 
     user.authenticateUser(creds, {
       onSuccess: () => {
-        console.log('dispatching', dispatch);
         dispatch(Action.authenticated(user));
         resolve();
       },
