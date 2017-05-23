@@ -5,18 +5,20 @@ import { authenticate } from './auth';
 const BaseLogin = props =>
   React.cloneElement(props.children, {
     username: props.username,
+    email: props.email,
     onSubmit: props.onSubmit,
   });
 
 const mapStateToProps = (state) => {
   let username = '';
-  if (state.cognito.userName) {
-    username = state.cognito.userName;
-  } else if (state.cognito.user) {
+  if (state.cognito.user) {
     username = state.cognito.user.getUsername();
+  } else if (state.cognito.userName) {
+    username = state.cognito.cache.userName;
   }
   return {
     username,
+    email: state.cognito.cache.email,
     config: state.cognito.config,
     userPool: state.cognito.userPool,
   };

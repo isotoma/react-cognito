@@ -5,6 +5,7 @@ class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      email: props.email,
       username: props.username,
       error: '',
       password: '',
@@ -28,6 +29,7 @@ class LoginForm extends React.Component {
   render = () => (
     <form onSubmit={this.onSubmit}>
       <div>{this.state.error}</div>
+      <div>{this.state.email}</div>
       <label>
         Username
         <input placeholder="Username" value={this.state.username} onChange={this.changeUsername} required />

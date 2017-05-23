@@ -5,7 +5,10 @@ import { CognitoState } from './states';
 
 const initial = {
   user: null,
-  userName: null, // cached for post register login
+  cache: { // cached for post register login
+    userName: null,
+    email: null,
+  },
   state: CognitoState.LOGGED_OUT,
   error: '',
   userPool: null,
@@ -120,7 +123,10 @@ export const cognito = (state = initial, action) => {
       return Object.assign({}, state, {
         user: action.user,
         state: CognitoState.CONFIRMATION_REQUIRED,
-        error: action.error,
+        cache: {
+          userName: action.user.username,
+          email: action.email
+        },
       });
 
     case 'COGNITO_USER_CONFIRM_FAILED':

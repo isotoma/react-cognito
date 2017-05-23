@@ -85,10 +85,10 @@ const Action = {
     attributes,
   }),
 
-  confirmationRequired: (user, error) => ({
+  confirmationRequired: (user, email) => ({
     type: 'COGNITO_USER_UNCONFIRMED',
     user,
-    error,
+    email,
   }),
 
   confirmFailed: (user, error) => ({
