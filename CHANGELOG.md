@@ -1,3 +1,8 @@
+## 1.4.2 (2017-05-23)
+
+- Return promises from ConfirmForm
+- Remove unused error props from Login
+
 ## 1.4.1 (2017-05-16)
 
 - Better use of promises in login/authenticate
