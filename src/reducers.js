@@ -86,10 +86,6 @@ export const cognito = (state = initial, action) => {
     case 'COGNITO_LOGOUT':
       return Object.assign({}, state, {
         user: null,
-        cache: {
-          userName: null,
-          email: null,
-        },
         error: '',
         creds: null,
         state: CognitoState.LOGGED_OUT,
