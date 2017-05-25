@@ -27,6 +27,10 @@ const Action = {
     type: 'COGNITO_LOGOUT',
   }),
 
+  partialLogout: () => ({
+    type: 'COGNITO_PARTIAL_LOGOUT',
+  }),
+
   loginFailure: (user, error) => ({
     type: 'COGNITO_LOGIN_FAILURE',
     user,
@@ -81,16 +85,20 @@ const Action = {
     attributes,
   }),
 
-  confirmationRequired: (user, error) => ({
+  confirmationRequired: (user, email) => ({
     type: 'COGNITO_USER_UNCONFIRMED',
     user,
-    error,
+    email,
   }),
 
   confirmFailed: (user, error) => ({
     type: 'COGNITO_USER_CONFIRM_FAILED',
     user,
     error,
+  }),
+
+  clearCache: () => ({
+    type: 'COGNITO_CLEAR_CACHE',
   }),
 };
 

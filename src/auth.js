@@ -113,7 +113,6 @@ const authenticate = (username, password, userPool, config, dispatch) =>
 
     user.authenticateUser(creds, {
       onSuccess: () => {
-        console.log('dispatching', dispatch);
         dispatch(Action.authenticated(user));
         resolve();
       },
@@ -152,7 +151,7 @@ const registerUser = (userPool, config, username, password, attributes) =>
       if (err) {
         reject(err.message);
       } else if (result.userConfirmed === false) {
-        resolve(Action.confirmationRequired(result.user));
+        resolve(Action.confirmationRequired(result.user, attributes.email));
       } else {
         resolve(authenticate(username, password, userPool));
       }

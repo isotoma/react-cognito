@@ -17,7 +17,7 @@ const confirm = (verificationCode, user, dispatch) =>
         dispatch(Action.confirmFailed(user));
         reject(error.message);
       } else {
-        dispatch(Action.logout());
+        dispatch(Action.partialLogout());
         resolve(user);
       }
     });

@@ -5,6 +5,10 @@ import { CognitoState } from './states';
 
 const initial = {
   user: null,
+  cache: { // cached for post register login
+    userName: null,
+    email: null,
+  },
   state: CognitoState.LOGGED_OUT,
   error: '',
   userPool: null,
@@ -58,8 +62,20 @@ export const cognito = (state = initial, action) => {
     case 'COGNITO_AUTHENTICATED':
       return Object.assign({}, state, {
         user: action.user,
+        cache: {
+          userName: null,
+          email: null,
+        },
         error: '',
         state: CognitoState.AUTHENTICATED,
+      });
+
+    case 'COGNITO_CLEAR_CACHE':
+      return Object.assign({}, state, {
+        cache: {
+          userName: null,
+          email: null,
+        },
       });
 
     case 'COGNITO_LOGGING_IN':
@@ -78,6 +94,15 @@ export const cognito = (state = initial, action) => {
     case 'COGNITO_LOGOUT':
       return Object.assign({}, state, {
         user: null,
+        error: '',
+        creds: null,
+        state: CognitoState.LOGGED_OUT,
+      });
+
+    case 'COGNITO_PARTIAL_LOGOUT':
+      return Object.assign({}, state, {
+        user: null,
+        userName: state.user.username,
         error: '',
         creds: null,
         state: CognitoState.LOGGED_OUT,
@@ -108,7 +133,10 @@ export const cognito = (state = initial, action) => {
       return Object.assign({}, state, {
         user: action.user,
         state: CognitoState.CONFIRMATION_REQUIRED,
-        error: action.error,
+        cache: {
+          userName: action.user.username,
+          email: action.email
+        },
       });
 
     case 'COGNITO_USER_CONFIRM_FAILED':
