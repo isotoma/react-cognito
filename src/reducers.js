@@ -70,6 +70,14 @@ export const cognito = (state = initial, action) => {
         state: CognitoState.AUTHENTICATED,
       });
 
+    case 'COGNITO_CLEAR_CACHE':
+      return Object.assign({}, state, {
+        cache: {
+          userName: null,
+          email: null,
+        },
+      });
+
     case 'COGNITO_LOGGING_IN':
       return Object.assign({}, state, {
         state: CognitoState.LOGGING_IN,

@@ -96,6 +96,10 @@ const Action = {
     user,
     error,
   }),
+
+  clearCache: () => ({
+    type: 'COGNITO_CLEAR_CACHE',
+  }),
 };
 
 export { Action };

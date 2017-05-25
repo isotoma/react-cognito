@@ -26,6 +26,10 @@ class LoginForm extends React.Component {
     this.setState({ password: event.target.value });
   }
 
+  componentWillUnmount = () => {
+    this.props.clearCache();
+  }
+
   render = () => (
     <form onSubmit={this.onSubmit}>
       <div>{this.state.error}</div>
@@ -44,8 +48,10 @@ class LoginForm extends React.Component {
 }
 LoginForm.propTypes = {
   onSubmit: PropTypes.func,
+  clearCache: PropTypes.func,
   username: PropTypes.string,
   error: PropTypes.string,
+  email: PropTypes.string,
 };
 
 export default LoginForm;
