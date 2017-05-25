@@ -1,3 +1,7 @@
+## 1.4.3 (2017-05-25)
+
+- Cache username and email post register for populating login form.
+
 ## 1.4.2 (2017-05-23)
 
 - Return promises from ConfirmForm
