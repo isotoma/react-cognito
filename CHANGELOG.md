@@ -1,3 +1,7 @@
+## 1.4.4 (2017-05-31)
+
+- Return promise from onResend for resend verification code
+
 ## 1.4.3 (2017-05-25)
 
 - Cache username and email post register for populating login form.
