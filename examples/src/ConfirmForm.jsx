@@ -21,6 +21,18 @@ class ConfirmForm extends React.Component {
      });
   }
 
+  onResend = (event) => {
+    event.preventDefault();
+    this.props.onResend()
+     .then((user) => {
+       this.setState({ error: 'Code resent' });
+     })
+     .catch((error) => {
+       this.setState({ error });
+     });
+
+  }
+
   changeVerificationCode = (event) => {
     this.setState({ verificationCode: event.target.value });
   }
@@ -33,7 +45,7 @@ class ConfirmForm extends React.Component {
         <input placeholder="code" onChange={this.changeVerificationCode} required />
       </label>
       <button type="submit">Submit</button>
-      <button type="button" onClick={this.props.onResend}>Resend code</button>
+      <button type="button" onClick={this.onResend}>Resend code</button>
       <button type="button" onClick={this.props.onCancel}>Cancel</button>
 
     </form>
