@@ -135,7 +135,7 @@ export const cognito = (state = initial, action) => {
         state: CognitoState.CONFIRMATION_REQUIRED,
         cache: {
           userName: action.user.username,
-          email: action.email
+          email: action.email ? action.email : state.cache.email,
         },
       });
 

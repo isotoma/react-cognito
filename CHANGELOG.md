@@ -1,3 +1,7 @@
+## 1.4.5 (2017-06-09)
+
+- Don't reset cached email on verification code resend
+
 ## 1.4.4 (2017-05-31)
 
 - Return promise from onResend for resend verification code
