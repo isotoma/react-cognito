@@ -102,6 +102,7 @@ export const cognito = (state = initial, action) => {
     case 'COGNITO_PARTIAL_LOGOUT':
       return Object.assign({}, state, {
         user: null,
+        attributes: {},
         userName: state.user.username,
         error: '',
         creds: null,
