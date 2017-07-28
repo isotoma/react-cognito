@@ -1,7 +1,7 @@
 import { CognitoUserPool } from 'amazon-cognito-identity-js';
 import { CognitoState } from './states';
 
-/* global AWSCognito */
+/* global AWS */
 
 const initial = {
   user: null,
@@ -24,7 +24,7 @@ const initial = {
 
 const configure = (state, action) => {
   // surprise side-effect!
-  AWSCognito.config.region = action.config.region;
+  AWS.config.region = action.config.region;
   const pool = new CognitoUserPool({
     UserPoolId: action.config.userPool,
     ClientId: action.config.clientId,
