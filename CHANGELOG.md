@@ -1,3 +1,6 @@
+- moved example to own repo - react-cognito-example
+- Fix issue #5 using aws-sdk instead of aws-cognito-sdk (#11) <Edgar García>
+
 ## 1.4.5 (2017-06-09)
 
 - Don't reset cached email on verification code resend
