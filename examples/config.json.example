@@ -1,7 +1,0 @@
-{
-  "region": "eu-west-1",
-  "userPool": "eu-west-1_AAAAAAAAA",
-  "identityPool": "eu-west-1:XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-  "clientId": "AAAAAAAAAAAAAAAAAAAAAAAAAA"
-}
-
