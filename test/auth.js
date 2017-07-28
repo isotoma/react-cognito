@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import assert from 'assert';
 import { CognitoUser } from 'amazon-cognito-identity-js';
-import { CognitoIdentityCredentials } from 'aws-cognito-sdk';
+import { CognitoIdentityCredentials } from 'aws-sdk';
 import {
   authenticate,
   performLogin,
