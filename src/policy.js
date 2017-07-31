@@ -66,9 +66,9 @@ const direct = (state, dispatch) => {
  * @param {object} state - the redux store state
  * @param {function} dispatch - the dispatch function
 */
-const identityPoolLogin = (state, dispatch, admin) => {
+const identityPoolLogin = (state, dispatch, group) => {
   if (state.cognito.state === CognitoState.LOGGING_IN) {
-    performLogin(state.cognito.user, state.cognito.config, admin).then(dispatch);
+    performLogin(state.cognito.user, state.cognito.config, group).then(dispatch);
   }
 };
 
@@ -78,7 +78,7 @@ const identityPoolLogin = (state, dispatch, admin) => {
 const setupCognito = (store, config) => {
   store.dispatch(Action.configure(config));
   enable(store, emailVerificationRequired);
-  enable(store, identityPoolLogin, config.admin);
+  enable(store, identityPoolLogin, config.group);
 };
 
 export {

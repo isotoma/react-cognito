@@ -52,7 +52,7 @@ const refreshIdentityCredentials = (username, jwtToken, config) =>
  * @param {object} config -the react-cognito config
  * @return {Promise<object>} an action to be dispatched
 */
-const performLogin = (user, config, admin) =>
+const performLogin = (user, config, group) =>
   new Promise((resolve, reject) => {
     if (user != null) {
       user.getSession((err, session) => {
@@ -62,7 +62,8 @@ const performLogin = (user, config, admin) =>
           const jwtToken = session.getIdToken().getJwtToken();
           const payload = jwtToken.split('.')[1];
           const decodedToken = JSON.parse(util.base64.decode(payload).toString('utf8'));
-          if (admin && !decodedToken['cognito:groups'].includes('admins')) {
+          // decodedToken['cognito:groups'] can be undefined if user is in no groups
+          if (group && !(decodedToken['cognito:groups'] && decodedToken['cognito:groups'].includes(group))) {
             resolve(Action.loginFailure(user, 'insufficient privilege'));
           }
 
