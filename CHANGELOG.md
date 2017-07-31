@@ -1,5 +1,14 @@
-- moved example to own repo - react-cognito-example
+## 1.4.5 (2017-06-09)
+
+- Moved example to own repo - react-cognito-example
 - Fix issue #5 using aws-sdk instead of aws-cognito-sdk (#11) <Edgar García>
+- Update to aws-sdk 2.92.0 and amazon-cognito-identity-js 1.19.0
+- Removed examples - moved to own repo react-cognito-example
+- Clear attributes on logout
+- Login uses cognito.state.error - **BREAKING CHANGE**
+  - Previously was using this.state
+- Allow testing for user in a group - NB. This is advisory only and is not secure
+  - Ensure resources are secured in other ways.
 
 ## 1.4.5 (2017-06-09)
 
