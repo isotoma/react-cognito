@@ -1,5 +1,6 @@
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import { CognitoIdentityCredentials } from 'aws-sdk';
+import { util } from 'aws-sdk/global';
 import { Action } from './actions';
 import { mkAttrList, sendAttributeVerificationCode } from './attributes';
 import { buildLogins } from './utils';
@@ -51,7 +52,7 @@ const refreshIdentityCredentials = (username, jwtToken, config) =>
  * @param {object} config -the react-cognito config
  * @return {Promise<object>} an action to be dispatched
 */
-const performLogin = (user, config) =>
+const performLogin = (user, config, admin) =>
   new Promise((resolve, reject) => {
     if (user != null) {
       user.getSession((err, session) => {
@@ -59,6 +60,12 @@ const performLogin = (user, config) =>
           resolve(Action.loginFailure(user, err.message));
         } else {
           const jwtToken = session.getIdToken().getJwtToken();
+          const payload = jwtToken.split('.')[1];
+          const decodedToken = JSON.parse(util.base64.decode(payload).toString('utf8'));
+          if (admin && !decodedToken['cognito:groups'].includes('admins')) {
+            resolve(Action.loginFailure(user, 'insufficient privilege'));
+          }
+
           const username = user.getUsername();
           refreshIdentityCredentials(username, jwtToken, config).then(
             creds => resolve(Action.login(creds)),
