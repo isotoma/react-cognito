@@ -9,6 +9,7 @@ const BaseLogin = props =>
     email: props.email,
     onSubmit: props.onSubmit,
     clearCache: props.clearCache,
+    error: props.error,
   });
 
 const mapStateToProps = (state) => {
@@ -23,6 +24,7 @@ const mapStateToProps = (state) => {
     email: state.cognito.cache.email,
     config: state.cognito.config,
     userPool: state.cognito.userPool,
+    error: state.cognito.error,
   };
 };
 
