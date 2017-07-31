@@ -36,7 +36,6 @@
         }
       },
       "import/core-modules": [
-        "aws-cognito-sdk",
         "react-redux",
         "react-cognito",
         "react-router",

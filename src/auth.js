@@ -1,5 +1,6 @@
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import { CognitoIdentityCredentials } from 'aws-sdk';
+import { util } from 'aws-sdk/global';
 import { Action } from './actions';
 import { mkAttrList, sendAttributeVerificationCode } from './attributes';
 import { buildLogins } from './utils';
@@ -34,7 +35,7 @@ const emailVerificationFlow = (user, attributes) =>
 const refreshIdentityCredentials = (username, jwtToken, config) =>
   new Promise((resolve, reject) => {
     const logins = buildLogins(username, jwtToken, config);
-    const creds = new CognitoIdentityCredentials(logins);
+    const creds = new CognitoIdentityCredentials(logins, { region: config.region });
     creds.refresh((error) => {
       if (error) {
         reject(error.message);
@@ -51,7 +52,7 @@ const refreshIdentityCredentials = (username, jwtToken, config) =>
  * @param {object} config -the react-cognito config
  * @return {Promise<object>} an action to be dispatched
 */
-const performLogin = (user, config) =>
+const performLogin = (user, config, group) =>
   new Promise((resolve, reject) => {
     if (user != null) {
       user.getSession((err, session) => {
@@ -59,6 +60,13 @@ const performLogin = (user, config) =>
           resolve(Action.loginFailure(user, err.message));
         } else {
           const jwtToken = session.getIdToken().getJwtToken();
+          const payload = jwtToken.split('.')[1];
+          const decodedToken = JSON.parse(util.base64.decode(payload).toString('utf8'));
+          // decodedToken['cognito:groups'] can be undefined if user is in no groups
+          if (group && !(decodedToken['cognito:groups'] && decodedToken['cognito:groups'].includes(group))) {
+            resolve(Action.loginFailure(user, 'insufficient privilege'));
+          }
+
           const username = user.getUsername();
           refreshIdentityCredentials(username, jwtToken, config).then(
             creds => resolve(Action.login(creds)),
