@@ -34,7 +34,7 @@ const emailVerificationFlow = (user, attributes) =>
 const refreshIdentityCredentials = (username, jwtToken, config) =>
   new Promise((resolve, reject) => {
     const logins = buildLogins(username, jwtToken, config);
-    const creds = new CognitoIdentityCredentials(logins);
+    const creds = new CognitoIdentityCredentials(logins, { region: config.region });
     creds.refresh((error) => {
       if (error) {
         reject(error.message);
