@@ -18,9 +18,10 @@ const Action = {
     attributes,
   }),
 
-  login: creds => ({
+  login: (creds, groups) => ({
     type: 'COGNITO_LOGIN',
     creds,
+    groups,
   }),
 
   logout: () => ({

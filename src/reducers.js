@@ -14,6 +14,7 @@ const initial = {
   userPool: null,
   attributes: {},
   creds: null,
+  groups: [],
   config: {
     region: null,
     userPool: null,
@@ -88,6 +89,7 @@ export const cognito = (state = initial, action) => {
       return Object.assign({}, state, addAttributes({
         error: '',
         creds: action.creds,
+        groups: action.groups,
         state: CognitoState.LOGGED_IN,
       }, action.attributes));
 
@@ -97,6 +99,7 @@ export const cognito = (state = initial, action) => {
         attributes: {},
         error: '',
         creds: null,
+        groups: [],
         state: CognitoState.LOGGED_OUT,
       });
 
@@ -106,6 +109,7 @@ export const cognito = (state = initial, action) => {
         userName: state.user.username,
         error: '',
         creds: null,
+        groups: [],
         state: CognitoState.LOGGED_OUT,
       });
 

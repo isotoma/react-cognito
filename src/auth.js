@@ -2,7 +2,7 @@ import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import { CognitoIdentityCredentials } from 'aws-sdk';
 import { Action } from './actions';
 import { mkAttrList, sendAttributeVerificationCode } from './attributes';
-import { buildLogins, isInGroup } from './utils';
+import { buildLogins, getGroups } from './utils';
 
 /**
  * sends the email verification code and transitions to the correct state
@@ -59,13 +59,14 @@ const performLogin = (user, config, group) =>
           resolve(Action.loginFailure(user, err.message));
         } else {
           const jwtToken = session.getIdToken().getJwtToken();
-          if (group && !isInGroup(jwtToken, group)) {
-            resolve(Action.loginFailure(user, 'insufficient privilege'));
+          const groups = getGroups(jwtToken);
+          if (group && !groups.includes(group)) {
+            resolve(Action.loginFailure(user, 'Insufficient privilege'));
           }
 
           const username = user.getUsername();
           refreshIdentityCredentials(username, jwtToken, config).then(
-            creds => resolve(Action.login(creds)),
+            creds => resolve(Action.login(creds, groups)),
             message => resolve(Action.loginFailure(user, message)));
         }
       });
