@@ -1,9 +1,8 @@
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import { CognitoIdentityCredentials } from 'aws-sdk';
-import { util } from 'aws-sdk/global';
 import { Action } from './actions';
 import { mkAttrList, sendAttributeVerificationCode } from './attributes';
-import { buildLogins } from './utils';
+import { buildLogins, isInGroup } from './utils';
 
 /**
  * sends the email verification code and transitions to the correct state
@@ -60,10 +59,7 @@ const performLogin = (user, config, group) =>
           resolve(Action.loginFailure(user, err.message));
         } else {
           const jwtToken = session.getIdToken().getJwtToken();
-          const payload = jwtToken.split('.')[1];
-          const decodedToken = JSON.parse(util.base64.decode(payload).toString('utf8'));
-          // decodedToken['cognito:groups'] can be undefined if user is in no groups
-          if (group && !(decodedToken['cognito:groups'] && decodedToken['cognito:groups'].includes(group))) {
+          if (group && !isInGroup(jwtToken, group)) {
             resolve(Action.loginFailure(user, 'insufficient privilege'));
           }
 
