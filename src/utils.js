@@ -1,3 +1,4 @@
+import { util as AWSutil } from 'aws-sdk/global';
 
 /**
  * Change a user's password
@@ -33,7 +34,22 @@ const buildLogins = (username, jwtToken, config) => {
   return creds;
 };
 
+/**
+ * Decode a jwtToken to check for cognito:groups
+ * @param {string} jwtToken - a JWT Token from the session
+ */
+const getGroups = (jwtToken) => {
+  const payload = jwtToken.split('.')[1];
+  const decodedToken = JSON.parse(AWSutil.base64.decode(payload).toString('utf8'));
+  // decodedToken['cognito:groups'] can be undefined if user is in no groups
+  if (!decodedToken['cognito:groups']) {
+    return [];
+  }
+  return decodedToken['cognito:groups'];
+};
+
 export {
   changePassword,
   buildLogins,
+  getGroups,
 };

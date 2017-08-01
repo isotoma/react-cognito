@@ -9,11 +9,22 @@ const BaseEmailVerification = props =>
     onCancel: props.onCancel,
   });
 
-const verifyEmail = (verificationCode, user, dispatch) =>
-  user.verifyAttribute('email', verificationCode, {
-    onSuccess: () => dispatch(Action.login(user)),
-    inputVerificationCode: () => dispatch(Action.emailVerificationRequired(user)),
-    onFailure: error => dispatch(Action.emailVerificationFailed(user, error.message)),
+export const verifyEmail = (verificationCode, user, dispatch) =>
+  new Promise((resolve, reject) => {
+    user.verifyAttribute('email', verificationCode, {
+      onSuccess: () => {
+        dispatch(Action.login(user));
+        resolve();
+      },
+      inputVerificationCode: () => {
+        dispatch(Action.emailVerificationRequired(user));
+        reject();
+      },
+      onFailure: (error) => {
+        dispatch(Action.emailVerificationFailed(user, error.message));
+        reject();
+      },
+    });
   });
 
 const mapStateToProps = state => ({

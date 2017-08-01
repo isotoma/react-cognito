@@ -18,13 +18,18 @@ const Action = {
     attributes,
   }),
 
-  login: creds => ({
+  login: (creds, groups) => ({
     type: 'COGNITO_LOGIN',
     creds,
+    groups,
   }),
 
   logout: () => ({
     type: 'COGNITO_LOGOUT',
+  }),
+
+  partialLogout: () => ({
+    type: 'COGNITO_PARTIAL_LOGOUT',
   }),
 
   loginFailure: (user, error) => ({
@@ -66,6 +71,11 @@ const Action = {
     error,
   }),
 
+  continuePasswordResetFlow: user => ({
+    type: 'COGNITO_CONTINUE_PASSWORD_RESET_FLOW',
+    user,
+  }),
+
   finishPasswordResetFlow: error => ({
     type: 'COGNITO_FINISH_PASSWORD_RESET_FLOW',
     error,
@@ -76,12 +86,21 @@ const Action = {
     attributes,
   }),
 
-  confirmationRequired: (user, error) => ({
+  confirmationRequired: (user, email) => ({
     type: 'COGNITO_USER_UNCONFIRMED',
+    user,
+    email,
+  }),
+
+  confirmFailed: (user, error) => ({
+    type: 'COGNITO_USER_CONFIRM_FAILED',
     user,
     error,
   }),
 
+  clearCache: () => ({
+    type: 'COGNITO_CLEAR_CACHE',
+  }),
 };
 
 export { Action };

@@ -1,15 +1,20 @@
 import { CognitoUserPool } from 'amazon-cognito-identity-js';
 import { CognitoState } from './states';
 
-/* global AWSCognito */
+/* global AWS */
 
 const initial = {
   user: null,
+  cache: { // cached for post register login
+    userName: null,
+    email: null,
+  },
   state: CognitoState.LOGGED_OUT,
   error: '',
   userPool: null,
   attributes: {},
   creds: null,
+  groups: [],
   config: {
     region: null,
     userPool: null,
@@ -20,7 +25,7 @@ const initial = {
 
 const configure = (state, action) => {
   // surprise side-effect!
-  AWSCognito.config.region = action.config.region;
+  AWS.config.region = action.config.region;
   const pool = new CognitoUserPool({
     UserPoolId: action.config.userPool,
     ClientId: action.config.clientId,
@@ -58,8 +63,20 @@ export const cognito = (state = initial, action) => {
     case 'COGNITO_AUTHENTICATED':
       return Object.assign({}, state, {
         user: action.user,
+        cache: {
+          userName: null,
+          email: null,
+        },
         error: '',
         state: CognitoState.AUTHENTICATED,
+      });
+
+    case 'COGNITO_CLEAR_CACHE':
+      return Object.assign({}, state, {
+        cache: {
+          userName: null,
+          email: null,
+        },
       });
 
     case 'COGNITO_LOGGING_IN':
@@ -72,14 +89,27 @@ export const cognito = (state = initial, action) => {
       return Object.assign({}, state, addAttributes({
         error: '',
         creds: action.creds,
+        groups: action.groups,
         state: CognitoState.LOGGED_IN,
       }, action.attributes));
 
     case 'COGNITO_LOGOUT':
       return Object.assign({}, state, {
         user: null,
+        attributes: {},
         error: '',
         creds: null,
+        groups: [],
+        state: CognitoState.LOGGED_OUT,
+      });
+
+    case 'COGNITO_PARTIAL_LOGOUT':
+      return Object.assign({}, state, {
+        user: null,
+        userName: state.user.username,
+        error: '',
+        creds: null,
+        groups: [],
         state: CognitoState.LOGGED_OUT,
       });
 
@@ -105,6 +135,16 @@ export const cognito = (state = initial, action) => {
       });
 
     case 'COGNITO_USER_UNCONFIRMED':
+      return Object.assign({}, state, {
+        user: action.user,
+        state: CognitoState.CONFIRMATION_REQUIRED,
+        cache: {
+          userName: action.user.username,
+          email: action.email ? action.email : state.cache.email,
+        },
+      });
+
+    case 'COGNITO_USER_CONFIRM_FAILED':
       return Object.assign({}, state, {
         user: action.user,
         state: CognitoState.CONFIRMATION_REQUIRED,
@@ -134,10 +174,11 @@ export const cognito = (state = initial, action) => {
         error: action.error,
       });
 
+    case 'COGNITO_CONTINUE_PASSWORD_RESET_FLOW':
+      return state;
+
     case 'COGNITO_FINISH_PASSWORD_RESET_FLOW':
-      return Object.assign({}, state, {
-        error: action.error,
-      });
+      return state;
 
     // this moves us into the AUTHENTICATED state, potentially causing
     // a number of side-effects. this is so we can re-verify the email

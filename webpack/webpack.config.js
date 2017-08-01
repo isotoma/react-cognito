@@ -46,12 +46,12 @@ export default {
         amd: 'react-redux',
       },
     },
-    { 
-      'aws-cognito-sdk': {
-        root: 'AWSCognito',
-        commonjs: 'aws-cognito-sdk',
-        commonjs2: 'aws-cognito-sdk',
-        amd: 'aws-cognito-sdk',
+    {
+      'aws-sdk': {
+        root: 'AWS',
+        commonjs: 'aws-sdk',
+        commonjs2: 'aws-sdk',
+        amd: 'aws-sdk',
       }
     },
     {

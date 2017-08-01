@@ -5,7 +5,6 @@ import { Action } from './actions';
 
 const BasePasswordReset = props =>
   React.cloneElement(props.children, {
-    error: props.error,
     username: props.username,
     sendVerificationCode: props.sendVerificationCode,
     setPassword: props.setPassword,
@@ -19,29 +18,40 @@ const getUser = (username, userPool) => {
   return user;
 };
 
-const setPassword = (username, userPool, code, password) =>
-  new Promise((resolve) => {
+const setPassword = (username, userPool, code, password, dispatch) =>
+  new Promise((resolve, reject) => {
     const user = getUser(username, userPool);
     user.confirmPassword(code, password, {
-      onSuccess: () => resolve(Action.finishPasswordResetFlow('Password reset')),
-      onFailure: err => resolve(Action.beginPasswordResetFlow(user, err.message)),
+      onSuccess: () => {
+        dispatch(Action.finishPasswordResetFlow()),
+        resolve();
+      },
+      onFailure: err => {
+        dispatch(Action.beginPasswordResetFlow(user, err.message)),
+        reject(err);
+      }
     });
   });
 
 
-const sendVerificationCode = (username, userPool) =>
-  new Promise((resolve) => {
+const sendVerificationCode = (username, userPool, dispatch) =>
+  new Promise((resolve, reject) => {
     const user = getUser(username, userPool);
     user.forgotPassword({
-      onSuccess: () => resolve(Action.beginPasswordResetFlow(user, 'Verification code sent')),
-      onFailure: err => resolve(Action.beginPasswordResetFlow(user, err.message)),
+      onSuccess: () => {
+        dispatch(Action.continuePasswordResetFlow(user));
+        resolve();
+      },
+      onFailure: err => {
+        dispatch(Action.beginPasswordResetFlow(user, err.message));
+        reject(err);
+      }
     });
   });
 
 
 const mapStateToProps = (state) => {
   const props = {
-    error: state.cognito.error || '',
     user: state.cognito.user,
     username: '',
     userPool: state.cognito.userPool,
@@ -53,12 +63,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  sendVerificationCodePartial: (username, userPool) => {
-    sendVerificationCode(username, userPool).then(dispatch);
-  },
-  setPasswordPartial: (user, userPool, code, password) => {
-    setPassword(user, userPool, code, password).then(dispatch);
-  },
+  sendVerificationCodePartial: (username, userPool) =>
+    sendVerificationCode(username, userPool, dispatch),
+  setPasswordPartial: (user, userPool, code, password) =>
+    setPassword(user, userPool, code, password, dispatch),
 });
 
 const mergeProps = (stateProps, dispatchProps, ownProps) =>
@@ -76,7 +84,6 @@ const mergeProps = (stateProps, dispatchProps, ownProps) =>
  *
  *  * user
  *  * username
- *  * error
  *  * sendVerificationCode
  *  * setPassword
  *

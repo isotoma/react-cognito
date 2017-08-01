@@ -1,8 +1,8 @@
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import { CognitoIdentityCredentials } from 'aws-cognito-sdk';
+import { CognitoIdentityCredentials } from 'aws-sdk';
 import { Action } from './actions';
 import { mkAttrList, sendAttributeVerificationCode } from './attributes';
-import { buildLogins } from './utils';
+import { buildLogins, getGroups } from './utils';
 
 /**
  * sends the email verification code and transitions to the correct state
@@ -34,7 +34,7 @@ const emailVerificationFlow = (user, attributes) =>
 const refreshIdentityCredentials = (username, jwtToken, config) =>
   new Promise((resolve, reject) => {
     const logins = buildLogins(username, jwtToken, config);
-    const creds = new CognitoIdentityCredentials(logins);
+    const creds = new CognitoIdentityCredentials(logins, { region: config.region });
     creds.refresh((error) => {
       if (error) {
         reject(error.message);
@@ -51,7 +51,7 @@ const refreshIdentityCredentials = (username, jwtToken, config) =>
  * @param {object} config -the react-cognito config
  * @return {Promise<object>} an action to be dispatched
 */
-const performLogin = (user, config) =>
+const performLogin = (user, config, group) =>
   new Promise((resolve, reject) => {
     if (user != null) {
       user.getSession((err, session) => {
@@ -59,9 +59,14 @@ const performLogin = (user, config) =>
           resolve(Action.loginFailure(user, err.message));
         } else {
           const jwtToken = session.getIdToken().getJwtToken();
+          const groups = getGroups(jwtToken);
+          if (group && !groups.includes(group)) {
+            resolve(Action.loginFailure(user, 'Insufficient privilege'));
+          }
+
           const username = user.getUsername();
           refreshIdentityCredentials(username, jwtToken, config).then(
-            creds => resolve(Action.login(creds)),
+            creds => resolve(Action.login(creds, groups)),
             message => resolve(Action.loginFailure(user, message)));
         }
       });
@@ -99,8 +104,8 @@ const performLogin = (user, config) =>
  * @return {Promise<object>} - a promise that resolves an action to be dispatched
  *
 */
-const authenticate = (username, password, userPool) =>
-  new Promise((resolve) => {
+const authenticate = (username, password, userPool, config, dispatch) =>
+  new Promise((resolve, reject) => {
     const creds = new AuthenticationDetails({
       Username: username,
       Password: password,
@@ -112,16 +117,27 @@ const authenticate = (username, password, userPool) =>
     });
 
     user.authenticateUser(creds, {
-      onSuccess: () => resolve(Action.authenticated(user)),
+      onSuccess: () => {
+        dispatch(Action.authenticated(user));
+        resolve();
+      },
       onFailure: (error) => {
         if (error.code === 'UserNotConfirmedException') {
-          resolve(Action.confirmationRequired(user));
+          dispatch(Action.confirmationRequired(user));
+          resolve();
         } else {
-          resolve(Action.loginFailure(user, error.message));
+          dispatch(Action.loginFailure(user, error.message));
+          reject(error);
         }
       },
-      mfaRequired: () => resolve(Action.mfaRequired(user)),
-      newPasswordRequired: () => resolve(Action.newPasswordRequired(user)),
+      mfaRequired: () => {
+        dispatch(Action.mfaRequired(user));
+        resolve();
+      },
+      newPasswordRequired: () => {
+        dispatch(Action.newPasswordRequired(user));
+        resolve();
+      },
     });
   });
 
@@ -140,7 +156,7 @@ const registerUser = (userPool, config, username, password, attributes) =>
       if (err) {
         reject(err.message);
       } else if (result.userConfirmed === false) {
-        resolve(Action.confirmationRequired(result.user));
+        resolve(Action.confirmationRequired(result.user, attributes.email));
       } else {
         resolve(authenticate(username, password, userPool));
       }

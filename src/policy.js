@@ -9,11 +9,11 @@ import { CognitoState } from './states';
  * @param {object} store - the redux store
  * @param {function} f - f(state, dispatch)
 */
-const enable = (store, f) => {
+const enable = (store, f, params) => {
   store.subscribe(() => {
     const state = store.getState();
     const dispatch = store.dispatch;
-    f(state, dispatch);
+    f(state, dispatch, params);
   });
 };
 
@@ -66,9 +66,9 @@ const direct = (state, dispatch) => {
  * @param {object} state - the redux store state
  * @param {function} dispatch - the dispatch function
 */
-const identityPoolLogin = (state, dispatch) => {
+const identityPoolLogin = (state, dispatch, group) => {
   if (state.cognito.state === CognitoState.LOGGING_IN) {
-    performLogin(state.cognito.user, state.cognito.config).then(dispatch);
+    performLogin(state.cognito.user, state.cognito.config, group).then(dispatch);
   }
 };
 
@@ -78,7 +78,7 @@ const identityPoolLogin = (state, dispatch) => {
 const setupCognito = (store, config, listeners=[emailVerificationRequired, identityPoolLogin]) => {
   store.dispatch(Action.configure(config));
   listeners.forEach((f) => {
-    enable(store,f);
+    enable(store, f, config.group);
   });
 };
 

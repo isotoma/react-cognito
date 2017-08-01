@@ -10,23 +10,30 @@ const BaseConfirm = props =>
     onCancel: props.onCancel,
   });
 
-const confirm = (verificationCode, user, dispatch) => {
-  user.confirmRegistration(verificationCode, true, (error) => {
-    if (error) {
-      dispatch(Action.confirmFailed(user, error.message));
-    } else {
-      dispatch(Action.logout());
-    }
+const confirm = (verificationCode, user, dispatch) =>
+  new Promise((resolve, reject) => {
+    user.confirmRegistration(verificationCode, true, (error) => {
+      if (error) {
+        dispatch(Action.confirmFailed(user));
+        reject(error.message);
+      } else {
+        dispatch(Action.partialLogout());
+        resolve(user);
+      }
+    });
   });
-};
 
 const resend = (user, dispatch) =>
-  user.resendConfirmationCode((err) => {
-    if (err) {
-      dispatch(Action.confirmationRequired(user, err.message));
-    } else {
-      dispatch(Action.confirmationRequired(user, 'Confirmation code resent'));
-    }
+  new Promise((resolve, reject) => {
+    user.resendConfirmationCode((err) => {
+      if (err) {
+        dispatch(Action.confirmationRequired(user));
+        reject(err.message);
+      } else {
+        dispatch(Action.confirmationRequired(user));
+        resolve(user);
+      }
+    });
   });
 
 const mapStateToProps = state => ({
