@@ -75,10 +75,11 @@ const identityPoolLogin = (state, dispatch, group) => {
 /**
  * sets up react-cognito with default policies.
 */
-const setupCognito = (store, config) => {
+const setupCognito = (store, config, listeners=[emailVerificationRequired, identityPoolLogin]) => {
   store.dispatch(Action.configure(config));
-  enable(store, emailVerificationRequired);
-  enable(store, identityPoolLogin, config.group);
+  listeners.forEach((f) => {
+    enable(store, f, config.group);
+  });
 };
 
 export {
