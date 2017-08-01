@@ -1,4 +1,9 @@
-## 1.4.5 (2017-06-09)
+## 1.5.1 (2017-08-01)
+
+- #7 add store listeners as param to setupCognito so that you can specify behavior (#8) <Kevin Brown>
+- Push groups into redux for calling app to use - NB. These are advisory only 
+
+## 1.5.0 (2017-07-31)
 
 - Moved example to own repo - react-cognito-example
 - Fix issue #5 using aws-sdk instead of aws-cognito-sdk (#11) <Edgar García>
