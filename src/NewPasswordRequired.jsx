@@ -9,11 +9,25 @@ const BaseNewPasswordRequired = props =>
   });
 
 const setNewPassword = (password, user, config, userAttributes, dispatch) =>
-  user.completeNewPasswordChallenge(password, userAttributes, {
-    onSuccess: () => dispatch(Action.authenticated(user)),
-    onFailure: error => dispatch(Action.newPasswordRequiredFailure(user, error.message)),
-    mfaRequired: () => dispatch(Action.mfaRequired(user)),
-    newPasswordRequired: () => dispatch(Action.newPasswordRequired(user)),
+  new Promise((resolve, reject) => {
+    user.completeNewPasswordChallenge(password, userAttributes, {
+      onSuccess: () => {
+        dispatch(Action.authenticated(user));
+        resolve();
+      },
+      onFailure: error => {
+        dispatch(Action.newPasswordRequiredFailure(user, error.message));
+        reject();
+      },
+      mfaRequired: () => {
+        dispatch(Action.mfaRequired(user));
+        resolve();
+      },
+      newPasswordRequired: () => {
+        dispatch(Action.newPasswordRequired(user));
+        resolve();
+      },
+    });
   });
 
 const mapStateToProps = state => ({
