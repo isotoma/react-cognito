@@ -61,7 +61,7 @@ const performLogin = (user, config, group) =>
           const jwtToken = session.getIdToken().getJwtToken();
           const groups = getGroups(jwtToken);
           if (group && !groups.includes(group)) {
-            resolve(Action.loginFailure(user, 'Insufficient privilege'));
+            return resolve(Action.loginFailure(user, 'Insufficient privilege'));
           }
 
           const username = user.getUsername();
