@@ -17,7 +17,7 @@ const setNewPassword = (password, user, config, userAttributes, dispatch) =>
       },
       onFailure: error => {
         dispatch(Action.newPasswordRequiredFailure(user, error.message));
-        reject();
+        reject(error);
       },
       mfaRequired: () => {
         dispatch(Action.mfaRequired(user));
