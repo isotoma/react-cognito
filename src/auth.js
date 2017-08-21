@@ -1,7 +1,7 @@
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import { CognitoIdentityCredentials } from 'aws-sdk';
 import { Action } from './actions';
-import { mkAttrList, sendAttributeVerificationCode } from './attributes';
+import { getUserAttributes, mkAttrList, sendAttributeVerificationCode } from './attributes';
 import { buildLogins, getGroups } from './utils';
 
 /**
@@ -66,7 +66,11 @@ const performLogin = (user, config, group) =>
 
           const username = user.getUsername();
           refreshIdentityCredentials(username, jwtToken, config).then(
-            creds => resolve(Action.login(creds, groups)),
+            (creds) => {
+              getUserAttributes(user).then((attributes) => {
+                resolve(Action.login(creds, attributes, groups));
+              });
+            },
             message => resolve(Action.loginFailure(user, message)));
         }
       });

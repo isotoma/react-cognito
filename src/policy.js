@@ -81,6 +81,7 @@ const setupCognito = (store, config, listeners =
   listeners.forEach((f) => {
     enable(store, f, config.group);
   });
+  store.dispatch(Action.loggingIn({}));
 };
 
 export {
