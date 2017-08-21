@@ -53,7 +53,9 @@ const refreshIdentityCredentials = (username, jwtToken, config) =>
 */
 const performLogin = (user, config, group) =>
   new Promise((resolve, reject) => {
-    if (user != null) {
+    if (user === null) {
+      resolve(Action.logout());
+    } else {
       user.getSession((err, session) => {
         if (err) {
           resolve(Action.loginFailure(user, err.message));
@@ -74,8 +76,6 @@ const performLogin = (user, config, group) =>
             message => resolve(Action.loginFailure(user, message)));
         }
       });
-    } else {
-      reject('user is null');
     }
   });
 
