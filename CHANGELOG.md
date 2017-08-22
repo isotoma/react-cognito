@@ -1,3 +1,8 @@
+## 1.5.2 (2017-08-22)
+
+- Re-login from persisted local storage after page refresh (#23)
+- Refactor setNewPassword() to return a Promise. (#20) <tcchau>
+
 ## 1.5.1 (2017-08-01)
 
 - #7 add store listeners as param to setupCognito so that you can specify behavior (#8) <Kevin Brown>
