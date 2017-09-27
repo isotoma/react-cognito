@@ -1,5 +1,5 @@
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import { CognitoIdentityCredentials } from 'aws-sdk';
+import { CognitoIdentityCredentials } from 'aws-sdk/global';
 import { Action } from './actions';
 import { getUserAttributes, mkAttrList, sendAttributeVerificationCode } from './attributes';
 import { buildLogins, getGroups } from './utils';
