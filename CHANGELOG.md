@@ -1,3 +1,7 @@
+## 1.5.3 (2017-09-28)
+
+- Fix external for aws-sdk - reduces bundle size (#27)
+
 ## 1.5.2 (2017-08-22)
 
 - Re-login from persisted local storage after page refresh (#23)
