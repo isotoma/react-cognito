@@ -14,6 +14,7 @@ export default {
     libraryTarget: 'umd',
   },
   externals: [
+    /aws-sdk/,
     {
       react: {
         root: 'React',
@@ -45,14 +46,6 @@ export default {
         commonjs2: 'react-redux',
         amd: 'react-redux',
       },
-    },
-    {
-      'aws-sdk': {
-        root: 'AWS',
-        commonjs: 'aws-sdk',
-        commonjs2: 'aws-sdk',
-        amd: 'aws-sdk',
-      }
     },
     {
       'amazon-cognito-identity-js': {
