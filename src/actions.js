@@ -25,6 +25,11 @@ const Action = {
     attributes,
   }),
 
+  refresh: user => ({
+    type: 'COGNITO_REFRESH',
+    user,
+  }),
+
   logout: () => ({
     type: 'COGNITO_LOGOUT',
   }),
