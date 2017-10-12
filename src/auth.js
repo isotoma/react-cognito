@@ -190,7 +190,7 @@ const refresh = (userPool, username, refreshToken, dispatch) =>
     const cognitoRefreshToken = new CognitoRefreshToken({
       RefreshToken: refreshToken,
     });
-    user.refreshSession(cognitoRefreshToken, (err, authResult) => {
+    user.refreshSession(cognitoRefreshToken, (err /* , authResult*/) => {
       if (err) {
         dispatch(Action.error(err.message));
         reject(err);
