@@ -73,11 +73,7 @@ export const cognito = (state = initial, action) => {
 
     case 'COGNITO_REFRESH':
       return Object.assign({}, state, {
-        user: action.user,
-        cache: {
-          userName: null,
-          email: null,
-        },
+        user: { signInUserSession: { action.authResult } },
         error: '',
       });
 
