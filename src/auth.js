@@ -195,7 +195,7 @@ const refresh = (userPool, username, refreshToken, dispatch) =>
         dispatch(Action.error(err.message));
         reject(err);
       } else {
-        dispatch(Action.refresh(authResult));
+        dispatch(Action.refresh(user));
         resolve();
       }
     });

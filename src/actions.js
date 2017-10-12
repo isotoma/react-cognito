@@ -25,9 +25,9 @@ const Action = {
     attributes,
   }),
 
-  refresh: authResult => ({
+  refresh: user => ({
     type: 'COGNITO_REFRESH',
-    authResult,
+    user,
   }),
 
   logout: () => ({
