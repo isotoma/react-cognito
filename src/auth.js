@@ -52,7 +52,7 @@ const refreshIdentityCredentials = (username, jwtToken, config) =>
  * @return {Promise<object>} an action to be dispatched
 */
 const performLogin = (user, config, group) =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve /* , reject */) => {
     if (user === null) {
       resolve(Action.logout());
     } else {

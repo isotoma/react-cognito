@@ -1,5 +1,8 @@
 # React Cognito
 
+## Build status
+https://circleci.com/gh/millarm/react-cognito.png?circle-token=80b20de573ee1b7ddab671889acaa6e2fa594623
+
 You can now use Amazon Cognito to handle authentication and authorization for
 your mobile and web applications.  This is particularly useful for serverless
 single-page applications (SPAs).  SPAs can be hosted in S3 buckets and use AWS
@@ -62,4 +65,3 @@ User Pool.  Contains no secret material.
 #### config
 
 The configuration provided by the application, used to contact Cognito.
-
