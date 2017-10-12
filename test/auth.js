@@ -8,6 +8,7 @@ import { CognitoIdentityCredentials } from 'aws-sdk';
 import {
   authenticate,
   performLogin,
+  refresh,
 } from '../src/auth';
 
 chai.use(chaiAsPromised);
@@ -32,6 +33,9 @@ sinon.stub(CognitoIdentityCredentials.prototype, 'refresh').callsFake(function f
 const mockSession = {
   getIdToken: () => ({
     getJwtToken: () => 'jwt_token',
+  }),
+  getRefreshToken: () => ({
+    getJwtToken: () => 'jwt_refresh_token',
   }),
 };
 
@@ -82,6 +86,14 @@ sinon.stub(CognitoUser.prototype, 'authenticateUser').callsFake((creds, f) => {
       break;
     default:
       assert(false, 'unrecognised username in authenticateUser stub');
+      break;
+  }
+});
+
+sinon.stub(CognitoUser.prototype, 'refreshSession').callsFake((refreshToken, callback) => {
+  switch (refreshToken.token) {
+    case 'success':
+      callback(null, mockSession);
       break;
   }
 });
@@ -137,4 +149,20 @@ describe('authenticate', () => {
     .to.eventually.equal();
     expect(mockDispatch.lastCall).to.have.returned('COGNITO_LOGIN_NEW_PASSWORD_REQUIRED');
   });
+});
+
+/** @test {refresh} */
+describe('refresh', () => {
+  const pool = {};
+  const mockDispatch = sinon.stub().callsFake((action) => {
+    return action.type;
+  });
+  const a = token => refresh(pool, '', token, mockDispatch);
+
+  it('should return nothing and dispatch refresh on success', () => {
+    expect(a('success'))
+    .to.eventually.equal();
+    expect(mockDispatch.lastCall).to.have.returned('COGNITO_REFRESH');
+  });
+
 });
