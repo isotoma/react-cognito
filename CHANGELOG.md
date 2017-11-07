@@ -1,3 +1,7 @@
+## 1.5.4 (2017-11-07)
+
+- React.PropTypes deprecated. Use prop-types package instead (#25) <Ryan Couse>
+
 ## 1.5.3 (2017-09-28)
 
 - Fix external for aws-sdk - reduces bundle size (#27)

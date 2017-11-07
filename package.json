@@ -1,7 +1,7 @@
 {
   "name": "react-cognito",
   "scope": "winjer",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "Use Amazon Cognito with React and Redux",
   "main": "dist/react-cognito.js",
   "repository": {
