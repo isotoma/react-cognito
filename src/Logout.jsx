@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 import { Action } from './actions';
 
 /**
@@ -38,8 +39,8 @@ Logout.contextTypes = {
   store: PropTypes.object,
 };
 Logout.propTypes = {
-  children: React.PropTypes.any.isRequired,
-  onLogout: React.PropTypes.func,
+  children: PropTypes.any.isRequired,
+  onLogout: PropTypes.func,
 };
 Logout.defaultProps = {
   onLogout: () => {},
