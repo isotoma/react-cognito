@@ -24,13 +24,14 @@
   "scripts": {
     "lint": "eslint ./src",
     "lintfix": "eslint ./src --fix",
-    "testonly": "PWD=$(pwd) NODE_ENV=test mocha $npm_package_options_mocha || true",
+    "testonly": "PWD=$(pwd) NODE_ENV=test nyc --reporter=text mocha $npm_package_options_mocha || true",
     "debug": "PWD=$(pwd) NODE_ENV=test mocha --debug-brk --inspect $npm_package_options_mocha",
     "test": "npm run lint && npm run testonly",
     "test-watch": "npm run testonly -- --watch --watch-extensions js",
     "examples": "[ -d examples/htdocs/dist ] || mkdir examples/htdocs/dist; babel --plugins transform-es2015-modules-umd src --ignore __tests__ examples/src --out-file examples/htdocs/dist/bundle.js",
     "doc": "esdoc",
-    "prepublish": "webpack -d; webpack -p"
+    "prepublish": "webpack -d; webpack -p",
+    "prepare": "webpack -d; webpack -p"
   },
   "devDependencies": {
     "amazon-cognito-identity-js": "1.19.0",
@@ -65,6 +66,7 @@
     "local-web-server": "^1.2.6",
     "mocha": "^3.2.0",
     "nodemon": "^1.9.1",
+    "nyc": "^11.2.1",
     "react": "^15.4.1",
     "react-addons-test-utils": "^15.0.0",
     "react-dom": "^15.0.0",

@@ -1,4 +1,4 @@
-import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
+import { CognitoUser, AuthenticationDetails, CognitoRefreshToken } from 'amazon-cognito-identity-js';
 import { CognitoIdentityCredentials } from 'aws-sdk/global';
 import { Action } from './actions';
 import { getUserAttributes, mkAttrList, sendAttributeVerificationCode } from './attributes';
@@ -12,17 +12,21 @@ import { buildLogins, getGroups } from './utils';
 */
 const emailVerificationFlow = (user, attributes) =>
   new Promise(resolve =>
-    sendAttributeVerificationCode(user, 'email').then((required) => {
-      if (required) {
-        resolve(Action.emailVerificationRequired(attributes));
-      } else {
-        // dead end?
-        resolve(Action.loggingIn(attributes));
-      }
-    }, (error) => {
-      // some odd classes of error here
-      resolve(Action.emailVerificationFailed(error, attributes));
-    }));
+    sendAttributeVerificationCode(user, 'email').then(
+      (required) => {
+        if (required) {
+          resolve(Action.emailVerificationRequired(attributes));
+        } else {
+          // dead end?
+          resolve(Action.loggingIn(attributes));
+        }
+      },
+      (error) => {
+        // some odd classes of error here
+        resolve(Action.emailVerificationFailed(error, attributes));
+      },
+    ),
+  );
 
 /**
  * logs in to the federated identity pool with a JWT
@@ -52,7 +56,7 @@ const refreshIdentityCredentials = (username, jwtToken, config) =>
  * @return {Promise<object>} an action to be dispatched
 */
 const performLogin = (user, config, group) =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve /* , reject */) => {
     if (user === null) {
       resolve(Action.logout());
     } else {
@@ -73,7 +77,8 @@ const performLogin = (user, config, group) =>
                 resolve(Action.login(creds, attributes, groups));
               });
             },
-            message => resolve(Action.loginFailure(user, message)));
+            message => resolve(Action.loginFailure(user, message)),
+          );
         }
       });
     }
@@ -164,12 +169,36 @@ const registerUser = (userPool, config, username, password, attributes) =>
       } else {
         resolve(authenticate(username, password, userPool));
       }
-    }));
+    }),
+  );
 
+/**
+ * refresh the tokens
+ * @param {object} userPool - a Cognito userpool (e.g. state.cognito.userPool)
+ * @param {string} username - the username
+ * @param {object} refreshToken - a Cognito refreshToken
+ * (e.g. state.cognito.user.signInUserSession.refreshToken)
+ * @return {Promise<object>} a promise that resolves a redux action
+*/
+const refresh = (userPool, username, refreshToken, dispatch) =>
+  new Promise((resolve, reject) => {
+    const user = new CognitoUser({
+      Username: username,
+      Pool: userPool,
+    });
 
-export {
-  authenticate,
-  performLogin,
-  registerUser,
-  emailVerificationFlow,
-};
+    const cognitoRefreshToken = new CognitoRefreshToken({
+      RefreshToken: refreshToken,
+    });
+    user.refreshSession(cognitoRefreshToken, (err /* , authResult*/) => {
+      if (err) {
+        dispatch(Action.error(err.message));
+        reject(err);
+      } else {
+        dispatch(Action.refresh(user));
+        resolve();
+      }
+    });
+  });
+
+export { authenticate, performLogin, registerUser, emailVerificationFlow, refresh };

@@ -10,3 +10,5 @@ dist
 *.sublime-workspace
 path.sh
 examples/config.json
+
+.nyc_output
