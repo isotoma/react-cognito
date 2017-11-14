@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Action } from './actions';
 
 /**
@@ -44,4 +45,3 @@ Logout.propTypes = {
 Logout.defaultProps = {
   onLogout: () => {},
 };
-

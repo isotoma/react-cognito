@@ -1,7 +1,7 @@
 {
-  "name": "react-cognito",
-  "scope": "winjer",
-  "version": "1.5.3",
+  "name": "react-cognito-mm",
+  "scope": "millarm",
+  "version": "1.6.1",
   "description": "Use Amazon Cognito with React and Redux",
   "main": "dist/react-cognito.js",
   "repository": {
@@ -34,8 +34,6 @@
     "prepare": "webpack -d; webpack -p"
   },
   "devDependencies": {
-    "amazon-cognito-identity-js": "1.19.0",
-    "aws-sdk": "2.92.0",
     "babel": "^6.5.2",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.21.0",
@@ -46,7 +44,7 @@
     "babel-polyfill": "^6.7.4",
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-react": "^6.5.0",
-    "babel-preset-stage-2": "^6.5.0",
+    "babel-preset-stage-2": "^6.24.1",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
     "enzyme": "^2.2.0",
@@ -67,11 +65,7 @@
     "mocha": "^3.2.0",
     "nodemon": "^1.9.1",
     "nyc": "^11.2.1",
-    "react": "^15.4.1",
     "react-addons-test-utils": "^15.0.0",
-    "react-dom": "^15.0.0",
-    "react-redux": "^5.0.1",
-    "redux": "^3.6.0",
     "sinon": "^2.2.0",
     "sinon-chai": "^2.10.0",
     "webpack": "^1.14.0",
@@ -82,6 +76,13 @@
     "react-dom": "~0.14.8 || ^15.0.0"
   },
   "dependencies": {
-    "babel-runtime": "^6.6.1"
+    "amazon-cognito-identity-js": "1.19.0",
+    "aws-sdk": "2.92.0",
+    "babel-runtime": "^6.6.1",
+    "prop-types": "^15.6.0",
+    "react": "^15.4.1",
+    "react-dom": "^15.0.0",
+    "react-redux": "^5.0.6",
+    "redux": "^3.6.0"
   }
 }
