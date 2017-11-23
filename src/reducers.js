@@ -3,14 +3,22 @@ import { CognitoState } from './states';
 
 /* global AWS */
 
+const blankError = {
+  code: '',
+  message: '',
+  requestId: '',
+  statusCode: null,
+};
+
 const initial = {
   user: null,
-  cache: { // cached for post register login
+  cache: {
+    // cached for post register login
     userName: null,
     email: null,
   },
   state: CognitoState.LOGGED_OUT,
-  error: '',
+  error: blankError,
   userPool: null,
   attributes: {},
   creds: null,
@@ -56,7 +64,6 @@ const addAttributes = (s, attributes) => {
 
 export const cognito = (state = initial, action) => {
   switch (action.type) {
-
     case 'COGNITO_CONFIGURE':
       return configure(state, action);
 
@@ -67,14 +74,14 @@ export const cognito = (state = initial, action) => {
           userName: null,
           email: null,
         },
-        error: '',
+        error: blankError,
         state: CognitoState.AUTHENTICATED,
       });
 
     case 'COGNITO_REFRESH':
       return Object.assign({}, state, {
         user: action.user,
-        error: '',
+        error: blankError,
       });
 
     case 'COGNITO_CLEAR_CACHE':
@@ -92,18 +99,25 @@ export const cognito = (state = initial, action) => {
       });
 
     case 'COGNITO_LOGIN':
-      return Object.assign({}, state, addAttributes({
-        error: '',
-        creds: action.creds,
-        groups: action.groups,
-        state: CognitoState.LOGGED_IN,
-      }, action.attributes));
+      return Object.assign(
+        {},
+        state,
+        addAttributes(
+          {
+            error: '',
+            creds: action.creds,
+            groups: action.groups,
+            state: CognitoState.LOGGED_IN,
+          },
+          action.attributes,
+        ),
+      );
 
     case 'COGNITO_LOGOUT':
       return Object.assign({}, state, {
         user: null,
         attributes: {},
-        error: '',
+        error: blankError,
         creds: null,
         groups: [],
         state: CognitoState.LOGGED_OUT,
@@ -113,7 +127,7 @@ export const cognito = (state = initial, action) => {
       return Object.assign({}, state, {
         user: null,
         userName: state.user.username,
-        error: '',
+        error: blankError,
         creds: null,
         groups: [],
         state: CognitoState.LOGGED_OUT,
@@ -126,17 +140,24 @@ export const cognito = (state = initial, action) => {
         error: action.error,
       });
 
+    case 'COGNITO_REGISTER_FAILURE':
+      return Object.assign({}, state, {
+        user: action.user,
+        state: CognitoState.LOGGED_OUT,
+        error: action.error,
+      });
+
     case 'COGNITO_LOGIN_MFA_REQUIRED':
       return Object.assign({}, state, {
         user: action.user,
-        error: '',
+        error: blankError,
         state: CognitoState.MFA_REQUIRED,
       });
 
     case 'COGNITO_LOGIN_NEW_PASSWORD_REQUIRED':
       return Object.assign({}, state, {
         user: action.user,
-        error: '',
+        error: blankError,
         state: CognitoState.NEW_PASSWORD_REQUIRED,
       });
 
@@ -164,16 +185,30 @@ export const cognito = (state = initial, action) => {
       });
 
     case 'COGNITO_EMAIL_VERIFICATION_REQUIRED':
-      return Object.assign({}, state, addAttributes({
-        error: '',
-        state: CognitoState.EMAIL_VERIFICATION_REQUIRED,
-      }, action.attributes));
+      return Object.assign(
+        {},
+        state,
+        addAttributes(
+          {
+            error: blankError,
+            state: CognitoState.EMAIL_VERIFICATION_REQUIRED,
+          },
+          action.attributes,
+        ),
+      );
 
     case 'COGNITO_EMAIL_VERIFICATION_FAILED':
-      return Object.assign({}, state, addAttributes({
-        error: action.error,
-        state: CognitoState.EMAIL_VERIFICATION_REQUIRED,
-      }, action.attributes));
+      return Object.assign(
+        {},
+        state,
+        addAttributes(
+          {
+            error: action.error,
+            state: CognitoState.EMAIL_VERIFICATION_REQUIRED,
+          },
+          action.attributes,
+        ),
+      );
 
     case 'COGNITO_BEGIN_PASSWORD_RESET_FLOW':
       return Object.assign({}, state, {

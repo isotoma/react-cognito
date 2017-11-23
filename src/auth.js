@@ -110,7 +110,9 @@ const performLogin = (user, config, group) =>
  * @param {string} username - the username provided by the user
  * @param {string} password - the password provided by the user
  * @param {object} userPool - a Cognito User Pool object
- * @return {Promise<object>} - a promise that resolves an action to be dispatched
+ * @param {object} config - the react-cognito config object
+ * @param {dispatch} dispatch - redux dispatch method
+ * @return {Promise<object>} - a promise that resolves any error
  *
 */
 const authenticate = (username, password, userPool, config, dispatch) =>
@@ -135,7 +137,7 @@ const authenticate = (username, password, userPool, config, dispatch) =>
           dispatch(Action.confirmationRequired(user));
           resolve();
         } else {
-          dispatch(Action.loginFailure(user, error.message));
+          dispatch(Action.loginFailure(user, error));
           reject(error);
         }
       },
@@ -157,16 +159,20 @@ const authenticate = (username, password, userPool, config, dispatch) =>
  * @param {string} username - the username
  * @param {string} password - the password
  * @param {object} attributes - an attributes dictionary
- * @return {Promise<object>} a promise that resolves a redux action
+ * @param {dispatch} dispatch - redux dispatch method
+ * @return {Promise<object>} a promise that resolves any error
 */
-const registerUser = (userPool, config, username, password, attributes) =>
+const registerUser = (userPool, config, username, password, attributes, dispatch) =>
   new Promise((resolve, reject) =>
     userPool.signUp(username, password, mkAttrList(attributes), null, (err, result) => {
       if (err) {
+        dispatch(Action.registerFailure(username, err.message));
         reject(err.message);
       } else if (result.userConfirmed === false) {
-        resolve(Action.confirmationRequired(result.user, attributes.email));
+        dispatch(Action.confirmationRequired(result.user, attributes.email));
+        resolve();
       } else {
+        // the authentication dispatches the action/error
         resolve(authenticate(username, password, userPool));
       }
     }),
@@ -192,7 +198,7 @@ const refresh = (userPool, username, refreshToken, dispatch) =>
     });
     user.refreshSession(cognitoRefreshToken, (err /* , authResult*/) => {
       if (err) {
-        dispatch(Action.error(err.message));
+        dispatch(Action.error(err));
         reject(err);
       } else {
         dispatch(Action.refresh(user));

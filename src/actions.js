@@ -44,6 +44,12 @@ const Action = {
     error,
   }),
 
+  registerFailure: (user, error) => ({
+    type: 'COGNITO_REGISTER_FAILURE',
+    user,
+    error,
+  }),
+
   mfaRequired: user => ({
     type: 'COGNITO_LOGIN_MFA_REQUIRED',
     user,
