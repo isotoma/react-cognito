@@ -41,7 +41,7 @@ const refreshIdentityCredentials = (username, jwtToken, config) =>
     const creds = new CognitoIdentityCredentials(logins, { region: config.region });
     creds.refresh((error) => {
       if (error) {
-        reject(error.message);
+        reject(error);
       } else {
         resolve(creds);
       }
@@ -62,12 +62,18 @@ const performLogin = (user, config, group) =>
     } else {
       user.getSession((err, session) => {
         if (err) {
-          resolve(Action.loginFailure(user, err.message));
+          resolve(Action.loginFailure(user, err));
         } else {
           const jwtToken = session.getIdToken().getJwtToken();
           const groups = getGroups(jwtToken);
           if (group && !groups.includes(group)) {
-            return resolve(Action.loginFailure(user, 'Insufficient privilege'));
+            const err = {
+              code: 'InsufficientPrivilege',
+              message: 'Insufficient privilege',
+              requestId: '',
+              statusCode: 400,
+            }
+            return resolve(Action.loginFailure(user, err));
           }
 
           const username = user.getUsername();
@@ -77,7 +83,9 @@ const performLogin = (user, config, group) =>
                 resolve(Action.login(creds, attributes, groups));
               });
             },
-            message => resolve(Action.loginFailure(user, message)),
+            err =>
+              resolve(Action.loginFailure(user, err))
+            },
           );
         }
       });
@@ -166,7 +174,7 @@ const registerUser = (userPool, config, username, password, attributes, dispatch
   new Promise((resolve, reject) =>
     userPool.signUp(username, password, mkAttrList(attributes), null, (err, result) => {
       if (err) {
-        dispatch(Action.registerFailure(username, err.message));
+        dispatch(Action.registerFailure(username, err));
         reject(err.message);
       } else if (result.userConfirmed === false) {
         dispatch(Action.confirmationRequired(result.user, attributes.email));
