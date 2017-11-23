@@ -1,7 +1,7 @@
 {
   "name": "react-cognito-mm",
   "scope": "millarm",
-  "version": "1.6.6",
+  "version": "1.6.8",
   "description": "Use Amazon Cognito with React and Redux",
   "main": "dist/react-cognito.js",
   "repository": {
