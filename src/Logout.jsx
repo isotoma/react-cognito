@@ -39,8 +39,8 @@ Logout.contextTypes = {
   store: PropTypes.object,
 };
 Logout.propTypes = {
-  children: React.PropTypes.any.isRequired,
-  onLogout: React.PropTypes.func,
+  children: PropTypes.any.isRequired,
+  onLogout: PropTypes.func,
 };
 Logout.defaultProps = {
   onLogout: () => {},
