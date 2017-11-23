@@ -142,7 +142,7 @@ export const cognito = (state = initial, action) => {
 
     case 'COGNITO_REGISTER_FAILURE':
       return Object.assign({}, state, {
-        user: action.user,
+        userName: action.userName,
         state: CognitoState.LOGGED_OUT,
         error: action.error,
       });

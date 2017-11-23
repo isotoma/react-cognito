@@ -44,9 +44,9 @@ const Action = {
     error,
   }),
 
-  registerFailure: (user, error) => ({
+  registerFailure: (userName, error) => ({
     type: 'COGNITO_REGISTER_FAILURE',
-    user,
+    userName,
     error,
   }),
 
