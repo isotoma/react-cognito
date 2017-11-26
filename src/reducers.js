@@ -137,6 +137,7 @@ export const cognito = (state = initial, action) => {
     case 'COGNITO_USER_UNCONFIRMED':
       return Object.assign({}, state, {
         user: action.user,
+        error: '',
         state: CognitoState.CONFIRMATION_REQUIRED,
         cache: {
           userName: action.user.username,
