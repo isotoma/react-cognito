@@ -1,7 +1,7 @@
 {
   "name": "react-cognito-mm",
   "scope": "millarm",
-  "version": "1.6.9",
+  "version": "1.6.10",
   "description": "Use Amazon Cognito with React and Redux",
   "main": "dist/react-cognito.js",
   "repository": {
@@ -77,7 +77,7 @@
   },
   "dependencies": {
     "amazon-cognito-identity-js": "1.19.0",
-    "aws-sdk": "2.92.0",
+    "aws-sdk": "^2.158.0",
     "babel-runtime": "^6.6.1",
     "prop-types": "^15.6.0",
     "react": "^15.4.1",
