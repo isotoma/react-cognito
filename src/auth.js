@@ -67,13 +67,13 @@ const performLogin = (user, config, group) =>
           const jwtToken = session.getIdToken().getJwtToken();
           const groups = getGroups(jwtToken);
           if (group && !groups.includes(group)) {
-            const err = {
+            const localerror = {
               code: 'InsufficientPrivilege',
               message: 'Insufficient privilege',
               requestId: '',
               statusCode: 400,
-            }
-            return resolve(Action.loginFailure(user, err));
+            };
+            return resolve(Action.loginFailure(user, localerror));
           }
 
           const username = user.getUsername();
@@ -83,9 +83,7 @@ const performLogin = (user, config, group) =>
                 resolve(Action.login(creds, attributes, groups));
               });
             },
-            err =>
-              resolve(Action.loginFailure(user, err))
-            },
+            error => resolve(Action.loginFailure(user, error)),
           );
         }
       });
@@ -181,7 +179,7 @@ const registerUser = (userPool, config, username, password, attributes, dispatch
         resolve();
       } else {
         // the authentication dispatches the action/error
-        resolve(authenticate(username, password, userPool));
+        resolve(authenticate(username, password, userPool, config, dispatch));
       }
     }),
   );

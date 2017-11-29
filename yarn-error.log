@@ -17,7 +17,7 @@ npm manifest:
   {
     "name": "react-cognito-mm",
     "scope": "millarm",
-    "version": "1.6.4",
+    "version": "1.6.7",
     "description": "Use Amazon Cognito with React and Redux",
     "main": "dist/react-cognito.js",
     "repository": {
@@ -6361,7 +6361,7 @@ Lockfile:
       window-size "0.1.0"
 
 Trace: 
-  Error: https://registry.yarnpkg.com/react-cognito-mm: You cannot publish over the previously published version 1.6.4.
+  Error: https://registry.yarnpkg.com/react-cognito-mm: You cannot publish over the previously published version 1.6.7.
       at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.3.2/libexec/lib/cli.js:62098:18)
       at Request.self.callback (/usr/local/Cellar/yarn/1.3.2/libexec/lib/cli.js:123085:22)
       at emitTwo (events.js:126:13)

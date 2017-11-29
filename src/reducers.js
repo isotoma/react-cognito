@@ -1,6 +1,6 @@
+import AWS from 'aws-sdk';
 import { CognitoUserPool } from 'amazon-cognito-identity-js';
 import { CognitoState } from './states';
-
 /* global AWS */
 
 const blankError = {
