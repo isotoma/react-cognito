@@ -10,10 +10,16 @@ import { CognitoState } from './states';
  * @param {function} f - f(state, dispatch)
 */
 const enable = (store, f, params) => {
+  let currentCognitoState;
+
   store.subscribe(() => {
     const state = store.getState();
     const dispatch = store.dispatch;
-    f(state, dispatch, params);
+      
+    if (state.cognito.state !== currentCognitoState) {
+      currentCognitoState = state.cognito.state;
+      f(state, dispatch, params);
+    }
   });
 };
 
