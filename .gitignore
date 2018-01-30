@@ -6,7 +6,6 @@
 .idea
 npm-debug.log
 node_modules
-dist
 *.sublime-workspace
 path.sh
 examples/config.json
