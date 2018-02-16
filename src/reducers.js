@@ -84,6 +84,11 @@ export const cognito = (state = initial, action) => {
         error: blankError,
       });
 
+    case 'COGNITO_ERROR':
+      return Object.assign({}, state, {
+        error: action.error,
+      });
+
     case 'COGNITO_CLEAR_CACHE':
       return Object.assign({}, state, {
         cache: {

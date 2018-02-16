@@ -30,6 +30,11 @@ const Action = {
     user,
   }),
 
+  error: error => ({
+    type: 'COGNITO_ERROR',
+    error,
+  }),
+
   logout: () => ({
     type: 'COGNITO_LOGOUT',
   }),
