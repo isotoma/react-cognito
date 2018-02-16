@@ -13,6 +13,10 @@ to make integrating with Cognito very easy, if you are using React and Redux.
 
 [This package is available on npm](https://www.npmjs.com/package/react-cognito).
 
+# AWS Amplify
+
+NOTE: AWS have now released [AWS Amplify](https://github.com/aws/aws-amplify), which might be more suitable for your needs than react-cognito.
+
 ## Introduction
 
 This library should be installed using npm, and depends on React, Redux, React
