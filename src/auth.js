@@ -45,8 +45,8 @@ const refreshIdentityCredentials = (username, jwtToken, config) =>
   });
 
 /**
- * establishes a session with the user pool, and logs into the federated identity
- * pool using a token from the session
+ * establishes a session with the user pool, and optionally logs into the federated identity
+ * pool using a token from the session.
  * @param {object} user - the CognitoUser object
  * @param {object} config -the react-cognito config
  * @return {Promise<object>} an action to be dispatched
@@ -66,14 +66,20 @@ const performLogin = (user, config, group) =>
             return resolve(Action.loginFailure(user, 'Insufficient privilege'));
           }
 
-          const username = user.getUsername();
-          refreshIdentityCredentials(username, jwtToken, config).then(
-            (creds) => {
-              getUserAttributes(user).then((attributes) => {
-                resolve(Action.login(creds, attributes, groups));
-              });
-            },
-            message => resolve(Action.loginFailure(user, message)));
+          if (config.identityPool) {
+            const username = user.getUsername();
+            refreshIdentityCredentials(username, jwtToken, config).then(
+              (creds) => {
+                getUserAttributes(user).then((attributes) => {
+                  resolve(Action.login(creds, attributes, groups));
+                });
+              },
+              message => resolve(Action.loginFailure(user, message)));
+          } else {
+            getUserAttributes(user).then((attributes) => {
+              resolve(Action.login(null, attributes, groups));
+            });
+          }
         }
       });
     }
@@ -83,7 +89,7 @@ const performLogin = (user, config, group) =>
  *
  * Authenticates with a user pool, and handles responses.
  * if the authentication is successful it then logs in to the
- * identity pool.
+ * identity pool if provided in config.
  *
  * returns an action depending on the outcome.  Possible actions returned
  * are:
