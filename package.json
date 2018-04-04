@@ -1,12 +1,12 @@
 {
-  "name": "react-cognito",
+  "name": "react-cognito-force-password",
   "scope": "winjer",
   "version": "1.5.4",
   "description": "Use Amazon Cognito with React and Redux",
   "main": "dist/react-cognito.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/isotoma/react-cognito.git"
+    "url": "https://github.com/darrencaprani/react-cognito.git"
   },
   "author": "Doug Winter",
   "license": "Apache-2.0",
