@@ -138,8 +138,8 @@ const authenticate = (username, password, userPool, config, dispatch) =>
         dispatch(Action.mfaRequired(user));
         resolve();
       },
-      newPasswordRequired: () => {
-        dispatch(Action.newPasswordRequired(user));
+      newPasswordRequired: (userAttributes) => {
+        dispatch(Action.newPasswordRequired(user, userAttributes));
         resolve();
       },
     });
