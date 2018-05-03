@@ -158,7 +158,7 @@ const registerUser = (userPool, config, username, password, attributes) =>
   new Promise((resolve, reject) =>
     userPool.signUp(username, password, mkAttrList(attributes), null, (err, result) => {
       if (err) {
-        reject(err.message);
+        reject(err);
       } else if (result.userConfirmed === false) {
         resolve(Action.confirmationRequired(result.user, attributes.email));
       } else {
