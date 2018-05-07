@@ -132,6 +132,7 @@ export const cognito = (state = initial, action) => {
         user: action.user,
         error: '',
         state: CognitoState.NEW_PASSWORD_REQUIRED,
+        attributes: action.attributes,
       });
 
     case 'COGNITO_USER_UNCONFIRMED':

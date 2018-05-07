@@ -44,9 +44,10 @@ const Action = {
     user,
   }),
 
-  newPasswordRequired: user => ({
+  newPasswordRequired: (user, attributes) => ({
     type: 'COGNITO_LOGIN_NEW_PASSWORD_REQUIRED',
     user,
+    attributes
   }),
 
   newPasswordRequiredFailure: (user, error) => ({

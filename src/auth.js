@@ -71,7 +71,9 @@ const performLogin = (user, config, group) =>
             (creds) => {
               getUserAttributes(user).then((attributes) => {
                 resolve(Action.login(creds, attributes, groups));
-              });
+              }).catch((error) => {
+                resolve(Action.loginFailure(user, ''));
+            });
             },
             message => resolve(Action.loginFailure(user, message)));
         }
@@ -138,8 +140,8 @@ const authenticate = (username, password, userPool, config, dispatch) =>
         dispatch(Action.mfaRequired(user));
         resolve();
       },
-      newPasswordRequired: () => {
-        dispatch(Action.newPasswordRequired(user));
+      newPasswordRequired: (userAttributes) => {
+        dispatch(Action.newPasswordRequired(user, userAttributes));
         resolve();
       },
     });
