@@ -1,7 +1,7 @@
 {
   "name": "react-cognito-force-password",
   "scope": "winjer",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "description": "Use Amazon Cognito with React and Redux",
   "main": "dist/react-cognito.js",
   "repository": {
