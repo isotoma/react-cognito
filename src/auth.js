@@ -71,7 +71,9 @@ const performLogin = (user, config, group) =>
             (creds) => {
               getUserAttributes(user).then((attributes) => {
                 resolve(Action.login(creds, attributes, groups));
-              });
+              }).catch((error) => {
+                resolve(Action.loginFailure(user, ''));
+            });
             },
             message => resolve(Action.loginFailure(user, message)));
         }
