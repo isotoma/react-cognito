@@ -4,7 +4,7 @@ import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import assert from 'assert';
 import { CognitoUser } from 'amazon-cognito-identity-js';
-import { CognitoIdentityCredentials } from 'aws-sdk';
+import AWS from 'aws-sdk/global';
 import {
   authenticate,
   performLogin,
@@ -15,7 +15,7 @@ chai.use(chaiAsPromised);
 chai.use(sinonChai);
 const expect = chai.expect;
 
-sinon.stub(CognitoIdentityCredentials.prototype, 'refresh').callsFake(function f(callback) {
+sinon.stub(AWS.CognitoIdentityCredentials.prototype, 'refresh').callsFake(function f(callback) {
   const username = this.params.LoginId;
   switch (username) {
     case 'identity-pool-failure':

@@ -1,4 +1,4 @@
-import AWS from 'aws-sdk';
+import AWS from 'aws-sdk/global';
 import { CognitoUserPool } from 'amazon-cognito-identity-js';
 import { CognitoState } from './states';
 /* global AWS */

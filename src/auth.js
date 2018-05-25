@@ -1,5 +1,5 @@
 import { CognitoUser, AuthenticationDetails, CognitoRefreshToken } from 'amazon-cognito-identity-js';
-import { CognitoIdentityCredentials } from 'aws-sdk/global';
+import AWS from 'aws-sdk/global';
 import { Action } from './actions';
 import { getUserAttributes, mkAttrList, sendAttributeVerificationCode } from './attributes';
 import { buildLogins, getGroups } from './utils';
@@ -38,7 +38,7 @@ const emailVerificationFlow = (user, attributes) =>
 const refreshIdentityCredentials = (username, jwtToken, config) =>
   new Promise((resolve, reject) => {
     const logins = buildLogins(username, jwtToken, config);
-    const creds = new CognitoIdentityCredentials(logins, { region: config.region });
+    const creds = new AWS.CognitoIdentityCredentials(logins, { region: config.region });
     creds.refresh((error) => {
       if (error) {
         reject(error);
