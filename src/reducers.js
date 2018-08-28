@@ -235,6 +235,12 @@ export const cognito = (state = initial, action) => {
         state: CognitoState.AUTHENTICATED,
       });
 
+    // Same as above, but we don't update the state
+    case 'COGNITO_UPDATE_USER_ATTRIBUTES_VERIFIED_EMAIL':
+      return Object.assign({}, state, {
+        attributes: Object.assign({}, state.attributes, action.attributes),
+      });
+
     default:
       return state;
   }
