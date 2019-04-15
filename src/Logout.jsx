@@ -1,6 +1,15 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Action } from './actions';
+
+type Props = {
+  children: any,
+  onLogout: () => void,
+};
+
+type State = {
+  cognito: { user: { signOut: () => void } },
+};
 
 /**
  * Container for logout behaviour.
@@ -9,8 +18,7 @@ import { Action } from './actions';
  *   <LogoutForm />
  * </Logout>
  */
-export class Logout extends React.Component {
-
+export class Logout extends React.Component<Props, State> {
   /**
    * Passed to child element as onClick prop.
    * Signs the user out, and then dispatches the logout action
@@ -24,7 +32,7 @@ export class Logout extends React.Component {
     event.preventDefault();
     store.dispatch(Action.logout());
     this.props.onLogout();
-  }
+  };
 
   /**
    * renders the child element, adding an onClick property
@@ -35,13 +43,6 @@ export class Logout extends React.Component {
     });
   }
 }
-Logout.contextTypes = {
-  store: PropTypes.object,
-};
-Logout.propTypes = {
-  children: PropTypes.any.isRequired,
-  onLogout: PropTypes.func,
-};
 Logout.defaultProps = {
   onLogout: () => {},
 };
